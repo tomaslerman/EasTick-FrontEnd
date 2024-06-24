@@ -1,6 +1,6 @@
-import styles from './BoxDatoUnico.module.css';
+import styles from './boxDatoUnico.module.css';
 
-export default function BoxDatoUnico({ texto, dato }) {
+export default function boxDatoUnico({ texto, dato }) {
   return (
     <div className={styles.box}>
       <h2>{texto}</h2>
