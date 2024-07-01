@@ -1,5 +1,4 @@
 import styles from './feedback.module.css';
-import StarRating from './starRating';
 
 export default function feedback({ puntuacion }) {
     return (
@@ -8,7 +7,7 @@ export default function feedback({ puntuacion }) {
                 <h2>Feedback</h2>
                 <a href="#" className={styles.viewDetails}>Ver detalles</a>
             </div>
-            <StarRating puntuacion={puntuacion} />
+             <h2>{puntuacion}</h2>
         </div>
     );
 }

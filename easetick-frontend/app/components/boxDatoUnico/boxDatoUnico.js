@@ -1,6 +1,8 @@
 import styles from './boxDatoUnico.module.css';
+import {useSate} from 'react';
 
-export default function boxDatoUnico({ texto, dato }) {
+const BoxDatoUnico = ({ texto, dato }) =>{
+
   return (
     <div className={styles.box}>
       <h2>{texto}</h2>
@@ -8,3 +10,4 @@ export default function boxDatoUnico({ texto, dato }) {
     </div>
   );
 }
+export default BoxDatoUnico;
