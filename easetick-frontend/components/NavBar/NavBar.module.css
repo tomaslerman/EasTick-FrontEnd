@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60px; /* Puedes ajustar este ancho según sea necesario */
+    width: 60px;
     background-color: #f8f9fa;
     border-right: 1px solid #e0e0e0;
     padding: 16px 0;
     height: 100vh;
+    position: fixed;
+    margin-top: calc(-60px - 3%);;
 }
 
 .navItem {
@@ -17,6 +19,6 @@
 }
 
 .navItem img {
-    width: 32px; /* Ajusta el tamaño del ícono según sea necesario */
+    width: 32px;
     height: 32px;
 }

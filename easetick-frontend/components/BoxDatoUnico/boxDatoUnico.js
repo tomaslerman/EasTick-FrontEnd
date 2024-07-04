@@ -1,5 +1,6 @@
+'use client'
 import styles from './boxDatoUnico.module.css';
-import {useSate} from 'react';
+import {useState} from 'react';
 
 const BoxDatoUnico = ({ texto, dato }) =>{
 

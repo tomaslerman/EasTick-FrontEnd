@@ -1,5 +1,5 @@
 import styles from './ticketSinResolver.module.css'
-export default function ticketSinResolver({ props }) {
+export default function TicketSinResolver({ props }) {
     return (
       <div className={styles.tableContainer}>
         <div className={styles.header}>

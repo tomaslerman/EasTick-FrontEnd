@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root{
+    --grey: "D3D5D7"
+}
+
+body{
+    background-color: var(--grey);
+}
+
+.all-container{
+    margin-left: calc(60px + 3%);
+    margin-right: 4%;
+    margin-top: calc(60px + 3%);
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px -8px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 20px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.75);
+    overflow: hidden;
+}
