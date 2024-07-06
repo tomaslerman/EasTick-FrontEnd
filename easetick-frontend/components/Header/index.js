@@ -7,8 +7,8 @@ export default function Header() {
         <div className={styles.header}>
             <h1>Home</h1>
             <div className={styles.icons}>
-                <img src="/icons/bell.svg" alt="Notifications" className={styles.icon} />
-                <img src="/icons/user.svg" alt="User" className={styles.icon} />
+                <img src="/imagenes/notificacion.png" alt="Notificaciones" className={styles.icon} />
+                <img src="/imagenes/perfil.png" alt="User" className={styles.icon} />
             </div>
         </div>
     );

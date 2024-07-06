@@ -1,9 +1,10 @@
 .tableContainer {
-  width: 60%; /* Reduce el ancho a 75% */
+  width: 70%; /* Reduce el ancho a 75% */
   padding: 20px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 35px;
 }
 
 .header {

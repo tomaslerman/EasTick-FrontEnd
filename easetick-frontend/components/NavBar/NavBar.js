@@ -1,34 +1,35 @@
 'use client'
 import React from 'react';
 import Link from 'next/link';
-import styles from './NavBar.module.css'
+import styles from './NavBar.module.css';
+import Image from 'next/image';
 
 const Navbar = () => {
     return (
         <div className={styles.navBar}>
             <div className={styles.navItem}>
-                <img src="/icons/home.svg" alt="Home" />
+                <Image src="/imagenes/home.png" alt="Home" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/ticket.svg" alt="Tickets" />
+                <Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/projects.svg" alt="Projects" />
+                <Image src="/imagenes/cliente.png" alt="Clientes" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/users.svg" alt="Users" />
+                <Image src="/imagenes/empleado.png" alt="Empleados" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/analytics.svg" alt="Analytics" />
+                <Image src="/imagenes/estadistica.png" alt="Estadisticas" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/settings.svg" alt="Settings" />
+                <Image src="/imagenes/configuracion.png" alt="Configuracion" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <img src="/icons/tools.svg" alt="Tools" />
+                <Image src="/imagenes/LogoEaseTick.png" alt="Tools" width={24} height={24} />
             </div>
         </div>
     );
-  };
-  
-  export default Navbar;
+};
+
+export default Navbar;

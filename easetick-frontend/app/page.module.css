@@ -1,5 +1,28 @@
-.dashboard{
+
+.content {
     display: flex;
-    flex-direction: row;
-    gap: 20px
-}
+    flex-direction: column;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre los BoxDatoUnico */
+    margin-bottom: 20px;
+  }
+  
+  .mainContent {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .leftContent {
+    flex: 1;
+  }
+  
+  .rightContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  

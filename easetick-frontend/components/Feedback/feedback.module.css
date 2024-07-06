@@ -1,26 +1,64 @@
 .feedbackContainer {
-    border: 1px solid #e0e0e0;
+    padding: 20px;
+    background: #fff;
     border-radius: 8px;
-    padding: 16px;
-    background-color: #fff;
-    width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 16px;
+    width: 700px;
+    margin: 35px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
+.header h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
 
-.viewDetails {
-    color: #1e88e5;
+.header a {
     font-size: 14px;
+    color: #0070f3;
     text-decoration: none;
 }
 
-.viewDetails:hover {
-    text-decoration: underline;
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.item span {
+    font-size: 14px;
+    color: #333;
+}
+
+.item img {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.item:nth-child(2) img {
+    background-color: #00c853;
+    border-radius: 50%;
+}
+
+.item:nth-child(3) img {
+    background-color: #ffeb3b;
+    border-radius: 50%;
+}
+
+.item:nth-child(4) img {
+    background-color: #d32f2f;
+    border-radius: 50%;
 }
