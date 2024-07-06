@@ -1,3 +1,4 @@
+'use client'
 import styles from './feedback.module.css';
 
 export default function feedback({ puntuacion }) {

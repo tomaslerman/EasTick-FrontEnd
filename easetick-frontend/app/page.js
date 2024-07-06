@@ -1,10 +1,11 @@
+'use client'
 import styles from "./page.module.css";
 import BoxDatoUnico from "@/components/BoxDatoUnico/boxDatoUnico";;
 import TicketSinResolver from "@/components/TicketSinResolver/ticketSinResolver";
 import feedback from "@/components/Feedback/feedback";
 import Navbar from "@/components/NavBar/NavBar";
 export default function Home() {
-    let arrayTicketAResolver = [{ nombre: "Juan Roma", prioridad: "Urgente" }];
+    let arrayTicketAResolver = [{ nombre: "Juan Roma", prioridad: "Urgente" },{nombre: "Tomas Lerman", prioridad: "Baja"}];
     
     return (
         <div>
@@ -17,8 +18,9 @@ export default function Home() {
                     <BoxDatoUnico texto={"hola"} dato={3} />
                     <BoxDatoUnico texto={"hola"} dato={3} />
                     <BoxDatoUnico texto={"hola"} dato={3} />
+                    </div>
                     <TicketSinResolver props={arrayTicketAResolver} />
-                </div>
+                
             </div>
         </div>
     );

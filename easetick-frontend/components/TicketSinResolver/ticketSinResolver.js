@@ -1,4 +1,6 @@
+'use client'
 import styles from './ticketSinResolver.module.css'
+
 export default function TicketSinResolver({ props }) {
     return (
       <div className={styles.tableContainer}>
@@ -16,12 +18,12 @@ export default function TicketSinResolver({ props }) {
           <tbody>
             {props.map((prop, index) => (
               <tr key={index}>
-                <td>{prop.nombre.value}</td>
-                <td>{prop.prioridad.value}</td>
+                <td>{prop.nombre}</td>
+                <td>{prop.prioridad}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
     );
-  }
+}
