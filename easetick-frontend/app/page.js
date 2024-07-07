@@ -4,22 +4,25 @@ import BoxDatoUnico from "@/components/BoxDatoUnico/boxDatoUnico";
 import TicketSinResolver from "@/components/TicketSinResolver/ticketSinResolver";
 import Feedback from "@/components/Feedback/feedback";
 import Navbar from "@/components/NavBar/NavBar";
+import { useTickets } from '@/hooks/useTickets';
 
 export default function Home() {
     let arrayTicketAResolver = [
         { nombre: "Juan Roma", prioridad: "Urgente" },
         { nombre: "Tomas Lerman", prioridad: "Baja" }
     ];
-    
+    const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy } = useTickets({ id: 2 });
+
     return (
         <div>
             <div className={styles.content}>
                 <div className={styles.dashboard}>
-                    <BoxDatoUnico texto={"Vence hoy"} dato={1} />
-                    <BoxDatoUnico texto={"Tickets sin resolver"} dato={3} />
-                    <BoxDatoUnico texto={"Tickets resueltos"} dato={3} />
-                    <BoxDatoUnico texto={"Vence hoy"} dato={3} />
+                    <BoxDatoUnico texto={"Tickets asignados"} dato={ticketsAsignados.length} />
+                    <BoxDatoUnico texto={"Tickets sin resolver"} dato={ticketsSinResolver.length} />
+                    <BoxDatoUnico texto={"Tickets resueltos"} dato={ticketsResueltos.length} />
+                    <BoxDatoUnico texto={"Vence hoy"} dato={ticketsVencenHoy.length} />
                 </div>
+
                 <div className={styles.mainContent}>
                     <div className={styles.leftContent}>
                         <TicketSinResolver props={arrayTicketAResolver} />
@@ -32,3 +35,4 @@ export default function Home() {
         </div>
     );
 }
+
