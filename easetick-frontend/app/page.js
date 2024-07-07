@@ -16,9 +16,9 @@ export default function Home() {
             <div className={styles.content}>
                 <div className={styles.dashboard}>
                     <BoxDatoUnico texto={"Vence hoy"} dato={1} />
-                    <BoxDatoUnico texto={"hola"} dato={3} />
-                    <BoxDatoUnico texto={"hola"} dato={3} />
-                    <BoxDatoUnico texto={"hola"} dato={3} />
+                    <BoxDatoUnico texto={"Tickets sin resolver"} dato={3} />
+                    <BoxDatoUnico texto={"Tickets resueltos"} dato={3} />
+                    <BoxDatoUnico texto={"Vence hoy"} dato={3} />
                 </div>
                 <div className={styles.mainContent}>
                     <div className={styles.leftContent}>

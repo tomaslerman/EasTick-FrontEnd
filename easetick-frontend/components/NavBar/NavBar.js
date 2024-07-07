@@ -25,8 +25,8 @@ const Navbar = () => {
             <div className={styles.navItem}>
                 <Image src="/imagenes/configuracion.png" alt="Configuracion" width={24} height={24} />
             </div>
-            <div className={styles.navItem}>
-                <Image src="/imagenes/LogoEaseTick.png" alt="Tools" width={24} height={24} />
+            <div className={`${styles.navItem} ${styles.logoItem}`}>
+                <Image src="/imagenes/LogoEaseTick.png" alt="LogoEaseTick" width={24} height={24} />
             </div>
         </div>
     );

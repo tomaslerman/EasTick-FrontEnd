@@ -17,17 +17,17 @@ const Feedback = ({ total, positivo, neutral, negativo }) => {
                 </div>
                 <div className={styles.item}>
                     <span>Positivo</span>
-                    <Image src="/icons/positivo.svg" alt="Positivo" width={24} height={24} />
+                    <Image src="/imagenes/positivo.png" alt="Positivo" width={24} height={24} />
                     <span>{positivo}%</span>
                 </div>
                 <div className={styles.item}>
                     <span>Neutral</span>
-                    <Image src="/icons/neutral.svg" alt="Neutral" width={24} height={24} />
+                    <Image src="/imagenes/neutral.png" alt="Neutral" width={24} height={24} />
                     <span>{neutral}%</span>
                 </div>
                 <div className={styles.item}>
                     <span>Negativo</span>
-                    <Image src="/icons/negativo.svg" alt="Negativo" width={24} height={24} />
+                    <Image src="/imagenes/negativo.png" alt="Negativo" width={24} height={24} />
                     <span>{negativo}%</span>
                 </div>
             </div>
