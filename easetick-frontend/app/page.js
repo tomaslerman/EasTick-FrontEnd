@@ -7,10 +7,7 @@ import Navbar from "@/components/NavBar/NavBar";
 import { useTickets } from '@/hooks/useTickets';
 
 export default function Home() {
-    let arrayTicketAResolver = [
-        { nombre: "Juan Roma", prioridad: "Urgente" },
-        { nombre: "Tomas Lerman", prioridad: "Baja" }
-    ];
+    
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy } = useTickets({ id: 2 });
 
     return (
@@ -25,7 +22,7 @@ export default function Home() {
 
                 <div className={styles.mainContent}>
                     <div className={styles.leftContent}>
-                        <TicketSinResolver props={arrayTicketAResolver} />
+                        <TicketSinResolver props={ticketsSinResolver} />
                     </div>
                     <div className={styles.rightContent}>
                         <Feedback total={10} positivo={50} neutral={20} negativo={30} />

@@ -18,7 +18,7 @@ export default function TicketSinResolver({ props }) {
           <tbody>
             {props.map((prop, index) => (
               <tr key={index}>
-                <td>{prop.nombre}</td>
+                <td>{prop.asunto}</td>
                 <td>{prop.prioridad}</td>
               </tr>
             ))}

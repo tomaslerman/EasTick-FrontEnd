@@ -11,7 +11,7 @@ const Navbar = () => {
                 <Image src="/imagenes/home.png" alt="Home" width={24} height={24} />
             </div>
             <div className={styles.navItem}>
-                <Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} />
+            <Link href={"/ver-ticket"}><Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} /></Link>
             </div>
             <div className={styles.navItem}>
                 <Image src="/imagenes/cliente.png" alt="Clientes" width={24} height={24} />
