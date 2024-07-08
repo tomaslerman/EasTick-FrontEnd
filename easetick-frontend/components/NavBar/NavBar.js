@@ -8,10 +8,10 @@ const Navbar = () => {
     return (
         <div className={styles.navBar}>
             <div className={styles.navItem}>
-                <Image src="/imagenes/home.png" alt="Home" width={24} height={24} />
+                <Link href={"/home"}><Image src="/imagenes/home.png" alt="Home" width={24} height={24} /></Link>
             </div>
             <div className={styles.navItem}>
-            <Link href={"/ver-ticket"}><Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} /></Link>
+                <Link href={"/ver-ticket"}><Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} /></Link>
             </div>
             <div className={styles.navItem}>
                 <Image src="/imagenes/cliente.png" alt="Clientes" width={24} height={24} />

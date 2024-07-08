@@ -1,8 +1,9 @@
 
+
 export default function NotFound() {
     return (
-      <main className={styles.main}>
-        <div className={styles.center}>
+      <main className="main">
+        <div className="center">
           <h1>Not Found!!!</h1>
         </div>
   
