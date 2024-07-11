@@ -1,11 +1,18 @@
+'use client'
 import Titulo from "@/components/Titulo/Titulo";
+import { useEffect } from "react";
+import useTitle from "@/hooks/useTitle";
 
-export default function estadistica(){
-    return(
-        <>
-        <div>
-            <Titulo titulo={"Estadisticas"} subtitulo={"Su estadistica"}></Titulo>
-        </div>
-        </>
-    )
+export default function estadistica() {
+    const { setTitulo } = useTitle()
+
+    useEffect(() => {
+        setTitulo("Estadisticas")
+    }, [])
+
+  return (
+    <div>
+      <Titulo titulo={"Estadisticas PRESIS"}/>
+    </div>
+  );
 }

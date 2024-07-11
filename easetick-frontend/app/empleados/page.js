@@ -7,12 +7,12 @@ export default function estadistica() {
     const { setTitulo } = useTitle()
 
     useEffect(() => {
-        setTitulo("Configuracion")
+        setTitulo("Empleados")
     }, [])
 
   return (
     <div>
-      <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
+      <Titulo titulo={"Empleados"} subtitulo={"Empleados PRESIS"} />
     </div>
   );
 }

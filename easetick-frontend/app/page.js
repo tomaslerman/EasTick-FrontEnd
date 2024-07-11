@@ -3,11 +3,12 @@ import styles from "./page.module.css";
 import BoxDatoUnico from "@/components/BoxDatoUnico/boxDatoUnico";
 import TicketSinResolver from "@/components/TicketSinResolver/ticketSinResolver";
 import Feedback from "@/components/Feedback/feedback";
-import Navbar from "@/components/NavBar/NavBar";
 import { useTickets } from '@/hooks/useTickets';
 import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
-
+import { Pie } from "react-chartjs-2";
+import {options} from "../components/graficoCircular/PieChart"
+import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 export default function Home() {   
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy } = useTickets({ id: 2 });
     const { setTitulo } = useTitle()
@@ -33,6 +34,10 @@ export default function Home() {
                     <div className={styles.rightContent}>
                         <Feedback total={10} positivo={50} neutral={20} negativo={30} />
                     </div>
+                    <div className={styles.rightContent}>
+                        <Pie options={options} data={PieDataChart}> </Pie>
+                    </div>
+                    
                 </div>
             </div>
         </div>

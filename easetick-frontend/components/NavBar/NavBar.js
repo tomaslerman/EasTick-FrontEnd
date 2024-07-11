@@ -14,10 +14,10 @@ const Navbar = () => {
                 <Link href={"/ver-ticket"}><Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} /></Link>
             </div>
             <div className={styles.navItem}>
-                <Image src="/imagenes/cliente.png" alt="Clientes" width={24} height={24} />
+                <Link href={"/cliente"}><Image src="/imagenes/cliente.png" alt="Clientes" width={24} height={24} /></Link>
             </div>
             <div className={styles.navItem}>
-                <Image src="/imagenes/empleado.png" alt="Empleados" width={24} height={24} />
+                <Link href={"/empleados"}><Image src="/imagenes/empleado.png" alt="Empleados" width={24} height={24} /></Link>
             </div>
             <div className={styles.navItem}>
                 <Link href={"/estadistica"}><Image src="/imagenes/estadistica.png" alt="Estadisticas" width={24} height={24} /></Link>
