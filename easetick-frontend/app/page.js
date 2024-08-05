@@ -9,6 +9,7 @@ import useTitle from "@/hooks/useTitle";
 import { Pie } from "react-chartjs-2";
 import { options } from "@/components/graficoCircular/pieChart";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
+import pieChartStyles from "@/components/graficoCircular/pieChart.module.css"; // Importa los estilos
 
 export default function Home() {
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy } = useTickets({ id: 2 });
@@ -31,8 +32,10 @@ export default function Home() {
                     <TicketSinResolver props={ticketsSinResolver} />
                 </div>
                 <div className={styles.rightContent}>
-                <div className={styles.pieContainer}>
-                        <Pie options={options} data={PieDataChart} />
+                    <div className={pieChartStyles.pieChartContainer}>
+                        <div className={pieChartStyles.pieContainer}>
+                            <Pie options={options} data={PieDataChart} />
+                        </div>
                     </div>
                     <Feedback total={10} positivo={50} neutral={20} negativo={30} />
                 </div>
