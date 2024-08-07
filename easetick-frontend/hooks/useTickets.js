@@ -6,6 +6,8 @@ export function useTickets({ id }) {
     const [ticketsSinResolver, setTicketsSinResolver] = useState([]);
     const [ticketsResueltos, setTicketsResueltos] = useState([]);
     const [ticketsVencenHoy, setTicketsVencenHoy] = useState([]);
+    const [feedback, setFeedback] = useState([]);
+    const [porcResueltos, setPorcResueltos] = useState([]);
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -25,6 +27,15 @@ export function useTickets({ id }) {
                 const resVencenHoy = await fetch(`http://localhost:5000/tickets/ticketsVencenHoy/${id}`);
                 const dataVencenHoy = await resVencenHoy.json();
                 setTicketsVencenHoy(dataVencenHoy.message);
+
+                const resFeedback = await fetch(`http://localhost:5000/tickets/FeedBackEmpleado/${id}`);
+                const dataFeedback = await resFeedback.json();
+                setFeedback(dataFeedback.message);
+
+                const resPorcResueltos = await fetch(`http://localhost:5000/tickets/porcentajeTicketsResueltos/${id}`);
+                const dataPorcResueltos = await resPorcResueltos.json();
+                setPorcResueltos(dataPorcResueltos.message);
+
             } catch (error) {
                 console.log(error);
             }
@@ -33,5 +44,5 @@ export function useTickets({ id }) {
         fetchTickets();
     }, [id]);
 
-    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy };
+    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos };
 }

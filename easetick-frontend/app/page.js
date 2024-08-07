@@ -12,7 +12,7 @@ import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 import pieChartStyles from "@/components/graficoCircular/pieChart.module.css"; // Importa los estilos
 
 export default function Home() {
-    const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy } = useTickets({ id: 2 });
+    const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Home() {
                             <Pie options={options} data={PieDataChart} />
                         </div>
                     </div>
-                    <Feedback total={10} positivo={50} neutral={20} negativo={30} />
+                    <Feedback total={feedback.total} positivo={feedback.positivo} neutral={feedback.neutral} negativo={feedback.negativo} />
                 </div>
             </div>
         </div>

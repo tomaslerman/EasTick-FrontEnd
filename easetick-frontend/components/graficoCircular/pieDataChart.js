@@ -1,4 +1,4 @@
-export const PieDataChart = {
+export const pieDataChart = {
     labels: ["Tickets resueltos", "Tickets no resueltos"],
     datasets: [
         {
@@ -12,3 +12,4 @@ export const PieDataChart = {
         },
     ],
 };
+export { pieDataChart as PieDataChart };
