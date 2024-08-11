@@ -19,7 +19,7 @@ export default function estadistica() {
     return (
         <div>
             <Titulo titulo={"Estadisticas"} />
-            <LineGraph />
+            <LineGraph/>
             <div className={pieChartStyles.graphsContainer}>
                 <div className={pieChartStyles.pieChartContainer}>
                     <div className={pieChartStyles.pieContainer}>

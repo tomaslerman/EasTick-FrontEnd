@@ -8,6 +8,7 @@ export function useTickets({ id }) {
     const [ticketsVencenHoy, setTicketsVencenHoy] = useState([]);
     const [feedback, setFeedback] = useState();
     const [porcResueltos, setPorcResueltos] = useState();
+    const [detalle, setDetalle] = useState();
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -36,6 +37,10 @@ export function useTickets({ id }) {
                 const dataPorcResueltos = await resPorcResueltos.json();
                 setPorcResueltos(dataPorcResueltos.message);
 
+                const resDetalle = await fetch(`http://localhost:5000/tickets/detalleTicket/${id}`);
+                const dataDetalle = await resDetalle.json();
+                setDetalle(dataDetalle.message);
+
             } catch (error) {
                 console.log(error);
             }
@@ -44,5 +49,5 @@ export function useTickets({ id }) {
         fetchTickets();
     }, [id]);
 
-    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos };
+    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle };
 }
