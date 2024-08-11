@@ -6,8 +6,8 @@ export function useTickets({ id }) {
     const [ticketsSinResolver, setTicketsSinResolver] = useState([]);
     const [ticketsResueltos, setTicketsResueltos] = useState([]);
     const [ticketsVencenHoy, setTicketsVencenHoy] = useState([]);
-    const [feedback, setFeedback] = useState([]);
-    const [porcResueltos, setPorcResueltos] = useState([]);
+    const [feedback, setFeedback] = useState();
+    const [porcResueltos, setPorcResueltos] = useState();
 
     useEffect(() => {
         const fetchTickets = async () => {

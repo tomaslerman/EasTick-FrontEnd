@@ -1,7 +1,8 @@
 'use client'
 import styles from './ticketSinResolver.module.css'
 
-export default function TicketSinResolver({ props }) {
+export default function TicketSinResolver({ tickets }) {
+
     return (
       <div className={styles.tableContainer}>
         <div className={styles.header}>
@@ -16,10 +17,10 @@ export default function TicketSinResolver({ props }) {
             </tr>
           </thead>
           <tbody>
-            {props.map((prop, index) => (
+            {tickets.map((ticket, index) => (
               <tr key={index}>
-                <td>{prop.asunto}</td>
-                <td>{prop.prioridad}</td>
+                <td>{ticket.asunto}</td>
+                <td>{ticket.prioridad.nombre}</td>
               </tr>
             ))}
           </tbody>

@@ -15,6 +15,8 @@ export default function Home() {
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
 
+    console.log(porcResueltos)
+
     useEffect(() => {
         setTitulo("Home");
     }, [setTitulo]);
@@ -29,7 +31,7 @@ export default function Home() {
             </div>
             <div className={styles.mainContent}>
                 <div className={styles.leftContent}>
-                    <TicketSinResolver props={ticketsSinResolver} />
+                    <TicketSinResolver tickets={ticketsSinResolver} />
                 </div>
                 <div className={styles.rightContent}>
                     <div className={pieChartStyles.pieChartContainer}>
@@ -37,7 +39,7 @@ export default function Home() {
                             <Pie options={options} data={PieDataChart} />
                         </div>
                     </div>
-                    <Feedback total={feedback.total} positivo={feedback.positivo} neutral={feedback.neutral} negativo={feedback.negativo} />
+                    <Feedback feedback={feedback} />
                 </div>
             </div>
         </div>
