@@ -3,39 +3,39 @@ import Titulo from "@/components/Titulo/Titulo";
 import { useTickets } from '@/hooks/useTickets';
 import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
+import TicketListado from "@/components/TicketListado/ticketListado";
+import styles from './page.module.css';
 
 export default function VerTicket() {
     const { setTitulo } = useTitle();
-    const { detalle = [] } = useTickets({ id: 2 }); // Asegúrate de pasar el ID correcto
+    const { detalle = [] } = useTickets({ id: 2 });
 
     useEffect(() => {
         setTitulo("Tickets");
     }, [setTitulo]);
 
-    useEffect(() => {
-        console.log("Tickets asignados:", detalle);
-    }, [detalle]);
-
     return (
         <div>
             <Titulo titulo={"Tus Tickets"} subtitulo={"Gestione sus tickets"} />
-            <div>
-                { (
-                    detalle.map((ticket, index) => (
-                        <div key={index} className="ticketRow">
-                            <h2>{ticket.asunto}</h2>
-                            <p>Estado: {ticket.estado.nombre}</p>
-                            <p>Prioridad: {ticket.prioridad.nombre}</p>
-                            <p>Tiempo de Respuesta: {ticket.fechacreacion}</p>
-                            <p>Días de Vencimiento: {ticket.prioridad.caducidad}</p>
-                            <p>Asignado a: {ticket.usuario.nombre}</p>
-                            <a href={ticket.link}>Ver detalles</a>
-                            <hr />
-                        </div>
-                    ))
-                ) 
-              }
-            </div>
+            <table className={styles.ticketTable}>
+                <thead>
+                    <tr className={styles.ticketHeader}>
+                        <th>Asunto</th>
+                        <th>Estado</th>
+                        <th>Prioridad</th>
+                        <th>Fecha</th>
+                        <th>Caducidad</th>
+                        <th>Asignado</th>
+                        <th>Empresa</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {detalle.map((ticket, index) => (
+                        <TicketListado ticket={ticket} index={index} key={index} />
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

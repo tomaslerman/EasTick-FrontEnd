@@ -8,20 +8,11 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 export const LineGraph = () => {
     const options = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,  // Permite que el gráfico se expanda completamente en el contenedor
     };
 
     return (
         <div className={styles.lineChartContainer}>
-            <div className={styles.chartWrapper}>
-                <Line options={options} data={lineChartData} />
-            </div>
-            <div className={styles.chartWrapper}>
-                <Line options={options} data={lineChartData} />
-            </div>
-            <div className={styles.chartWrapper}>
-                <Line options={options} data={lineChartData} />
-            </div>
             <div className={styles.chartWrapper}>
                 <Line options={options} data={lineChartData} />
             </div>

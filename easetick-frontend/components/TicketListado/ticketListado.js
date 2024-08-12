@@ -1,34 +1,22 @@
 'use client'
-import styles from './ticketListado.module.css';
+import styles from './styles.module.css';
 
-const TicketListado = ({ ticket }) => {
+const TicketListado = ({ ticket, index }) => {
+    console.log(ticket)
     return (
-        <div className={styles.ticketRow}>
-            <div className={styles.ticketCell}>
-                <input type="checkbox" />
-            </div>
-            <div className={styles.ticketCell}>
-                {ticket.estado}
-            </div>
-            <div className={styles.ticketCell}>
-                <a href={ticket.link}>{ticket.titulo}</a>
-            </div>
-            <div className={styles.ticketCell}>
-                {ticket.prioridad}
-            </div>
-            <div className={styles.ticketCell}>
-                {ticket.tiempoRespuesta}
-            </div>
-            <div className={styles.ticketCell}>
-                {ticket.diasVencimiento}
-            </div>
-            <div className={styles.ticketCell}>
-                {ticket.asignadoA}
-            </div>
-            <div className={styles.ticketCell}>
-                {ticket.categoria}
-            </div>
-        </div>
+        <tr key={index} className={styles.ticketRow}>
+            <td className={styles.ticketCell}>
+                <h2 className={styles.ticketTitle}>{ticket.asunto}</h2>
+            </td>
+            <td className={styles.ticketCell}>{ticket.estado.nombre}</td>
+            <td className={styles.ticketCell}>{ticket.prioridad.nombre}</td>
+            <td className={styles.ticketCell}>{ticket.fechacreacion}</td>
+            <td className={styles.ticketCell}>{ticket.prioridad.caducidad}</td>
+            <td className={styles.ticketCell}>{ticket.usuario.nombre}</td>
+            <td className={styles.ticketCell}>{ticket.empresa.nombre}</td>
+            <td><a href={ticket.link} className={styles.ticketLink}>Ver detalles</a>
+            </td>
+        </tr>
     );
 }
 

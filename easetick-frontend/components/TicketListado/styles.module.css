@@ -1,0 +1,30 @@
+.ticketRow {
+    border-bottom: 1px solid #ddd;
+}
+
+.ticketCell {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.ticketTitle {
+    font-size: 16px;
+    margin: 0;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.ticketTitle:hover {
+    text-decoration: underline;
+}
+
+.ticketLink {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.ticketLink:hover {
+    text-decoration: underline;
+}

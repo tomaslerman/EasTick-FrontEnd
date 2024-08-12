@@ -7,6 +7,7 @@ import BarGraph from "@/components/Bar/bar";
 import { Pie } from "react-chartjs-2";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 import pieChartStyles from "@/components/graficoCircular/pieChart.module.css";
+import styles from "./page.module.css";  // Importa el archivo CSS específico de esta página
 import { options } from "@/components/graficoCircular/pieChart";
 
 export default function estadistica() {
@@ -19,7 +20,12 @@ export default function estadistica() {
     return (
         <div>
             <Titulo titulo={"Estadisticas"} />
-            <LineGraph/>
+            <div className={styles.lineChartsWrapper}>  {/* Contenedor para los gráficos lineales */}
+                <LineGraph />
+                <LineGraph />
+                <LineGraph />
+                <LineGraph />
+            </div>
             <div className={pieChartStyles.graphsContainer}>
                 <div className={pieChartStyles.pieChartContainer}>
                     <div className={pieChartStyles.pieContainer}>
