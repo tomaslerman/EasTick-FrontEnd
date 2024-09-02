@@ -1,0 +1,38 @@
+.configuracionContainer {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.opcion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.opcion:last-child {
+    border-bottom: none;
+}
+
+.opcion:hover {
+    background-color: #f0f0f0;
+}
+
+.opcion span {
+    font-size: 16px;
+    color: #333;
+}
+
+.arrow {
+    font-size: 18px;
+    color: #999;
+}

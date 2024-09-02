@@ -2,6 +2,7 @@
 import Titulo from "@/components/Titulo/Titulo";
 import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
+import Configuracion from "@/components/Configuracion/Configuracion";
 
 export default function estadistica() {
     const { setTitulo } = useTitle()
@@ -13,6 +14,8 @@ export default function estadistica() {
   return (
     <div>
       <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
+      <Configuracion/>
     </div>
+
   );
 }
