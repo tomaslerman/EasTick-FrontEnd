@@ -1,0 +1,34 @@
+.listadoClientes {
+    width: 100%;
+}
+
+.clienteRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.clienteNombre {
+    display: flex;
+    align-items: center;
+}
+
+.nombreLink {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.nombreLink:hover {
+    text-decoration: underline;
+}
+
+.clienteTipo {
+    color: #333;
+}
+
+.clienteUltimoTicket {
+    color: #666;
+    font-size: 14px;
+}

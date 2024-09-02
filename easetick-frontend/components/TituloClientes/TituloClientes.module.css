@@ -1,0 +1,21 @@
+.tituloClientes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.columna {
+    display: flex;
+    align-items: center;
+}
+
+.flechaAbajo {
+    margin-left: 5px;
+    font-size: 12px;
+    color: #000;
+}
