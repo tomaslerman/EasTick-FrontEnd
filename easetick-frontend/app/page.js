@@ -4,22 +4,24 @@ import BoxDatoUnico from "@/components/BoxDatoUnico/boxDatoUnico";
 import TicketSinResolver from "@/components/TicketSinResolver/ticketSinResolver";
 import Feedback from "@/components/Feedback/feedback";
 import { useTickets } from '@/hooks/useTickets';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useTitle from "@/hooks/useTitle";
-import { Pie } from "react-chartjs-2";
-import { options } from "@/components/graficoCircular/pieChart";
-import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
-import pieChartStyles from "@/components/graficoCircular/pieChart.module.css"; // Importa los estilos
+import { PieChart } from "@/components/graficoCircular/pieChart";
+import pieChartStyles from "@/components/graficoCircular/pieChart.module.css"; 
+import { PieDataChart } from "@/components/graficoCircular/pieDataChart";  // Importa la función
 
 export default function Home() {
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
-
-    console.log(porcResueltos)
+    const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
     useEffect(() => {
         setTitulo("Home");
-    }, [setTitulo]);
+
+        if (porcResueltos) {
+            setPieData(PieDataChart(porcResueltos));
+        }
+    }, [porcResueltos, setTitulo]);
 
     return (
         <div className={styles.content}>
@@ -34,9 +36,9 @@ export default function Home() {
                     <TicketSinResolver tickets={ticketsSinResolver} />
                 </div>
                 <div className={styles.rightContent}>
-                    <div className={pieChartStyles.pieChartContainer}>
+                    <div >
                         <div className={pieChartStyles.pieContainer}>
-                            <Pie options={options} data={PieDataChart} />
+                            <PieChart data={pieData} />  {/* Pasa los datos al componente */}
                         </div>
                     </div>
                     <Feedback feedback={feedback} />

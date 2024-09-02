@@ -1,36 +1,40 @@
 'use client'
 import Titulo from "@/components/Titulo/Titulo";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useTickets } from '@/hooks/useTickets';
 import useTitle from "@/hooks/useTitle";
 import { LineGraph } from "@/components/GraficoLineal/graficoLineal";
 import BarGraph from "@/components/Bar/bar";
-import { Pie } from "react-chartjs-2";
-import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
+import { PieChart } from "@/components/graficoCircular/pieChart";
 import pieChartStyles from "@/components/graficoCircular/pieChart.module.css";
-import styles from "./page.module.css";  // Importa el archivo CSS específico de esta página
-import { options } from "@/components/graficoCircular/pieChart";
+import styles from "./page.module.css";
+import { PieDataChart } from "@/components/graficoCircular/pieDataChart";  // Importa la función
 
-export default function estadistica() {
+export default function Estadistica() {
+    const { porcResueltos } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
+    const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
     useEffect(() => {
-        setTitulo("Estadisticas");
-    }, []);
+        setTitulo("Estadísticas");
+
+        if (porcResueltos) {
+            setPieData(PieDataChart(porcResueltos));
+        }
+    }, [porcResueltos, setTitulo]);
 
     return (
         <div>
-            <Titulo titulo={"Estadisticas"} />
-            <div className={styles.lineChartsWrapper}>  {/* Contenedor para los gráficos lineales */}
+            <Titulo titulo={"Estadísticas"} />
+            <div className={styles.lineChartsWrapper}>
                 <LineGraph />
                 <LineGraph />
                 <LineGraph />
                 <LineGraph />
             </div>
             <div className={pieChartStyles.graphsContainer}>
-                <div className={pieChartStyles.pieChartContainer}>
-                    <div className={pieChartStyles.pieContainer}>
-                        <Pie options={options} data={PieDataChart} />
-                    </div>
+                <div >
+                    <PieChart data={pieData} />
                 </div>
                 <div className={pieChartStyles.graph}>
                     <BarGraph />
