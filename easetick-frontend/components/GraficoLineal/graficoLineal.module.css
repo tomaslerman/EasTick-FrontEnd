@@ -1,13 +1,32 @@
 .lineChartContainer {
     width: 100%;
-    max-width: 300px; /* Ajusta según sea necesario */
+    max-width: 600px; /* Aumenta el tamaño máximo del contenedor */
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9; /* Color de fondo claro */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    transition: transform 0.3s ease; /* Animación suave al interactuar */
+}
+
+.lineChartContainer:hover {
+    transform: scale(1.02); /* Pequeño zoom al hacer hover */
 }
 
 .chartWrapper {
     width: 100%;
-    height: 150px /* Aumenta la altura del gráfico */
+    height: 200px; /* Aumenta la altura del gráfico */
+}
+
+.chartTitle {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px; /* Espacio entre el título y el número */
+}
+
+.chartNumber {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px; /* Espacio entre el número y el gráfico */
 }

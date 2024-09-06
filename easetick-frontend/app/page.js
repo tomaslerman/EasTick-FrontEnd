@@ -38,7 +38,7 @@ export default function Home() {
                 <div className={styles.rightContent}>
                     <div >
                         <div className={pieChartStyles.pieContainer}>
-                            <PieChart data={pieData} />  {/* Pasa los datos al componente */}
+                            <PieChart data={pieData} title="% Tickets resueltos" />
                         </div>
                     </div>
                     <Feedback feedback={feedback} />

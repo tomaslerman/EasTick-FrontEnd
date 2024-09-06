@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import Titulo from "@/components/Titulo/Titulo";
 import { useState, useEffect } from "react";
 import { useTickets } from '@/hooks/useTickets';
@@ -8,7 +9,7 @@ import BarGraph from "@/components/Bar/bar";
 import { PieChart } from "@/components/graficoCircular/pieChart";
 import pieChartStyles from "@/components/graficoCircular/pieChart.module.css";
 import styles from "./page.module.css";
-import { PieDataChart } from "@/components/graficoCircular/pieDataChart";  // Importa la función
+import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 
 export default function Estadistica() {
     const { porcResueltos } = useTickets({ id: 2 });
@@ -23,21 +24,28 @@ export default function Estadistica() {
         }
     }, [porcResueltos, setTitulo]);
 
+    const labels = ["L", "M", "M", "J", "V", "S", "D"];
+    const ticketsTotales = [300, 450, 400, 500, 600, 550, 700];
+    const ticketsResueltos = [200, 350, 300, 400, 500, 450, 600];
+    const tiempoResolucion = [10, 20, 15, 30, 25, 35, 40];
+    const tiempoSinResolver = [5, 10, 8, 15, 12, 20, 25];
+
     return (
-        <div>
+        <div className={styles.container}>
             <Titulo titulo={"Estadísticas"} />
             <div className={styles.lineChartsWrapper}>
-                <LineGraph />
-                <LineGraph />
-                <LineGraph />
-                <LineGraph />
+                <LineGraph title="Tickets Totales" data={ticketsTotales} labels={labels} number="54" />
+                <LineGraph title="Tickets Resueltos" data={ticketsResueltos} labels={labels} number="43" />
+                <LineGraph title="Tiempo Resolución" data={tiempoResolucion} labels={labels} number="3 hs" />
+                <LineGraph title="Tiempo Sin Resolver" data={tiempoSinResolver} labels={labels} number="11" />
             </div>
-            <div className={pieChartStyles.graphsContainer}>
-                <div >
-                    <PieChart data={pieData} />
+            <div className={styles.graphsRow}>
+                <div className={styles.pieWrapper}>
+                    <PieChart data={pieData} title="% Tickets resueltos"/>
+
                 </div>
-                <div className={pieChartStyles.graph}>
-                    <BarGraph />
+                <div className={styles.barWrapper}>
+                    <BarGraph title="Tickets por prioridad" />
                 </div>
             </div>
         </div>
