@@ -10,6 +10,7 @@ import { PieChart } from "@/components/graficoCircular/pieChart";
 import pieChartStyles from "@/components/graficoCircular/pieChart.module.css";
 import styles from "./page.module.css";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
+import DoughnutChart from "@/components/Doughnut/doughnut";
 
 export default function Estadistica() {
     const { porcResueltos } = useTickets({ id: 2 });
@@ -47,6 +48,7 @@ export default function Estadistica() {
                 <div className={styles.barWrapper}>
                     <BarGraph title="Tickets por prioridad" />
                 </div>
+                <DoughnutChart title="% Tickets por estado" />
             </div>
         </div>
     );

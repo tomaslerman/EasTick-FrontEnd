@@ -27,18 +27,19 @@ export const PieChart = ({ data, title }) => {
                 bodyFont: { size: 12 },
                 padding: 10,
                 displayColors: false,
-                cornerRadius: 4,
+                cornerRadius: 6,
             },
             title: {
                 display: true,
                 text: title,  // Título dinámico que llega por parámetro
                 font: {
-                    size: 16,
+                    size: 18,
                     weight: 'bold',
                 },
                 padding: {
-                    bottom: 20,
+                    bottom: 10, // Más espacio debajo del título
                 },
+                color: "#333", // Color del título
             },
         },
         layout: {

@@ -1,0 +1,29 @@
+.doughnutChartContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffffff, #ffffff); /* Fondo suave */
+    border-radius: 24px; /* Bordes redondeados */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); /* Sombra más suave */
+    width: 60%; /* Reducir el ancho del contenedor */
+    max-width: 400px; /* Ancho más pequeño */
+    padding: 20px;
+    height: 340px;
+}
+
+.doughnutWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 300px; /* Hacer el gráfico más pequeño */
+    height: 300px; /* Reducir la altura */
+}
+
+@media (max-width: 768px) {
+    .doughnutChartContainer {
+        width: 80%; /* Ajuste en pantallas pequeñas */
+    }
+
+    .doughnutWrapper {
+        height: 250px; /* Ajustar altura en pantallas más pequeñas */
+    }
+}
