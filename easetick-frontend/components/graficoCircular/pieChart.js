@@ -48,11 +48,7 @@ export const PieChart = ({ data, title }) => {
     };
 
     return (
-        <div className={styles.pieChartContainer}>
-            <div className={styles.pieWrapper}>
                 <Pie options={options} data={data} />
-            </div>
-        </div>
     );
 };
 

@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Ajusta el espacio debajo del título principal */
+}
+
+.title {
+    margin: 0;
+    font-size: 18px;
+    color: #333; /* Gris oscuro para el título */
+}
+
+.details {
+    display: grid;
+    
+    grid-template-columns: 1fr 1fr;
+    row-gap: 15px; /* Aumenta el espacio entre las etiquetas y los valores */
+}
+
+.label {
+    font-size: 14px;
+    color: #666; /* Gris medio para las etiquetas */
+    margin-bottom: 5px; /* Espacio adicional debajo de cada etiqueta */
+    margin-right: 30px;
+}
+
+.value {
+    font-size: 16px;
+    color: #333; /* Gris oscuro para los valores */
+    font-weight: bold;
+}
+

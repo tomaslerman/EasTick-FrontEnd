@@ -1,21 +1,3 @@
-.lineChartsWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.lineChartContainer {
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -26,24 +8,35 @@
 
 .lineChartsWrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    margin-bottom: 30px;
+    width: 100%;
+    margin-bottom: 3%;
 }
 
 .graphsRow {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
     width: 100%;
-    margin-top: 20px;
-    flex-wrap: wrap;
 }
 
-.pieWrapper, .barWrapper {
-    flex: 1;
-    min-width: 300px;
-    margin: 10px;
+.pieWrapper, .barWrapper, .doughnutChartContainer, .ticketDetailsWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 340px; /* Asegura que todos los gráficos tengan la misma altura */
+    transition: transform 0.3s ease; /* Animación suave al interactuar */
+}
+.pieWrapper:hover, .barWrapper:hover, .doughnutChartContainer:hover, .ticketDetailsWrapper:hover {
+    transform: scale(1.02); /* Pequeño zoom al hacer hover */
+}
+
+.pieWrapper, .barWrapper, .doughnutWrapper, .ticketDetailsWrapper {
+    max-width: 400px;
 }

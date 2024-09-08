@@ -76,11 +76,7 @@ const BarGraph = ({ title }) => {
     };
 
     return (
-        <div className={styles.barChartContainer}>
-            <div className={styles.chartWrapper}>
                 <Bar options={options} data={BarChartData} />
-            </div>
-        </div>
     );
 };
 

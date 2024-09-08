@@ -7,10 +7,10 @@ import useTitle from "@/hooks/useTitle";
 import { LineGraph } from "@/components/GraficoLineal/graficoLineal";
 import BarGraph from "@/components/Bar/bar";
 import { PieChart } from "@/components/graficoCircular/pieChart";
-import pieChartStyles from "@/components/graficoCircular/pieChart.module.css";
 import styles from "./page.module.css";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 import DoughnutChart from "@/components/Doughnut/doughnut";
+import TicketDetails from "@/components/TicketDetails/ticketDetails";
 
 export default function Estadistica() {
     const { porcResueltos } = useTickets({ id: 2 });
@@ -43,12 +43,24 @@ export default function Estadistica() {
             <div className={styles.graphsRow}>
                 <div className={styles.pieWrapper}>
                     <PieChart data={pieData} title="% Tickets resueltos"/>
-
                 </div>
                 <div className={styles.barWrapper}>
                     <BarGraph title="Tickets por prioridad" />
                 </div>
-                <DoughnutChart title="% Tickets por estado" />
+                <div className={styles.doughnutChartContainer}>
+                    <DoughnutChart title="% Tickets por estado" />
+                </div>
+                <div className={styles.ticketDetailsWrapper}>
+                    <TicketDetails 
+                        title="Detalles de Tickets"
+                        totalTickets={200} 
+                        highPriority={30} 
+                        assignedTickets={150} 
+                        unassignedTickets={50} 
+                        overdueTickets={15} 
+                        newTickets={40} 
+                    />
+                </div>
             </div>
         </div>
     );

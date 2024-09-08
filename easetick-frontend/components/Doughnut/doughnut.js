@@ -67,11 +67,7 @@ const DoughnutChart = ({ title }) => {
     };
 
     return (
-        <div className={styles.doughnutChartContainer}>
-            <div className={styles.doughnutWrapper}>
                 <Doughnut data={data} options={options} />
-            </div>
-        </div>
     );
 };
 
