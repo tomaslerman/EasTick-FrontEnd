@@ -7,10 +7,10 @@
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 20%;
-  height: 100px;
+  width: 25%;
+  height: 70%;
   text-align: left;
-  margin: 35px;
+  margin: 15px;
   transition: box-shadow 0.3s ease;
 }
 
