@@ -1,21 +1,15 @@
-.tableHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .headerItem {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-  }
-  
-  .sortIcon {
-    margin-left: 5px;
-    font-size: 0.8em;
-    cursor: pointer;
-  }
-  
+.tituloEmpleados {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.columna {
+  flex: 1; /* Asegura que las columnas tengan el mismo tamaño que en ListadoEmpleados */
+  text-align: left; /* Alinea el texto de los encabezados a la izquierda */
+}

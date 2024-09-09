@@ -8,6 +8,7 @@
 .ticketHeader th {
     text-align: left;
     padding: 10px;
+    padding-left: 20px; /* Aumenta este valor para mover más a la derecha */
     background-color: #f1f1f1;
     border-bottom: 2px solid #ddd;
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
@@ -69,7 +70,7 @@
 .ticketHeader th:first-child, 
 .ticketRow .ticketCell:first-child {
     text-align: left;
-    padding-left: 0; /* Evita que el primer elemento esté demasiado alineado a la izquierda */
+    padding-left: 20px; /* Mueve un poco hacia la derecha la primera columna */
 }
 
 .ticketHeader th:last-child, 

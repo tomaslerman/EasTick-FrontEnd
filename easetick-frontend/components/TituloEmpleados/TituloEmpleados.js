@@ -1,20 +1,20 @@
 import React from 'react';
-import styles from './TituloEmpleados.module.css'; // Archivo CSS para estilos
+import styles from './TituloEmpleados.module.css';
 
 const TituloEmpleados = () => {
   return (
-    <div className={styles.tableHeader}>
-      <div className={styles.headerItem}>
-        Nombre <span className={styles.sortIcon}>▼</span>
+    <div className={styles.tituloEmpleados}>
+      <div className={styles.columna}>
+        <span>Nombre</span>
       </div>
-      <div className={styles.headerItem}>
-        Email <span className={styles.sortIcon}>▼</span>
+      <div className={styles.columna}>
+        <span>Email</span>
       </div>
-      <div className={styles.headerItem}>
-        Calificación <span className={styles.sortIcon}>▼</span>
+      <div className={styles.columna}>
+        <span>Calificación</span>
       </div>
-      <div className={styles.headerItem}>
-        Tickets asignados <span className={styles.sortIcon}>▼</span>
+      <div className={styles.columna}>
+        <span>Tickets asignados</span>
       </div>
     </div>
   );

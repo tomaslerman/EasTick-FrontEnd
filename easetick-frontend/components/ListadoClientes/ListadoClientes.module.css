@@ -1,3 +1,24 @@
+/* Para la tabla de títulos (si tienes una estructura de título similar) */
+.tituloClientes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #ddd;
+    font-weight: bold;
+}
+
+.tituloNombre, .tituloTipo, .tituloUltimoTicket {
+    flex: 1; /* Asegura que las columnas de los títulos tengan el mismo ancho que los datos */
+    text-align: left;
+}
+
+.tituloUltimoTicket {
+    text-align: right; /* Alinea el título "Último Ticket" a la derecha */
+}
+
+/* Para las filas de clientes */
 .listadoClientes {
     width: 100%;
 }
@@ -10,9 +31,14 @@
     border-bottom: 1px solid #ddd;
 }
 
-.clienteNombre {
-    display: flex;
-    align-items: center;
+.clienteNombre, .clienteTipo, .clienteUltimoTicket {
+    flex: 1; /* Asegura que las columnas de los datos tengan el mismo ancho */
+    text-align: left;
+}
+
+.clienteUltimoTicket {
+    text-align: right; /* Alinea el último ticket a la derecha */
+    font-size: 14px;
 }
 
 .nombreLink {

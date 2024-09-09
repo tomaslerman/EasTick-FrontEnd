@@ -1,36 +1,27 @@
 import React from 'react';
-import styles from './ListadoEmpleados.module.css'; // Archivo CSS para estilos
-import Empleado from '../Empleado/Empleado';
+import styles from './ListadoEmpleados.module.css';
 
-const empleadosData = [
-  {
-    name: 'Sarah Gray',
-    email: 'SarahGray@gmail.com',
-    rating: '4/5',
-    tickets: 3,
-  },
-  {
-    name: 'John Doe',
-    email: 'JohnDoe@gmail.com',
-    rating: '5/5',
-    tickets: 5,
-  },
-  // Puedes agregar más empleados aquí
-];
-
-const ListadoEmpleados = () => {
+const ListadoEmpleados = ({ empleados }) => {
   return (
-    <div className={styles.empleadosContainer}>
-      {empleadosData.map((empleado, index) => (
-        <Empleado
-          key={index}
-          name={empleado.name}
-          email={empleado.email}
-          rating={empleado.rating}
-          tickets={empleado.tickets}
-        />
-      ))}
-    </div>
+    <div className={styles.listadoEmpleados}>
+    {empleados.map((empleado, index) => (
+        <div key={index} className={styles.empleadoRow}>
+            <div className={styles.empleadoInfo}>
+                <span>{empleado.name}</span>
+            </div>
+            <div className={styles.empleadoInfo}>
+                <span>{empleado.email}</span>
+            </div>
+            <div className={styles.empleadoInfo}>
+                <span>{empleado.rating}</span>
+            </div>
+            <div className={styles.empleadoInfo}>
+                <span>{empleado.tickets}</span>
+            </div>
+        </div>
+    ))}
+</div>
+
   );
 };
 
