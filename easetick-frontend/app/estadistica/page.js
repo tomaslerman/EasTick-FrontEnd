@@ -13,7 +13,7 @@ import DoughnutChart from "@/components/Doughnut/doughnut";
 import TicketDetails from "@/components/TicketDetails/ticketDetails";
 
 export default function Estadistica() {
-    const { porcResueltos, semana, resueltosSemana, promedioResolucion, ticketsPrioridad, porcentajeEstado } = useTickets({ id: 2 });
+    const { ticketsNoResueltos, porcResueltos, semana, resueltosSemana, promedioResolucion, ticketsPrioridad, porcentajeEstado } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
     const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
@@ -32,7 +32,9 @@ export default function Estadistica() {
     const totalTickesResueltos = resueltosSemana && typeof resueltosSemana === 'object'
         ? Object.values(resueltosSemana).reduce((acc, val) => acc + (val || 0), 0)
         : 0;
-    
+        const totalTicketsNoResueltos = ticketsNoResueltos && typeof ticketsNoResueltos === 'object'
+        ? Object.values(ticketsNoResueltos).reduce((acc, val) => acc + (val || 0), 0)
+        : 0;
 
     const tiempoSinResolver = [5, 10, 8, 15, 12, 20, 25];
     return (
@@ -41,8 +43,8 @@ export default function Estadistica() {
             <div className={styles.lineChartsWrapper}>
                 <LineGraph title="Tickets Totales" data={semana} labels={labels} number={totalTicketsSemana} />
                 <LineGraph title="Tickets Resueltos" data={resueltosSemana} labels={labels} number={totalTickesResueltos} />
-                <LineGraph title="Tiempo Resolución" data={promedioResolucion} labels={labels} number="3 hs" />
-                <LineGraph title="Tickets Sin Resolver" data={tiempoSinResolver} labels={labels} number="11" />
+                <LineGraph title="Pensar otro graph" data={promedioResolucion} labels={labels} number="3 hs" />
+                <LineGraph title="Tickets Sin Resolver" data={ticketsNoResueltos} labels={labels} number={totalTicketsNoResueltos} />
             </div>
             <div className={styles.graphsRow}>
                 <div className={styles.pieWrapper}>

@@ -14,6 +14,7 @@ export function useTickets({ id }) {
     const [promedioResolucion, setPromedioResolucion] = useState();
     const [ticketsPrioridad, setTicketsPrioridad] = useState();
     const [porcentajeEstado, setPorcentajeEstado] = useState();
+    const [ticketsNoResueltos, setTicketsSinResolverSem] = useState();
     useEffect(() => {
         const fetchTickets = async () => {
             try {
@@ -65,6 +66,10 @@ export function useTickets({ id }) {
                 const dataPorcentajeEstado = await resPorcentajeEstado.json();
                 setPorcentajeEstado(dataPorcentajeEstado.message);
 
+                const resTicketsSinResolverSem = await fetch(`http://localhost:5000/tickets/ticketsSinResolverPorDiaDeLaSemana/${id}`);
+                const dataTicketsSinResolverSem = await resTicketsSinResolverSem.json();
+                setTicketsSinResolverSem(dataTicketsSinResolverSem.message);
+
             } catch (error) {
                 console.log(error);
             }
@@ -73,5 +78,6 @@ export function useTickets({ id }) {
         fetchTickets();
     }, [id]);
 
-    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle, semana, resueltosSemana, promedioResolucion, ticketsPrioridad, porcentajeEstado};
+    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle, semana, resueltosSemana, promedioResolucion, ticketsPrioridad, porcentajeEstado, ticketsNoResueltos};
 }
+
