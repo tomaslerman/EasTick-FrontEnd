@@ -6,7 +6,7 @@ import styles from "./bar.module.css";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarGraph = ({ title }) => {
+const BarGraph = ({ title, data }) => {
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -63,10 +63,10 @@ const BarGraph = ({ title }) => {
     };
 
     const BarChartData = {
-        labels: ["Baja", "Media", "Alta", "Urgente"],
+        labels: [""],
         datasets: [
             {
-                data: [3000, 5000, 4500, 6000], // Datos correspondientes a las categorías
+                data,
                 backgroundColor: "rgba(54, 162, 235, 1)", // Color uniforme para un look moderno
                 borderWidth: 2,
                 hoverBackgroundColor: "rgba(75, 192, 192, 0.8)",
@@ -81,3 +81,19 @@ const BarGraph = ({ title }) => {
 };
 
 export default BarGraph;
+
+export const BarChartData = {
+    labels: [
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+    ],
+    datasets: [
+        {
+            label: "Tickets",
+            data: [3000, 5000, 4500, 6000, 8000, 7000, 9000],
+            backgroundColor: "rgba(75, 192, 192, 0.6)", // Color uniforme para un look moderno
+            borderColor: "rgba(75, 192, 192, 1)", // Color de borde que coincide
+            borderWidth: 2,
+            hoverBackgroundColor: "rgba(75, 192, 192, 0.8)",
+        }
+    ]
+};

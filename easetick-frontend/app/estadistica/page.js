@@ -13,7 +13,7 @@ import DoughnutChart from "@/components/Doughnut/doughnut";
 import TicketDetails from "@/components/TicketDetails/ticketDetails";
 
 export default function Estadistica() {
-    const { porcResueltos } = useTickets({ id: 2 });
+    const { porcResueltos, semana, resueltosSemana, promedioResolucion, ticketsPrioridad, porcentajeEstado } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
     const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
@@ -25,27 +25,31 @@ export default function Estadistica() {
         }
     }, [porcResueltos, setTitulo]);
 
-    const labels = ["L", "M", "M", "J", "V", "S", "D"];
-    const ticketsTotales = [300, 450, 400, 500, 600, 550, 700];
-    const ticketsResueltos = [200, 350, 300, 400, 500, 450, 600];
-    const tiempoResolucion = [10, 20, 15, 30, 25, 35, 40];
-    const tiempoSinResolver = [5, 10, 8, 15, 12, 20, 25];
+    const labels = ["L", "M", "X", "J", "V", "S", "D"];
+    const totalTicketsSemana = semana && typeof semana === 'object'
+        ? Object.values(semana).reduce((acc, val) => acc + (val || 0), 0)
+        : 0;
+    const totalTickesResueltos = resueltosSemana && typeof resueltosSemana === 'object'
+        ? Object.values(resueltosSemana).reduce((acc, val) => acc + (val || 0), 0)
+        : 0;
+    
 
+    const tiempoSinResolver = [5, 10, 8, 15, 12, 20, 25];
     return (
         <div className={styles.container}>
             <Titulo titulo={"Estadísticas"} />
             <div className={styles.lineChartsWrapper}>
-                <LineGraph title="Tickets Totales" data={ticketsTotales} labels={labels} number="54" />
-                <LineGraph title="Tickets Resueltos" data={ticketsResueltos} labels={labels} number="43" />
-                <LineGraph title="Tiempo Resolución" data={tiempoResolucion} labels={labels} number="3 hs" />
-                <LineGraph title="Tiempo Sin Resolver" data={tiempoSinResolver} labels={labels} number="11" />
+                <LineGraph title="Tickets Totales" data={semana} labels={labels} number={totalTicketsSemana} />
+                <LineGraph title="Tickets Resueltos" data={resueltosSemana} labels={labels} number={totalTickesResueltos} />
+                <LineGraph title="Tiempo Resolución" data={promedioResolucion} labels={labels} number="3 hs" />
+                <LineGraph title="Tickets Sin Resolver" data={tiempoSinResolver} labels={labels} number="11" />
             </div>
             <div className={styles.graphsRow}>
                 <div className={styles.pieWrapper}>
                     <PieChart data={pieData} title="% Tickets resueltos"/>
                 </div>
                 <div className={styles.barWrapper}>
-                    <BarGraph title="Tickets por prioridad" />
+                    <BarGraph title="Tickets por prioridad" data={ticketsPrioridad} />
                 </div>
                 <div className={styles.doughnutChartContainer}>
                     <DoughnutChart title="% Tickets por estado" />
