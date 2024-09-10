@@ -5,21 +5,25 @@ import styles from './doughnut.module.css';
 
 ChartJS.register(Tooltip, Legend, ArcElement, Title);
 
-const DoughnutChart = ({ title }) => {
+const DoughnutChart = ({ title, ticketsData = { abiertos: 0, cerrados: 0, esperandoRespuesta: 0 } }) => {
+    // Asegúrate de que ticketsData siempre tiene valores por defecto
     const data = {
-        labels: ['Abierto', 'Cerrado', 'En progreso', 'En espera'],
+        labels: ['Abiertos', 'Cerrados', 'En espera'],
         datasets: [
             {
                 label: 'Tickets por estado',
-                data: [50, 120, 75, 30], // Ejemplo de valores por estado
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.8)',  // Azul claro para "Abierto"
-                    'rgba(54, 162, 235, 1)',    // Azul más oscuro para "Cerrado"
-                    'rgba(153, 102, 255, 0.8)', // Violeta para "En progreso"
-                    '#7efbbb',  // Amarillo para "En espera"
+                data: [
+                    ticketsData.abiertos || 0,           // Valor del estado "Abiertos"
+                    ticketsData.cerrados || 0,           // Valor del estado "Cerrados"
+                    ticketsData.esperandoRespuesta || 0, // Valor del estado "En espera"
                 ],
-                borderWidth: 3, // Grosor del borde para resaltar más las secciones
-                hoverOffset: 12, // Efecto de hover más grande para que destaque
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.8)',  // Azul claro para "Abiertos"
+                    'rgba(54, 162, 235, 1)',    // Azul más oscuro para "Cerrados"
+                    'rgba(255, 205, 86, 0.8)',  // Amarillo para "En espera"
+                ],
+                borderWidth: 3,
+                hoverOffset: 12,
             },
         ],
     };
@@ -37,7 +41,7 @@ const DoughnutChart = ({ title }) => {
                         size: 16,
                         weight: "bold",
                     },
-                    padding: 20, // Espaciado entre leyenda y gráfico
+                    padding: 20,
                 },
             },
             tooltip: {
@@ -50,24 +54,24 @@ const DoughnutChart = ({ title }) => {
             },
             title: {
                 display: true,
-                text: title,  // Título dinámico que llega por parámetro
+                text: title,
                 font: {
                     size: 18,
                     weight: 'bold',
                 },
                 padding: {
-                    bottom: 10, // Más espacio debajo del título
+                    bottom: 10,
                 },
-                color: "#333", // Color del título
+                color: "#333",
             },
         },
         layout: {
-            padding: 20, // Más espacio alrededor del gráfico
+            padding: 20,
         },
     };
 
     return (
-                <Doughnut data={data} options={options} />
+        <Doughnut data={data} options={options} />
     );
 };
 

@@ -52,7 +52,7 @@ export default function Estadistica() {
                     <BarGraph title="Tickets por prioridad" data={ticketsPrioridad} />
                 </div>
                 <div className={styles.doughnutChartContainer}>
-                    <DoughnutChart title="% Tickets por estado" />
+                    <DoughnutChart title="% Tickets por estado" ticketsData={porcentajeEstado}/>
                 </div>
                 <div className={styles.ticketDetailsWrapper}>
                     <TicketDetails 

@@ -76,7 +76,7 @@ const BarGraph = ({ title, data }) => {
     };
 
     return (
-                <Bar options={options} data={BarChartData} />
+            <Bar options={options} data={BarChartData} />
     );
 };
 
