@@ -11,10 +11,10 @@ export function useTickets({ id }) {
     const [detalle, setDetalle] = useState();
     const [semana, setSemana] = useState();
     const [resueltosSemana, setResueltosSemana] = useState();
-    const [promedioResolucion, setPromedioResolucion] = useState();
     const [ticketsPrioridad, setTicketsPrioridad] = useState();
     const [porcentajeEstado, setPorcentajeEstado] = useState();
-    const [ticketsNoResueltos, setTicketsSinResolverSem] = useState();
+    const [cantidadTipo, setCantidadTipo] = useState();
+    const [calificacionesUsuario, setCalifiacionesUsuario] = useState();
     useEffect(() => {
         const fetchTickets = async () => {
             try {
@@ -62,6 +62,14 @@ export function useTickets({ id }) {
                 const dataPorcentajeEstado = await resPorcentajeEstado.json();
                 setPorcentajeEstado(dataPorcentajeEstado.message);
 
+                const resCantidadTipo = await fetch(`http://localhost:5000/tickets/cantidadTicketsPorTipo/${id}`);
+                const dataCantidadTipo = await resCantidadTipo.json();
+                setCantidadTipo(dataCantidadTipo.message);
+
+                const resCalificacionesUsuario = await fetch(`http://localhost:5000/tickets/calificacionesPorUsuario/${id}`);
+                const dataCalificacionesUsuario = await resCalificacionesUsuario.json();
+                setCalifiacionesUsuario(dataCalificacionesUsuario.message);
+
             } catch (error) {
                 console.log(error);
             }
@@ -70,6 +78,6 @@ export function useTickets({ id }) {
         fetchTickets();
     }, [id]);
 
-    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado, };
+    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado,cantidadTipo, calificacionesUsuario };
 }
 

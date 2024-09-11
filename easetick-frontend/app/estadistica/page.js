@@ -13,7 +13,7 @@ import DoughnutChart from "@/components/Doughnut/doughnut";
 import TicketDetails from "@/components/TicketDetails/ticketDetails";
 
 export default function Estadistica() {
-    const { porcResueltos, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado } = useTickets({ id: 2 });
+    const { porcResueltos, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado, cantidadTipo, calificacionesUsuario } = useTickets({ id: 2 });
     const { setTitulo } = useTitle();
     const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
@@ -26,23 +26,29 @@ export default function Estadistica() {
     }, [porcResueltos, setTitulo]);
 
     const labels = ["D", "L", "M", "X", "J", "V", "S"];
+    const labelsTipo = ["Pregunta", "Incidente", "Sugerencia", "Mantenimiento", "Reclamo"]
+
     const totalTicketsSemana = semana && typeof semana === 'object'
         ? Object.values(semana).reduce((acc, val) => acc + (val || 0), 0)
         : 0;
     const totalTickesResueltos = resueltosSemana && typeof resueltosSemana === 'object'
         ? Object.values(resueltosSemana).reduce((acc, val) => acc + (val || 0), 0)
         : 0;
-
-    const tiempoSinResolver = [5, 10, 8, 15, 12, 20, 25];
-    const ticketPorEmpresa = [3, 7, 9, 12, 5, 8, 10];
+    const totalCantidadTipo = cantidadTipo && typeof cantidadTipo === 'object'
+        ? Object.values(cantidadTipo).reduce((acc, val) => acc + (val || 0), 0)
+        : 0;
+    const totalCalificaciones = calificacionesUsuario && typeof calificacionesUsuario === 'object'
+        ? Object.values(calificacionesUsuario).reduce((acc, val) => acc + (val || 0), 0)
+        : 0;
+        
     return (
         <div className={styles.container}>
             <Titulo titulo={"Estadísticas"} />
             <div className={styles.lineChartsWrapper}>
                 <LineGraph title="Tickets Totales" data={semana} labels={labels} number={totalTicketsSemana} />
                 <LineGraph title="Tickets Resueltos" data={resueltosSemana} labels={labels} number={totalTickesResueltos} />
-                <LineGraph title="Tickets por Empresa" data={ticketPorEmpresa} labels={labels} number="3 hs" />
-                <LineGraph title="Tickets por Calificacion" data={tiempoSinResolver} labels={labels} number="123" />
+                <LineGraph title="Tickets por Tipo" data={cantidadTipo} labels={labelsTipo} number={totalCantidadTipo} />
+                <LineGraph title="Calificaciones por Usuario" data={calificacionesUsuario}  number={totalCalificaciones} />
             </div>
             <div className={styles.graphsRow}>
                 <div className={styles.pieWrapper}>
