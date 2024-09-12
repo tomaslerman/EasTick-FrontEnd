@@ -1,0 +1,55 @@
+.recordatoriosContainer {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.recordatoriosContainer h2 {
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.agregarRecordatorio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.agregarRecordatorio input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.agregarRecordatorio button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.listaRecordatorios {
+    list-style: none;
+    padding: 0;
+}
+
+.itemRecordatorio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.itemRecordatorio input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.itemRecordatorio span {
+    font-size: 1rem;
+}
