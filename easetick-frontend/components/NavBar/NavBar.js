@@ -1,35 +1,42 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import styles from './NavBar.module.css';
 import Image from 'next/image';
+import styles from './NavBar.module.css';
+
+const NavItem = ({ href, src, alt, tooltip }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div 
+      className={styles.navItem}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link href={href}>
+        <div className={styles.iconWrapper}>
+          <Image src={src} alt={alt} width={32} height={32} />
+          {isHovered && <span className={styles.tooltip}>{tooltip}</span>}
+        </div>
+      </Link>
+    </div>
+  );
+};
 
 const Navbar = () => {
-    return (
-        <div className={styles.navBar}>
-            <div className={styles.navItem}>
-                <Link href={"/"}><Image src="/imagenes/home.png" alt="Home" width={24} height={24} /></Link>
-            </div>
-            <div className={styles.navItem}>
-                <Link href={"/ver-ticket"}><Image src="/imagenes/ticket.png" alt="Tickets" width={24} height={24} /></Link>
-            </div>
-            <div className={styles.navItem}>
-                <Link href={"/cliente"}><Image src="/imagenes/cliente.png" alt="Clientes" width={24} height={24} /></Link>
-            </div>
-            <div className={styles.navItem}>
-                <Link href={"/empleados"}><Image src="/imagenes/empleado.png" alt="Empleados" width={24} height={24} /></Link>
-            </div>
-            <div className={styles.navItem}>
-                <Link href={"/estadistica"}><Image src="/imagenes/estadistica.png" alt="Estadisticas" width={24} height={24} /></Link>
-            </div>
-            <div className={styles.navItem}>
-                <Link href={"/configuracion"}><Image src="/imagenes/configuracion.png" alt="Configuracion" width={24} height={24} /></Link>
-            </div>
-            <div className={`${styles.navItem} ${styles.logoItem}`}>
-                <Image src="/imagenes/LogoEaseTick.png" alt="LogoEaseTick" width={24} height={24} />
-            </div>
-        </div>
-    );
+  return (
+    <nav className={styles.navBar}>
+      <NavItem href="/" src="/imagenes/home.png" alt="Home" tooltip="Inicio" />
+      <NavItem href="/ver-ticket" src="/imagenes/ticket.png" alt="Tickets" tooltip="Tickets" />
+      <NavItem href="/cliente" src="/imagenes/cliente.png" alt="Clientes" tooltip="Clientes" />
+      <NavItem href="/empleados" src="/imagenes/empleado.png" alt="Empleados" tooltip="Empleados" />
+      <NavItem href="/estadistica" src="/imagenes/estadistica.png" alt="Estadisticas" tooltip="Estadísticas" />
+      <NavItem href="/configuracion" src="/imagenes/configuracion.png" alt="Configuracion" tooltip="Configuración" />
+      <div className={`${styles.navItem} ${styles.logoItem}`}>
+        <Image src="/imagenes/LogoEaseTick.png" alt="LogoEaseTick" width={40} height={40} />
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

@@ -1,8 +1,36 @@
 import React from 'react';
 import styles from './Boton.module.css';
 
-const Boton = ({ tipo }) => {
-  
+const Boton = ({ tipo = 'default', onClick }) => {
+  const buttonClass = tipo === 'cerrarSesion' ? styles.botonRojo : styles.botonDefault;
+  const buttonText = tipo === 'cerrarSesion' ? 'Cerrar sesión' : 'Acción por defecto';
+
+  const handleClick = () => {
+    if (tipo === 'cerrarSesion') {
+      // Lógica para cerrar sesión
+      console.log('Cerrando sesión...');
+    }
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  return (
+    <div className={styles.contenedor}>
+      <button 
+        className={`${styles.boton} ${buttonClass}`}
+        onClick={handleClick}
+      >
+        <span className={styles.buttonText}>{buttonText}</span>
+      </button>
+    </div>
+  );
+};
+
+export default Boton;
+
+/*const Boton = ({ tipo }) => {
+
   const handleCerrarSesion = () => {
     // Función vacía
   };
@@ -19,4 +47,5 @@ const Boton = ({ tipo }) => {
   );
 };
 
-export default Boton;
+export default Boton
+*/
