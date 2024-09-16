@@ -5,72 +5,23 @@
     width: 80px;
     background-color: #fff;
     border-right: 1px solid #e0e0e0;
-    padding: 20px 0;
+    padding: 16px 0;
     height: 100vh;
     position: fixed;
-    transition: width 0.3s ease;
-  }
-  
-  .navBar:hover {
-    width: 220px;
-  }
-  
-  .navItem {
-    margin: 20px 0;
-    position: relative;
-    width: 100%;
+}
+
+.navItem {
+    margin: 16px 0;
     display: flex;
     justify-content: center;
-  }
-  
-  .iconWrapper {
-    position: relative;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-  
-  .navBar:hover .iconWrapper {
-    background-color: #f0f0f0;
-    transform: translateX(20px);
-  }
-  
-  .navItem img {
+}
+
+.logoItem {
+    margin-top: auto;
+}
+
+.navItem img {
     width: 32px;
     height: 32px;
-    transition: transform 0.3s ease;
-  }
-  
-  .navItem:hover img {
-    transform: scale(1.1);
-  }
-  
-  .tooltip {
-    position: absolute;
-    left: 70px;
-    background-color: #333;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .navBar:hover .tooltip {
-    opacity: 1;
-  }
-  
-  .logoItem {
-    margin-top: auto;
-  }
-  
-  .logoItem img {
-    width: 40px;
-    height: 40px;
-  }
+}

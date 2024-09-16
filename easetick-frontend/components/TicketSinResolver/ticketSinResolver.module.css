@@ -1,49 +1,63 @@
 .tableContainer {
-  width: 100%; /* Reduce el ancho a 100% */
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 35px;
+    width: 100%;
+    padding: 20px;
+    background: #f9f9f9; /* Fondo ligeramente gris para contraste */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Sombra más prominente */
+    margin: 2%;
+    height: 350px;
+    box-sizing: border-box; /* Incluye padding en el tamaño total */
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio debajo del encabezado */
 }
 
 .header h1 {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0;
+    font-size: 20px; /* Tamaño de fuente más grande */
+    font-weight: 600; /* Peso de fuente más fuerte */
+    color: #333; /* Color del texto más oscuro para mejor legibilidad */
+    margin: 0;
 }
 
-.header a {
-  font-size: 14px;
-  color: #0070f3;
-  text-decoration: none;
+.detailsLink {
+    font-size: 14px;
+    color: #0070f3; /* Color azul para el enlace */
+    text-decoration: none;
+    font-weight: 500; /* Peso de fuente moderado */
+    transition: color 0.3s; /* Transición para el color del enlace */
+}
+
+.detailsLink:hover {
+    color: #005bb5; /* Color del enlace al pasar el mouse */
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .table th,
 .table td {
-  text-align: left;
-  padding: 8px;
+    text-align: left;
+    padding: 12px; /* Espaciado mayor en celdas */
 }
 
 .table th {
-  font-size: 14px;
-  color: #888;
-  border-bottom: 1px solid #ddd;
+    font-size: 16px; /* Tamaño de fuente de encabezado más grande */
+    color: #555; /* Color del texto de encabezado */
+    border-bottom: 2px solid #ddd; /* Línea de separación más gruesa */
 }
 
 .table td {
-  font-size: 14px;
-  color: #333;
+    font-size: 14px; /* Tamaño de fuente de celda más pequeño */
+    color: #333; /* Color del texto de la celda */
+    border-bottom: 1px solid #eee; /* Línea de separación más delgada */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f1f1f1; /* Fondo alternado para filas pares */
 }

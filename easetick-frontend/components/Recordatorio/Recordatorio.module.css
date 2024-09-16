@@ -3,7 +3,9 @@
     border-radius: 8px;
     padding: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin: 2%;
+    height: 27%;
+    margin-left: -2%;
 }
 
 .recordatoriosContainer h2 {

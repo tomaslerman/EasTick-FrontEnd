@@ -4,7 +4,7 @@
     align-items: center;
     padding: 20px;
     width: 100%;
-    height: 100vh; /* Para asegurar que ocupe toda la altura de la pantalla */
+    height: 100vh;
     box-sizing: border-box;
 }
 
@@ -12,45 +12,56 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: -1%;
 }
 
 .mainContent {
     display: flex;
-    width: 100%;
     justify-content: space-between;
+    gap: 10px; /* Distancia pequeña entre los componentes */
+    width: 100%;
 }
 
-.leftContent, .rightContent {
+.leftContainer, .rightContainer {
     width: 48%;
-    box-sizing: border-box;
-}
-
-.rightContent {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 10px; /* Distancia pequeña entre los componentes */
+}
+
+.pieContainerWrapper {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
+    background: linear-gradient(135deg, #ffffff, #ffffff); /* Puedes ajustar el fondo si lo deseas */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%; /* Ajusta el tamaño máximo según tus necesidades */
+    height: 350px; /* Ajusta la altura para que coincida con el tamaño de TicketSinResolver */
+    margin: 2%; /* Igual al margen de TicketSinResolver */
+    padding: 10px; /* Igual al padding de TicketSinResolver */
+    margin-left: -2%;
 }
 
 .pieContainer {
-    position: relative;
     width: 100%;
-    max-width: 400px; /* Ajusta el tamaño máximo según tus necesidades */
-    height: 350px; /* Ajusta el tamaño según tus necesidades */
+    height: 100%;
 }
 
 @media (max-width: 768px) {
-    .dashboard, .mainContent {
+    .mainContent {
         flex-direction: column;
-        align-items: center;
     }
 
-    .leftContent, .rightContent {
+    .leftContainer, .rightContainer {
         width: 100%;
     }
 
-    .pieContainer {
-        height: 200px; /* Ajusta el tamaño para pantallas más pequeñas */
+    .pieContainerWrapper {
+        max-width: 90%; /* Ajusta para pantallas más pequeñas */
+        height: 200px; /* Ajusta la altura para pantallas más pequeñas */
+        margin: 20px 0; /* Ajusta el margen para pantallas más pequeñas */
     }
 }
