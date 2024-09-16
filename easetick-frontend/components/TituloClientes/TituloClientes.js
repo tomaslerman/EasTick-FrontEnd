@@ -11,7 +11,7 @@ const TituloClientes = () => {
                     <span>Tipo</span>
                 </div>
                 <div className={styles.columna}>
-                    <span>Ultimo ticket</span>
+                    <span>Email</span>
                 </div>
             </div>
         </div>

@@ -74,7 +74,6 @@ export function useTickets({ id }) {
                 const resClientesEmpresa = await fetch(`http://localhost:5000/tickets/empresaAsignada/${id}`);
                 const dataClientesEmpresa = await resClientesEmpresa.json();
                 setClientesEmpresa(dataClientesEmpresa.message);
-                console.log(dataClientesEmpresa)
             } catch (error) {
                 console.log(error);
             }
