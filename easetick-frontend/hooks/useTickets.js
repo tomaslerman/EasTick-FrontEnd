@@ -16,6 +16,7 @@ export function useTickets({ id }) {
     const [cantidadTipo, setCantidadTipo] = useState();
     const [calificacionesUsuario, setCalifiacionesUsuario] = useState();
     const [clientesEmpresa, setClientesEmpresa] = useState();
+    const [empleadosEmpresa, setEmpleadosEmpresa] = useState();
     useEffect(() => {
         const fetchTickets = async () => {
             try {
@@ -71,9 +72,14 @@ export function useTickets({ id }) {
                 const dataCalificacionesUsuario = await resCalificacionesUsuario.json();
                 setCalifiacionesUsuario(dataCalificacionesUsuario.message);
                 
-                const resClientesEmpresa = await fetch(`http://localhost:5000/tickets/empresaAsignada/${id}`);
+                const resClientesEmpresa = await fetch(`http://localhost:5000/tickets/empresasClientes/${id}`);
                 const dataClientesEmpresa = await resClientesEmpresa.json();
                 setClientesEmpresa(dataClientesEmpresa.message);
+
+                const resEmpleadosEmpresa = await fetch(`http://localhost:5000/tickets/empleadosYTickets/${id}`);
+                const dataEmpleadosEmpresa = await resEmpleadosEmpresa.json();
+                setEmpleadosEmpresa(dataEmpleadosEmpresa.message);
+
             } catch (error) {
                 console.log(error);
             }
@@ -82,6 +88,6 @@ export function useTickets({ id }) {
         fetchTickets();
     }, [id]);
 
-    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado,cantidadTipo, calificacionesUsuario, clientesEmpresa };
+    return { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos, detalle, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado,cantidadTipo, calificacionesUsuario, clientesEmpresa, empleadosEmpresa };
 }
 

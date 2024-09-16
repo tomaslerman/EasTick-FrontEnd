@@ -9,14 +9,14 @@ const ListadoClientes = ({ clientes }) => {
                         <div key={index} className={styles.clienteRow}>
                             <div className={styles.clienteNombre}>
                                 <a href="#" className={styles.nombreLink}>
-                                    {cliente.empresa.nombre}
+                                    {cliente.fkCliente.nombre}
                                 </a>
                             </div>
                             <div className={styles.clienteTipo}>
-                                {cliente.empresa.tipo}
+                                {cliente.fkCliente.tipo}
                             </div>
                             <div className={styles.clienteUltimoTicket}>
-                                {cliente.empresa.correoelectronico}
+                                {cliente.fkCliente.correoelectronico}
                             </div>
                         </div>
                     ))

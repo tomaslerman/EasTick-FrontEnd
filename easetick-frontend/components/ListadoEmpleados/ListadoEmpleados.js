@@ -5,22 +5,26 @@ const ListadoEmpleados = ({ empleados }) => {
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.listadoEmpleados}>
-        {empleados.map((empleado, index) => (
-          <div key={index} className={styles.empleadoRow}>
-            <div className={styles.empleadoInfo}>
-              <span>{empleado.name}</span>
+        {empleados && empleados.length > 0 ? (
+          empleados.map((empleado, index) => (
+            <div key={index} className={styles.empleadoRow}>
+              <div className={styles.empleadoInfo}>
+                <span>{empleado.nombre}</span> {/* Cambiado según datos de ejemplo */}
+              </div>
+              <div className={styles.empleadoInfo}>
+                <span>{empleado.email}</span> {/* Cambiado según datos de ejemplo */}
+              </div>
+              <div className={styles.empleadoInfo}>
+                <span>{empleado.calificacion}</span> {/* Cambiado según datos de ejemplo */}
+              </div>
+              <div className={styles.empleadoInfo}>
+                <span>{empleado.ticketsAsignados}</span> {/* Cambiado según datos de ejemplo */}
+              </div>
             </div>
-            <div className={styles.empleadoInfo}>
-              <span>{empleado.email}</span>
-            </div>
-            <div className={styles.empleadoInfo}>
-              <span>{empleado.rating}</span>
-            </div>
-            <div className={styles.empleadoInfo}>
-              <span>{empleado.tickets}</span>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No hay empleados disponibles</p>
+        )}
       </div>
     </div>
   );
