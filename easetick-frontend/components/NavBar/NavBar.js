@@ -32,7 +32,7 @@ const Navbar = () => {
         </div>
       ))}
       <div className={`${styles.navItem} ${styles.logoItem}`}>
-        <Image src="/imagenes/LogoEaseTick.png" alt="LogoEaseTick" width={32} height={32} />
+        <Image src="/imagenes/LogoVectorizadoGris_EaseTick.png" alt="LogoEaseTick" width={40} height={40} />
       </div>
     </div>
   );
