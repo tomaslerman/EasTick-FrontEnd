@@ -2,11 +2,10 @@
 import styles from './styles.module.css';
 
 const TicketListado = ({ ticket, index }) => {
-    console.log(ticket)
     return (
         <tr key={index} className={styles.ticketRow}>
             <td className={styles.ticketCell}>
-                <h2 className={styles.ticketTitle}>{ticket.asunto}</h2>
+                <a href={ticket.link} className={styles.ticketTitle}>{ticket.asunto}</a>
             </td>
             <td className={styles.ticketCell}>{ticket.estado.nombre}</td>
             <td className={styles.ticketCell}>{ticket.prioridad.nombre}</td>
@@ -14,7 +13,8 @@ const TicketListado = ({ ticket, index }) => {
             <td className={styles.ticketCell}>{ticket.prioridad.caducidad}</td>
             <td className={styles.ticketCell}>{ticket.usuario.nombre}</td>
             <td className={styles.ticketCell}>{ticket.empresa.nombre}</td>
-            <td><a href={ticket.link} className={styles.ticketLink}>Ver detalles</a>
+            <td className={styles.ticketCell}>
+                <a href={ticket.link} className={styles.ticketLink}>Ver detalles</a>
             </td>
         </tr>
     );

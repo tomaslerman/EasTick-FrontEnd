@@ -1,80 +1,30 @@
-/* Tabla principal */
+.container {
+    padding: 20px;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
 .ticketTable {
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* Fija el ancho de las columnas */
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
-.ticketHeader th {
+.ticketTable th {
     text-align: left;
-    padding: 10px;
-    padding-left: 20px; /* Aumenta este valor para mover más a la derecha */
+    padding: 10px 20px;
     background-color: #f1f1f1;
     border-bottom: 2px solid #ddd;
-    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    white-space: nowrap;
+    font-weight: bold;
 }
 
-.ticketRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px 0;
+.ticketTable th, .ticketTable td {
     border-bottom: 1px solid #ddd;
 }
 
-.ticketCell {
-    flex: 1;
-    min-width: 80px; /* Asegura un ancho mínimo */
-    padding: 0 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.ticketTitle {
-    font-size: 16px;
-    margin: 0;
-    color: #007bff;
-    text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block; /* Asegura que se mantenga en su propia línea */
-}
-
-.ticketTitle:hover {
-    text-decoration: underline;
-}
-
-.ticketText {
-    margin: 0;
-    font-size: 14px;
-    color: #555;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-.ticketLink {
-    color: #007bff;
-    text-decoration: none;
-    text-align: right;
-    display: block; /* Asegura que se mantenga en su propia línea */
-}
-
-.ticketLink:hover {
-    text-decoration: underline;
-}
-
-.ticketHeader th:first-child, 
-.ticketRow .ticketCell:first-child {
-    text-align: left;
-    padding-left: 20px; /* Mueve un poco hacia la derecha la primera columna */
-}
-
-.ticketHeader th:last-child, 
-.ticketRow .ticketCell:last-child {
-    text-align: right;
-    padding-right: 0; /* Evita que el último elemento esté demasiado alineado a la derecha */
+.ticketTable tr:last-child td {
+    border-bottom: none;
 }

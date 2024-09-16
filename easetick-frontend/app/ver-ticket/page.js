@@ -15,27 +15,29 @@ export default function VerTicket() {
     }, [setTitulo]);
 
     return (
-        <div>
+        <div className={styles.container}>
             <Titulo titulo={"Tus Tickets"} subtitulo={"Gestione sus tickets"} />
-            <table className={styles.ticketTable}>
-                <thead>
-                    <tr className={styles.ticketHeader}>
-                        <th>Asunto</th>
-                        <th>Estado</th>
-                        <th>Prioridad</th>
-                        <th>Fecha</th>
-                        <th>Caducidad</th>
-                        <th>Asignado</th>
-                        <th>Empresa</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {detalle.map((ticket, index) => (
-                        <TicketListado ticket={ticket} index={index} key={index} />
-                    ))}
-                </tbody>
-            </table>
+            <div className={styles.tableWrapper}>
+                <table className={styles.ticketTable}>
+                    <thead>
+                        <tr>
+                            <th>Asunto</th>
+                            <th>Estado</th>
+                            <th>Prioridad</th>
+                            <th>Fecha</th>
+                            <th>Caducidad</th>
+                            <th>Asignado</th>
+                            <th>Empresa</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {detalle.map((ticket, index) => (
+                            <TicketListado ticket={ticket} index={index} key={index} />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

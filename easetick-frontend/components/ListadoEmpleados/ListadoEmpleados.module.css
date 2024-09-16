@@ -1,3 +1,8 @@
+.tableWrapper {
+  padding: 0 20px;
+  overflow-x: auto;
+}
+
 .listadoEmpleados {
   width: 100%;
 }
@@ -11,16 +16,11 @@
 }
 
 .empleadoInfo {
-  flex: 1; /* Asegura que todas las columnas ocupen el mismo ancho */
-  text-align: left; /* Alinea el texto a la izquierda */
+  flex: 1;
+  text-align: left;
 }
 
 .empleadoInfo span {
   display: block;
-  width: 100%; /* Distribuye el texto en todo el espacio de la columna */
-}
-
-.columna {
-  flex: 1; /* Distribuye equitativamente las columnas */
-  text-align: left; /* Alinea el texto a la izquierda para consistencia */
+  width: 100%;
 }

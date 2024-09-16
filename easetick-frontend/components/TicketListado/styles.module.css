@@ -1,33 +1,34 @@
-/* Aplicar el mismo estilo de fuente que ListadoClientes */
 .ticketRow {
     border-bottom: 1px solid #ddd;
-    font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41'; /* Fuente que mencionaste */
+    font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41';
     font-style: normal;
-    color: #333; /* Color similar al que se utiliza en ListadoClientes */
-}
-
-/* Asegura que cada celda esté alineada correctamente */
-.ticketCell {
-    padding: 10px;
-    text-align: left;
-    vertical-align: middle;
-    flex: 1 1; /* Establece flexibilidad para celdas, igual que ListadoClientes */
     color: #333;
 }
 
-/* Título del ticket (asunto) con enlace */
+.ticketCell {
+    padding: 10px 20px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .ticketTitle {
     color: #0073e6;
     text-decoration: none;
     font-size: 16px;
-    font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41'; /* Aplica la misma fuente */
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .ticketTitle:hover {
     text-decoration: underline;
 }
 
-/* Estilo para los enlaces dentro de los tickets */
 .ticketLink {
     color: #0073e6;
     text-decoration: none;
@@ -35,17 +36,4 @@
 
 .ticketLink:hover {
     text-decoration: underline;
-}
-
-/* Ajustes para otros detalles de los tickets */
-.ticketEstado, .ticketPrioridad, .ticketCaducidad, 
-.ticketAsignado, .ticketEmpresa {
-    color: #333;
-    font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41'; /* Aplica la misma fuente */
-}
-
-.ticketFecha, .ticketCaducidad {
-    color: #666;
-    font-size: 14px;
-    font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41'; /* Aplica la misma fuente */
 }

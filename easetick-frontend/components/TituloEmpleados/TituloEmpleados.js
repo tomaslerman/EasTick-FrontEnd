@@ -3,18 +3,20 @@ import styles from './TituloEmpleados.module.css';
 
 const TituloEmpleados = () => {
   return (
-    <div className={styles.tituloEmpleados}>
-      <div className={styles.columna}>
-        <span>Nombre</span>
-      </div>
-      <div className={styles.columna}>
-        <span>Email</span>
-      </div>
-      <div className={styles.columna}>
-        <span>Calificación</span>
-      </div>
-      <div className={styles.columna}>
-        <span>Tickets asignados</span>
+    <div className={styles.tableWrapper}>
+      <div className={styles.tituloEmpleados}>
+        <div className={styles.columna}>
+          <span>Nombre</span>
+        </div>
+        <div className={styles.columna}>
+          <span>Email</span>
+        </div>
+        <div className={styles.columna}>
+          <span>Calificación</span>
+        </div>
+        <div className={styles.columna}>
+          <span>Tickets asignados</span>
+        </div>
       </div>
     </div>
   );
