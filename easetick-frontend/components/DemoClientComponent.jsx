@@ -21,6 +21,6 @@ export default function DemoClientComponent(){
 
     console.log({user})
 
-    return <h2>Client Component</h2>
+    //return <h2>Client Component</h2>
 
  }
