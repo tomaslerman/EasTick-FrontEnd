@@ -9,8 +9,6 @@ import useTitle from "@/hooks/useTitle";
 import { PieChart } from "@/components/graficoCircular/pieChart";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";  
 import Recordatorios from "@/components/Recordatorio/Recordatorio";
-import { logout } from "./logout/actions";
-import DemoClientComponent from "@/components/DemoClientComponent";
 
 export default function Home() {
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos } = useTickets({ id: 2 });
@@ -27,14 +25,6 @@ export default function Home() {
 
     return (
         <div className={styles.content}>
-            <div>
-                <DemoClientComponent></DemoClientComponent>
-                <form action={logout}>
-                <button type="submit">
-                    Logout
-                </button>
-                </form>
-            </div>
             <div className={styles.dashboard}>
                 <BoxDatoUnico texto={"Tickets asignados"} dato={ticketsAsignados.length} />
                 <BoxDatoUnico texto={"Tickets sin resolver"} dato={ticketsSinResolver.length} />

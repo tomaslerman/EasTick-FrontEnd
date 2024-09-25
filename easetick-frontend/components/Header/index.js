@@ -10,6 +10,5 @@ export default function Header({titulo}) {
                 <img src="/imagenes/notificacion.png" alt="Notificaciones" className={styles.icon} />
                 <img src="/imagenes/perfil.png" alt="User" className={styles.icon} />
             </div>
-        </div>
-    );
+        </div>    );
 }

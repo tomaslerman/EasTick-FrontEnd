@@ -3,8 +3,8 @@ import Titulo from "@/components/Titulo/Titulo";
 import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
 import Configuracion from "@/components/Configuracion/Configuracion";
-import Boton from "@/components/Boton/Boton"
-
+import { logout } from "../logout/actions";
+import DemoClientComponent from "@/components/DemoClientComponent";
 export default function configuracion() {
     const { setTitulo } = useTitle()
 
@@ -16,7 +16,12 @@ export default function configuracion() {
     <div>
       <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
       <Configuracion/>
-      <Boton tipo="cerrarSesion" />
+      <DemoClientComponent></DemoClientComponent>
+                <form action={logout}>
+                <button type="submit">
+                    Logout
+                </button>
+                </form>
     </div>
 
   );
