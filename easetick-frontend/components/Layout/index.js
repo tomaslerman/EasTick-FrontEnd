@@ -10,6 +10,7 @@ export default function Layout ({ children }) {
     const pathname = usePathname()
     const contains = pathname.includes("login") | pathname.includes("error")
 
+
     return (
         <div className={styles.layout}>
             {!contains && <Navbar />}

@@ -16,12 +16,7 @@ export default function configuracion() {
     <div>
       <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
       <Configuracion/>
-      <DemoClientComponent></DemoClientComponent>
-                <form action={logout}>
-                <button type="submit">
-                    Logout
-                </button>
-                </form>
+      
     </div>
 
   );

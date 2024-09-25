@@ -20,7 +20,4 @@ export default function DemoClientComponent(){
     }, [])
 
     console.log({user})
-
-    return <h2>Client Component</h2>
-
  }
