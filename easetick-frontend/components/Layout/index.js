@@ -5,21 +5,26 @@ import Header from "@/components/Header";
 import { usePathname } from 'next/navigation'
 import useTitle from "@/hooks/useTitle";
 
-export default function Layout ({ children }) {
-    const { titulo } = useTitle()
-    const pathname = usePathname()
-    const contains = pathname.includes("login") | pathname.includes("error")
-
+export default function Layout({ children }) {
+    const { titulo } = useTitle();
+    const pathname = usePathname();
+    const contains = pathname.includes("login") || pathname.includes("error");
 
     return (
         <div className={styles.layout}>
             {!contains && <Navbar />}
             <div className={styles.main}>
-                {!contains && <Header titulo={titulo}/>}
-                <div className={styles.allContainer}>
-                    {children}
-                </div>
+                {!contains && <Header titulo={titulo} />}
+                {!contains ? (
+                    <div className={styles.allContainer}>
+                        {children}
+                    </div>
+                ) : (
+                    <div>
+                        {children}
+                    </div>
+                )}
             </div>
         </div>
-    )
+    );
 }

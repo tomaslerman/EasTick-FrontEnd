@@ -1,49 +1,50 @@
-.body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-}
-
 .fullScreen {
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #e5e5e5);
+  background: #fff; /* Fondo completamente blanco */
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  max-width: 350px;
-  width: 100%;
-  padding: 30px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  align-items: flex-start;
+  width: 50%;
+  padding: 0 80px;
 }
 
-.form {
-  width: 100%;
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #04174f;
+  border-radius: 20px; /* Bordes redondeados */
+  width: 40%;
+  height: 90vh;
+  margin: auto 40px;
+}
+
+.logoContainer img {
+  width: 70%;
+  max-width: 400px;
 }
 
 .label {
-  margin-bottom: 8px;
   font-weight: bold;
   color: #333;
   display: block;
   text-align: left;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .input {
   width: 100%;
   margin-bottom: 20px;
   padding: 14px;
-  border: 2px solid #007bff;
+  border: 2px solid #333;
   border-radius: 8px;
   font-size: 16px;
-  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .input:focus {
@@ -53,10 +54,10 @@
 }
 
 .button {
-  padding: 12px;
+  padding: 14px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 18px;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
@@ -64,32 +65,24 @@
 }
 
 .loginButton {
-  background-color: #007bff;
-  margin-bottom: 10px;
+  background-color: #000;
+  margin-bottom: 20px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .loginButton:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
-.signupButton {
-  background-color: #28a745;
-}
-
-.signupButton:hover {
-  background-color: #218838;
+  background-color: #333;
   transform: translateY(-2px);
 }
 
 .footer {
   text-align: center;
-  margin-top: 20px;
-  color: #555;
+  margin-top: 30px;
+  color: #333;
   font-size: 14px;
-  opacity: 0.7;
 }
 
 .footer p {
   margin: 0;
+  opacity: 0.8;
 }
