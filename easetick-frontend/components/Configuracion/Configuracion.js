@@ -2,8 +2,6 @@
 
 import styles from './Configuracion.module.css';
 import { useRouter } from 'next/navigation'; // Usa useRouter de 'next/navigation'
-import { logout } from '@/app/logout/actions';
-import DemoClientComponent from '../DemoClientComponent';
 
 const Configuracion = () => {
     const router = useRouter(); // Este hook debe usarse dentro de un componente de cliente
@@ -54,14 +52,6 @@ const Configuracion = () => {
                     <span className={styles.arrow}>&#8250;</span>
                 </div>
             ))}
-            <DemoClientComponent />
-            <div className={styles.logoutContainer}>
-                <form action={logout}>
-                    <button type="submit" className={styles.logoutButton}>
-                        Logout
-                    </button>
-                </form>
-            </div>
         </div>
     );
 };
