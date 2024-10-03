@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './NavBar.module.css';
+import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 
 const navItems = [
   { href: "/", src: "/imagenes/home.png", alt: "Home", label: "Inicio" },

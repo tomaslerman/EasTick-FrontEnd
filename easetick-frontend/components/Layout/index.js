@@ -8,6 +8,7 @@ export default function Layout ({ children }) {
     const { titulo } = useTitle()
 
     return (
+        
         <div className={styles.layout}>
             <Navbar />
             <div className={styles.main}>

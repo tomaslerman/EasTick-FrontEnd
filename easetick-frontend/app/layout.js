@@ -3,6 +3,8 @@ import "./globals.css";
 import Layout from '@/components/Layout';
 import { TitleProvider } from '@/context/title';
 const inter = Inter({ subsets: ["latin"] });
+import TokenProvider from "@/context/TokenContext";
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 
 export const metadata = {
   title: "EaseTick",
@@ -10,16 +12,18 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TitleProvider>
-          <Layout>
-            {children}
-          </Layout>
-        </TitleProvider>
+        <TokenProvider>
+          <TitleProvider>
+            <Layout>
+              {children}
+            </Layout>
+          </TitleProvider>
+        </TokenProvider>
       </body>
     </html>
   );
 }
+
