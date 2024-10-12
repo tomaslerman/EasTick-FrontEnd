@@ -18,6 +18,7 @@ const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   return (
+    <ProtectedRoutes>
     <div className={styles.navBar}>
       {navItems.map((item, index) => (
         <div
@@ -36,6 +37,7 @@ const Navbar = () => {
         <Image src="/imagenes/LogoVectorizadoGris_EaseTick.png" alt="LogoEaseTick" width={40} height={40} />
       </div>
     </div>
+    </ProtectedRoutes>
   );
 };
 

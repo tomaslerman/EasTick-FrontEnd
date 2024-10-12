@@ -10,6 +10,7 @@ export default function Login() {
   const { saveToken } = useContext(TokenContext);
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // Estado para manejar errores
   const router = useRouter();
 
   const login = async () => {
@@ -22,7 +23,7 @@ export default function Login() {
       router.push('/estadistica'); // Redirigir al dashboard después del login
     } catch (error) {
       console.error("Error en login:", error);
-      alert('Error al iniciar sesión');
+      setErrorMessage('Datos incorrectos'); // Cambia el estado para mostrar el mensaje de error
     }
   };
 
@@ -41,6 +42,8 @@ export default function Login() {
         onChange={e => setPass(e.target.value)} 
       />
       <button onClick={login}>Login</button>
+
+      {errorMessage && <h2 style={{ color: 'red' }}>{errorMessage}</h2>} {/* Mostrar el error en rojo */}
     </div>
   );
 }

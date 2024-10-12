@@ -9,6 +9,7 @@ import useTitle from "@/hooks/useTitle";
 import { PieChart } from "@/components/graficoCircular/pieChart";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";  
 import Recordatorios from "@/components/Recordatorio/Recordatorio";
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 
 export default function Home() {
     const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos } = useTickets({ id: 2 });
@@ -24,6 +25,7 @@ export default function Home() {
     }, [porcResueltos, setTitulo]);
 
     return (
+        <ProtectedRoutes>
         <div className={styles.content}>
             <div className={styles.dashboard}>
                 <BoxDatoUnico texto={"Tickets asignados"} dato={ticketsAsignados.length} />
@@ -44,5 +46,6 @@ export default function Home() {
                 </div>
             </div>
         </div>
+        </ProtectedRoutes>
     );
 }

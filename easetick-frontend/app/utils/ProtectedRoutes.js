@@ -1,29 +1,24 @@
+// utils/ProtectedRoutes.js
 'use client';
 
 import { TokenContext } from "@/context/TokenContext";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 export const ProtectedRoutes = ({ children }) => {
   const router = useRouter();
-  const { isLoggedIn } = useContext(TokenContext);
-  const [loading, setLoading] = useState(true);
+  const { isLoggedIn, loading } = useContext(TokenContext);
 
   useEffect(() => {
-    if (!isLoggedIn && router.pathname !== "/login") {
-      router.push("/login");
-    } else {
-      setLoading(false);
+    if (!loading) {
+      if (!isLoggedIn && router.pathname !== "/login") {
+        router.push("/login"); // Redirige al login si no está logueado
+      } else if (isLoggedIn && router.pathname === "/login") {
+        router.push('/'); // Si está logueado y recarga en la página de login, lo manda al index
+      }
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, loading, router]);
 
-  if (loading) {
-    return <div>Loading...</div>; // Mostrar mensaje de carga mientras se verifica la autenticación
-  }
 
-  if (!isLoggedIn && router.pathname !== "/login") {
-    return <h2>Acceso Restringido</h2>; // En caso de que no redirija, muestra mensaje
-  }
-
-  return children;
+  return children; // Una vez que se cargue y se valide, muestra los hijos
 };

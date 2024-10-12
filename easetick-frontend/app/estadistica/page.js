@@ -11,6 +11,7 @@ import styles from "./page.module.css";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 import DoughnutChart from "@/components/Doughnut/doughnut";
 import TicketDetails from "@/components/TicketDetails/ticketDetails";
+import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 
 export default function Estadistica() {
     const { porcResueltos, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado, cantidadTipo, calificacionesUsuario } = useTickets({ id: 2 });
@@ -42,6 +43,7 @@ export default function Estadistica() {
         : 0;
         
     return (
+        <ProtectedRoutes>
         <div className={styles.container}>
             <Titulo titulo={"Estadísticas"} />
             <div className={styles.lineChartsWrapper}>
@@ -73,5 +75,6 @@ export default function Estadistica() {
                 </div>
             </div>
         </div>
+        </ProtectedRoutes>
     );
 }

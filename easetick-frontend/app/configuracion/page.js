@@ -1,23 +1,25 @@
-'use client'
+'use client';
 import Titulo from "@/components/Titulo/Titulo";
 import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
 import Configuracion from "@/components/Configuracion/Configuracion";
-import Boton from "@/components/Boton/Boton"
+import Boton from "@/components/Boton/Boton";
+import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 
 export default function configuracion() {
-    const { setTitulo } = useTitle()
+    const { setTitulo } = useTitle();
 
     useEffect(() => {
-        setTitulo("Configuracion")
-    }, [])
+        setTitulo("Configuracion");
+    }, []);
 
-  return (
-    <div>
-      <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
-      <Configuracion/>
-      <Boton tipo="cerrarSesion" />
-    </div>
-
-  );
+    return (
+        <ProtectedRoutes>
+            <div>
+                <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
+                <Configuracion />
+                <Boton tipo="cerrarSesion" />
+            </div>
+        </ProtectedRoutes>
+    );
 }

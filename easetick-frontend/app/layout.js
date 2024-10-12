@@ -4,7 +4,6 @@ import Layout from '@/components/Layout';
 import { TitleProvider } from '@/context/title';
 const inter = Inter({ subsets: ["latin"] });
 import TokenProvider from "@/context/TokenContext";
-import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 
 export const metadata = {
   title: "EaseTick",

@@ -5,6 +5,7 @@ import ListadoEmpleados from "@/components/ListadoEmpleados/ListadoEmpleados";
 import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
 import { useTickets } from "@/hooks/useTickets";
+import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 export default function Empleados() {
     const { setTitulo } = useTitle()
     const {empleadosEmpresa } = useTickets({ id: 2 });
@@ -13,10 +14,12 @@ export default function Empleados() {
     }, [])
 
   return (
-    <div>
-      <Titulo titulo={"Empleados"} subtitulo={"Empleados PRESIS"} />
-      <TituloEmpleados />
-      <ListadoEmpleados empleados={empleadosEmpresa} />
-    </div>
+    <ProtectedRoutes>
+      <div>
+        <Titulo titulo={"Empleados"} subtitulo={"Empleados PRESIS"} />
+        <TituloEmpleados />
+        <ListadoEmpleados empleados={empleadosEmpresa} />
+      </div>
+    </ProtectedRoutes>
   );
 }
