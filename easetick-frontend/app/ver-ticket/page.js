@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
 import TicketListado from "@/components/TicketListado/ticketListado";
 import styles from './page.module.css';
+import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 
 export default function VerTicket() {
     const { setTitulo } = useTitle();
@@ -15,29 +16,31 @@ export default function VerTicket() {
     }, [setTitulo]);
 
     return (
-        <div className={styles.container}>
-            <Titulo titulo={"Tus Tickets"} subtitulo={"Gestione sus tickets"} />
-            <div className={styles.tableWrapper}>
-                <table className={styles.ticketTable}>
-                    <thead>
-                        <tr>
-                            <th>Asunto</th>
-                            <th>Estado</th>
-                            <th>Prioridad</th>
-                            <th>Fecha</th>
-                            <th>Caducidad</th>
-                            <th>Asignado</th>
-                            <th>Empresa</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {detalle.map((ticket, index) => (
-                            <TicketListado ticket={ticket} index={index} key={index} />
-                        ))}
-                    </tbody>
-                </table>
+        <ProtectedRoutes>
+            <div className={styles.container}>
+                <Titulo titulo={"Tus Tickets"} subtitulo={"Gestione sus tickets"} />
+                <div className={styles.tableWrapper}>
+                    <table className={styles.ticketTable}>
+                        <thead>
+                            <tr>
+                                <th>Asunto</th>
+                                <th>Estado</th>
+                                <th>Prioridad</th>
+                                <th>Fecha</th>
+                                <th>Caducidad</th>
+                                <th>Asignado</th>
+                                <th>Empresa</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {detalle.map((ticket, index) => (
+                                <TicketListado ticket={ticket} index={index} key={index} />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </ProtectedRoutes>
     );
 }
