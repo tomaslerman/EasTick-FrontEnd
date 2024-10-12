@@ -1,20 +1,20 @@
 // context/TokenContext.js
 'use client';
 
-import React, {createContext, useState, useEffect} from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const TokenContext = createContext();
 
-const TokenProvider = ({children}) => {
-  const [token, setToken] = useState(null); // Inicialmente 'null' para verificarlo más tarde
-  const [loading, setLoading] = useState(true); // Estado de carga mientras se verifica el token
+const TokenProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
     }
-    setLoading(false); // Marcamos que terminó de cargar una vez se revisa el token
+    setLoading(false); // Fin del estado de carga una vez verificado el token
   }, []);
 
   const saveToken = (newToken) => {
@@ -22,13 +22,19 @@ const TokenProvider = ({children}) => {
     setToken(newToken);
   };
 
+  const logout = () => {
+    localStorage.removeItem('token'); // Eliminar token del localStorage
+    setToken(null); // Actualizar el estado del token
+  };
+
   return (
     <TokenContext.Provider
       value={{
         token,
         saveToken,
+        logout, // Asegúrate de que la función logout esté disponible en el contexto
         isLoggedIn: !!token,
-        loading, // Añadimos el estado de carga
+        loading,
       }}
     >
       {children}

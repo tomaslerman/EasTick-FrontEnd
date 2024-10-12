@@ -20,7 +20,7 @@ export default function Login() {
         password: pass
       });
       saveToken(response.data.token);
-      router.push('/estadistica'); // Redirigir al dashboard después del login
+      router.push('/'); // Redirigir al dashboard después del login
     } catch (error) {
       console.error("Error en login:", error);
       setErrorMessage('Datos incorrectos'); // Cambia el estado para mostrar el mensaje de error
