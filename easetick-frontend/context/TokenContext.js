@@ -9,39 +9,48 @@ const TokenProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
       try {
         const decoded = jwtDecode(storedToken);
         setUserId(decoded.id);
+        const storedRole = localStorage.getItem('userRole');
+        setUserRole(storedRole ? parseInt(storedRole) : null);
       } catch (error) {
         console.error("Error decodificando el token:", error);
-        setUserId(null); // Si hay un error, asegurarse de que userId sea nulo
+        setUserId(null);
+        setUserRole(null);
       }
     }
-    setLoading(false); // Fin del estado de carga una vez verificado el token
+    setLoading(false);
   }, []);
 
-  const saveToken = (newToken) => {
+  const saveToken = (newToken, role) => {
     setToken(newToken);
     if (newToken) {
       localStorage.setItem('token', newToken);
+      localStorage.setItem('userRole', role.toString());
       const decoded = jwtDecode(newToken);
       setUserId(decoded.id);
+      setUserRole(role);
     } else {
       localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
       setUserId(null);
+      setUserRole(null);
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
     setToken(null);
-    setUserId(null); // Asegúrate de que userId se limpie al cerrar sesión
+    setUserId(null);
+    setUserRole(null);
   };
 
   return (
@@ -53,6 +62,7 @@ const TokenProvider = ({ children }) => {
         isLoggedIn: !!token,
         loading,
         userId,
+        userRole,
       }}
     >
       {children}

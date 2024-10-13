@@ -1,0 +1,67 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: -1%;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Distancia pequeña entre los componentes */
+    width: 100%;
+}
+
+.leftContainer, .rightContainer {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px; /* Distancia pequeña entre los componentes */
+}
+
+.pieContainerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffffff, #ffffff); /* Puedes ajustar el fondo si lo deseas */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%; /* Ajusta el tamaño máximo según tus necesidades */
+    height: 350px; /* Ajusta la altura para que coincida con el tamaño de TicketSinResolver */
+    margin: 2%; /* Igual al margen de TicketSinResolver */
+    padding: 10px; /* Igual al padding de TicketSinResolver */
+    margin-left: -2%;
+}
+
+.pieContainer {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .mainContent {
+        flex-direction: column;
+    }
+
+    .leftContainer, .rightContainer {
+        width: 100%;
+    }
+
+    .pieContainerWrapper {
+        max-width: 90%; /* Ajusta para pantallas más pequeñas */
+        height: 200px; /* Ajusta la altura para pantallas más pequeñas */
+        margin: 20px 0; /* Ajusta el margen para pantallas más pequeñas */
+    }
+}

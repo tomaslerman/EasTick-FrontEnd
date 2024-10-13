@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
 import Configuracion from "@/components/Configuracion/Configuracion";
 import Boton from "@/components/Boton/Boton";
-import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 
 export default function configuracion() {
     const { setTitulo } = useTitle();

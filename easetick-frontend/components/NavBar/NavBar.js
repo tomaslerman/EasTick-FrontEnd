@@ -5,13 +5,13 @@ import Image from 'next/image';
 import styles from './NavBar.module.css';
 import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 
-const navItems = [
-  { href: "/", src: "/imagenes/home.png", alt: "Home", label: "Inicio" },
-  { href: "/ver-ticket", src: "/imagenes/ticket.png", alt: "Tickets", label: "Tickets" },
-  { href: "/cliente", src: "/imagenes/cliente.png", alt: "Clientes", label: "Clientes" },
-  { href: "/empleados", src: "/imagenes/empleado.png", alt: "Empleados", label: "Empleados" },
-  { href: "/estadistica", src: "/imagenes/estadistica.png", alt: "Estadisticas", label: "Estadísticas" },
-  { href: "/configuracion", src: "/imagenes/configuracion.png", alt: "Configuracion", label: "Configuración" },
+const nvItems = [
+  { href: "/FlowEmpleado/home", src: "/imagenes/home.png", alt: "Home", label: "Inicio" },
+  { href: "/FlowEmpleado/ver-ticket", src: "/imagenes/ticket.png", alt: "Tickets", label: "Tickets" },
+  { href: "/FlowEmpleado/cliente", src: "/imagenes/cliente.png", alt: "Clientes", label: "Clientes" },
+  { href: "/FlowEmpleado/empleados", src: "/imagenes/empleado.png", alt: "Empleados", label: "Empleados" },
+  { href: "/FlowEmpleado/estadistica", src: "/imagenes/estadistica.png", alt: "Estadisticas", label: "Estadísticas" },
+  { href: "/FlowEmpleado/configuracion", src: "/imagenes/configuracion.png", alt: "Configuracion", label: "Configuración" },
 ];
 
 const Navbar = () => {

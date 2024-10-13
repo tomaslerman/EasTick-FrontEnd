@@ -6,7 +6,7 @@ import { TokenContext } from "@/context/TokenContext";
 import styles from './page.module.css';
 import Titulo from "@/components/Titulo/Titulo";
 import TicketListado from "@/components/TicketListado/ticketListado";
-import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 
 export default function VerTicket() {
     const { userId, loading } = useContext(TokenContext);

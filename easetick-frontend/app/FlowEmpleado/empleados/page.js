@@ -5,7 +5,7 @@ import ListadoEmpleados from "@/components/ListadoEmpleados/ListadoEmpleados";
 import { useEffect, useContext } from "react";
 import useTitle from "@/hooks/useTitle";
 import { useTickets } from "@/hooks/useTickets";
-import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 import { TokenContext } from "@/context/TokenContext";
 export default function Empleados() {
     const { userId, loading } = useContext(TokenContext);

@@ -12,7 +12,7 @@ export const ProtectedRoutes = ({ children }) => {
   useEffect(() => {
     if (!loading) {
       if (!isLoggedIn && router.pathname !== "/login") {
-        router.push("/login"); // Redirige al login si no está logueado
+        router.push("/"); // Redirige al login si no está logueado
       } else if (isLoggedIn && router.pathname === "/login") {
         router.push('/'); // Si está logueado y recarga en la página de login, lo manda al index
       }

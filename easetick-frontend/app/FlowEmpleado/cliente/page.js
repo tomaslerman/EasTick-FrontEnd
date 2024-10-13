@@ -5,7 +5,7 @@ import useTitle from "@/hooks/useTitle";
 import TituloClientes from "@/components/TituloClientes/TituloClientes";
 import ListadoClientes from "@/components/ListadoClientes/ListadoClientes";
 import { useTickets } from "@/hooks/useTickets";
-import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { ProtectedRoutes } from "../../utils/ProtectedRoutes";
 import { TokenContext } from "@/context/TokenContext";
 export default function Clientes() {
   const { userId, loading } = useContext(TokenContext);

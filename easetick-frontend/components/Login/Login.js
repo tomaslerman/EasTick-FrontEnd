@@ -18,13 +18,17 @@ export default function Login() {
         correoelectronico: user,
         password: pass
       });
-      saveToken(response.data.token);
-      router.push('/');
+      
+      // Guardamos el token y el rol
+      saveToken(response.data.token, response.data.fkrol);
+      
+      // La redirección ahora se maneja en el efecto de la página principal
     } catch (error) {
       setErrorMessage('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
     }
   };
 
+  // El resto del componente permanece igual
   return (
     <form onSubmit={login} className={styles.form}>
       <div className={styles.inputGroup}>

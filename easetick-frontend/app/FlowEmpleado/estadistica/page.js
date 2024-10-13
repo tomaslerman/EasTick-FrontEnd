@@ -11,7 +11,7 @@ import styles from "./page.module.css";
 import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 import DoughnutChart from "@/components/Doughnut/doughnut";
 import TicketDetails from "@/components/TicketDetails/ticketDetails";
-import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 import { TokenContext } from "@/context/TokenContext";
 
 export default function Estadistica() {
