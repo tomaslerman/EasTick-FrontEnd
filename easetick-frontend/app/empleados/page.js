@@ -2,17 +2,19 @@
 import Titulo from "@/components/Titulo/Titulo";
 import TituloEmpleados from "@/components/TituloEmpleados/TituloEmpleados";
 import ListadoEmpleados from "@/components/ListadoEmpleados/ListadoEmpleados";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import useTitle from "@/hooks/useTitle";
 import { useTickets } from "@/hooks/useTickets";
 import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { TokenContext } from "@/context/TokenContext";
 export default function Empleados() {
+    const { userId, loading } = useContext(TokenContext);
     const { setTitulo } = useTitle()
-    const {empleadosEmpresa } = useTickets({ id: 2 });
+    const {empleadosEmpresa } = useTickets({ id: userId || ''});
     useEffect(() => {
         setTitulo("Empleados")
     }, [])
-
+    if (loading) return;
   return (
     <ProtectedRoutes>
       <div>

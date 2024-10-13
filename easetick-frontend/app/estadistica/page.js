@@ -1,7 +1,7 @@
 'use client';
 
 import Titulo from "@/components/Titulo/Titulo";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useTickets } from '@/hooks/useTickets';
 import useTitle from "@/hooks/useTitle";
 import { LineGraph } from "@/components/GraficoLineal/graficoLineal";
@@ -12,9 +12,12 @@ import { PieDataChart } from "@/components/graficoCircular/pieDataChart";
 import DoughnutChart from "@/components/Doughnut/doughnut";
 import TicketDetails from "@/components/TicketDetails/ticketDetails";
 import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { TokenContext } from "@/context/TokenContext";
 
 export default function Estadistica() {
-    const { porcResueltos, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado, cantidadTipo, calificacionesUsuario } = useTickets({ id: 2 });
+    const { userId, loading } = useContext(TokenContext);
+    
+    const { porcResueltos, semana, resueltosSemana, ticketsPrioridad, porcentajeEstado, cantidadTipo, calificacionesUsuario } = useTickets({ id: userId || ''});
     const { setTitulo } = useTitle();
     const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
@@ -41,7 +44,8 @@ export default function Estadistica() {
     const totalCalificaciones = calificacionesUsuario && typeof calificacionesUsuario === 'object'
         ? Object.values(calificacionesUsuario).reduce((acc, val) => acc + (val || 0), 0)
         : 0;
-        
+    
+    if (loading) return;
     return (
         <ProtectedRoutes>
         <div className={styles.container}>

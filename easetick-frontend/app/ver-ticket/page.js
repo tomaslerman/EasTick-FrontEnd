@@ -1,20 +1,24 @@
 'use client'
-import Titulo from "@/components/Titulo/Titulo";
+import { useEffect, useContext } from "react";
 import { useTickets } from '@/hooks/useTickets';
-import { useEffect } from "react";
 import useTitle from "@/hooks/useTitle";
-import TicketListado from "@/components/TicketListado/ticketListado";
+import { TokenContext } from "@/context/TokenContext";
 import styles from './page.module.css';
+import Titulo from "@/components/Titulo/Titulo";
+import TicketListado from "@/components/TicketListado/ticketListado";
 import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 
 export default function VerTicket() {
+    const { userId, loading } = useContext(TokenContext);
     const { setTitulo } = useTitle();
-    const { detalle = [] } = useTickets({ id: 2 });
-
+    
+    
+    const { detalle = [] } = useTickets({ id: userId || ''});
+    
     useEffect(() => {
         setTitulo("Tickets");
     }, [setTitulo]);
-
+    if (loading) return;
     return (
         <ProtectedRoutes>
             <div className={styles.container}>
@@ -35,7 +39,7 @@ export default function VerTicket() {
                         </thead>
                         <tbody>
                             {detalle.map((ticket, index) => (
-                                <TicketListado ticket={ticket} index={index} key={index} />
+                                <TicketListado ticket={ticket} index={index} key={ticket.id || index} />
                             ))}
                         </tbody>
                     </table>

@@ -1,18 +1,20 @@
 'use client'
 import Titulo from "@/components/Titulo/Titulo";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import useTitle from "@/hooks/useTitle";
 import TituloClientes from "@/components/TituloClientes/TituloClientes";
 import ListadoClientes from "@/components/ListadoClientes/ListadoClientes";
 import { useTickets } from "@/hooks/useTickets";
 import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { TokenContext } from "@/context/TokenContext";
 export default function Clientes() {
-   
+  const { userId, loading } = useContext(TokenContext);
     const { setTitulo } = useTitle()
-    const {clientesEmpresa } = useTickets({ id: 2 });
+    const {clientesEmpresa } = useTickets({ id: userId || ''});
     useEffect(() => {
         setTitulo("Clientes")
     }, [])
+    if (loading) return;
   return (
     <ProtectedRoutes>
       <div>

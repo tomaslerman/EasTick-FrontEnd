@@ -1,30 +1,47 @@
-// context/TokenContext.js
 'use client';
 
 import React, { createContext, useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 export const TokenContext = createContext();
 
 const TokenProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+    
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
+      try {
+        const decoded = jwtDecode(storedToken);
+        setUserId(decoded.id);
+      } catch (error) {
+        console.error("Error decodificando el token:", error);
+        setUserId(null); // Si hay un error, asegurarse de que userId sea nulo
+      }
     }
     setLoading(false); // Fin del estado de carga una vez verificado el token
   }, []);
 
   const saveToken = (newToken) => {
-    localStorage.setItem('token', newToken);
     setToken(newToken);
+    if (newToken) {
+      localStorage.setItem('token', newToken);
+      const decoded = jwtDecode(newToken);
+      setUserId(decoded.id);
+    } else {
+      localStorage.removeItem('token');
+      setUserId(null);
+    }
   };
 
   const logout = () => {
-    localStorage.removeItem('token'); // Eliminar token del localStorage
-    setToken(null); // Actualizar el estado del token
+    localStorage.removeItem('token');
+    setToken(null);
+    setUserId(null); // Asegúrate de que userId se limpie al cerrar sesión
   };
 
   return (
@@ -32,9 +49,10 @@ const TokenProvider = ({ children }) => {
       value={{
         token,
         saveToken,
-        logout, // Asegúrate de que la función logout esté disponible en el contexto
+        logout,
         isLoggedIn: !!token,
         loading,
+        userId,
       }}
     >
       {children}
