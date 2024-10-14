@@ -4,7 +4,7 @@ export default function Home()
 {
    
     return(
-        <ProtectedRoutes> 
+        <ProtectedRoutes allowedRoles={[1]}> 
             <h1>home</h1>
         </ProtectedRoutes>
     );

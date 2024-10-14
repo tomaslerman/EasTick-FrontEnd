@@ -12,7 +12,7 @@ export default function Ticket()
         setTitulo("Ticket")
     }, [])
     return(
-        <ProtectedRoutes>
+        <ProtectedRoutes allowedRoles={[2]}>
             <div> 
             </div>
         </ProtectedRoutes>

@@ -16,7 +16,7 @@ export default function Empleados() {
     }, [])
     if (loading) return;
   return (
-    <ProtectedRoutes>
+    <ProtectedRoutes allowedRoles={[2]}>
       <div>
         <Titulo titulo={"Empleados"} subtitulo={"Empleados PRESIS"} />
         <TituloEmpleados />

@@ -16,7 +16,7 @@ export default function Clientes() {
     }, [])
     if (loading) return;
   return (
-    <ProtectedRoutes>
+    <ProtectedRoutes allowedRoles={[2]}>
       <div>
           <Titulo titulo={"Clientes"} subtitulo={"Crea y busque sus clientes"} />
           <TituloClientes />

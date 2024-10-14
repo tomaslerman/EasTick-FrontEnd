@@ -47,7 +47,7 @@ export default function Estadistica() {
     
     if (loading) return;
     return (
-        <ProtectedRoutes>
+        <ProtectedRoutes allowedRoles={[2]}>
         <div className={styles.container}>
             <Titulo titulo={"Estadísticas"} />
             <div className={styles.lineChartsWrapper}>

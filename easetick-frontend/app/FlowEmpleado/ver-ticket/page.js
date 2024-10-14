@@ -20,7 +20,7 @@ export default function VerTicket() {
     }, [setTitulo]);
     if (loading) return;
     return (
-        <ProtectedRoutes>
+        <ProtectedRoutes allowedRoles={[2]}>
             <div className={styles.container}>
                 <Titulo titulo={"Tus Tickets"} subtitulo={"Gestione sus tickets"} />
                 <div className={styles.tableWrapper}>

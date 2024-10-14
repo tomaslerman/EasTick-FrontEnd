@@ -14,7 +14,7 @@ export default function configuracion() {
     }, []);
 
     return (
-        <ProtectedRoutes>
+        <ProtectedRoutes allowedRoles={[2]}>
             <div>
                 <Titulo titulo={"Tu configuracion"} subtitulo={"Administrá tu cuenta"} />
                 <Configuracion />
