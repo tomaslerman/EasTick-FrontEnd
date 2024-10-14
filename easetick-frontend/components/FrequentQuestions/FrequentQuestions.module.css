@@ -1,0 +1,22 @@
+/* FrequentQuestions.module.css */
+
+.frequentQuestionsContainer {
+    max-width: 800px; /* Limita el ancho del contenedor */
+    margin: 0 auto; /* Centra el contenedor */
+    padding: 20px; /* Añade espacio alrededor del contenido */
+  }
+  
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .questionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Añade espacio entre las preguntas */
+  }
+  

@@ -1,0 +1,63 @@
+.buttonContainer {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto;
+    gap: 20px;
+    max-width: 80%;
+  }
+  
+  /* Aplica estilo al enlace para quitar subrayado */
+  .link {
+    text-decoration: none;
+  }
+  
+  .button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 50px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-decoration: none; /* Elimina el subrayado del botón */
+    outline: none;
+  }
+  
+  .primaryButton {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .primaryButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .secondaryButton {
+    background-color: #f8f9fa;
+    color: #343a40;
+    border: 1px solid #ced4da;
+  }
+  
+  .secondaryButton:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .icon {
+    margin-left: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .buttonContainer {
+      flex-direction: column;
+    }
+  
+    .button {
+      width: 100%;
+    }
+  }
+  

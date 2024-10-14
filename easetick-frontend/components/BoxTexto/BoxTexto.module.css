@@ -1,0 +1,47 @@
+/* BoxTexto.module.css */
+
+.boxTexto {
+    background-color: #f9f9f9;
+    border-radius: 8px; /* Añade bordes redondeados */
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .boxTexto:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Añade una sombra al pasar el mouse */
+  }
+  
+  .questionContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px; /* Añade espacio entre la imagen y el contenido */
+  }
+  
+  .imageContainer {
+    width: 30px; /* Aumenta el tamaño de la imagen */
+    height: 30px;
+  }
+  
+  .ticketImage {
+    width: 100%;
+    height: auto;
+  }
+  
+  .questionContent {
+    flex-grow: 1;
+  }
+  
+  .question {
+    font-size: 18px; /* Aumenta el tamaño de la pregunta */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .answer {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6; /* Mejora la legibilidad del texto */
+  }
+  
