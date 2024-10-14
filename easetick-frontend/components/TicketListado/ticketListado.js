@@ -14,7 +14,7 @@ const TicketListado = ({ ticket, index }) => {
             <td className={styles.ticketCell}>{ticket.usuario.nombre}</td>
             <td className={styles.ticketCell}>{ticket.empresa.nombre}</td>
             <td className={styles.ticketCell}>
-                <a href={ticket.link} className={styles.ticketLink}>Ver detalles</a>
+                <a href={"/FlowEmpleado/ticket"} className={styles.ticketLink}>Ver detalles</a>
             </td>
         </tr>
     );

@@ -1,6 +1,6 @@
 'use client';
 
-import { ProtectedRoutes } from "../utils/ProtectedRoutes";
+import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 import useTitle from "@/hooks/useTitle";
 import { useEffect } from "react";
 
