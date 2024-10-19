@@ -7,7 +7,7 @@ import styles from './ButtonContainer.module.css';
 const ButtonContainer = () => {
   return (
     <div className={styles.buttonContainer}>
-      <Link href="/nuevo-ticket" passHref className={styles.link}>
+      <Link href="/FlowCliente/nuevo-ticket" passHref className={styles.link}>
         <button className={`${styles.button} ${styles.primaryButton}`}>
           Enviar nuevo ticket
           <Image
