@@ -4,9 +4,10 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { TokenContext } from '@/context/TokenContext';
 import styles from './page.module.css';  // Importar los estilos
+import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 
 const NuevoTicket = () => {
-  const { userId } = useContext(TokenContext);  // Para obtener el idCliente del contexto
+  const { userId, idEmpresa } = useContext(TokenContext);  // Para obtener el idCliente del contexto
   const [asunto, setAsunto] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [tipo, setTipo] = useState('');
@@ -15,7 +16,6 @@ const NuevoTicket = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const idEmpresa = 1;  // Este valor deberías obtenerlo o de tu contexto o fijarlo por ahora
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +46,7 @@ const NuevoTicket = () => {
   };
 
   return (
+    <ProtectedRoutes allowedRoles={[1]}>
     <div className={styles.ticketContainer}>
       <h1 className={styles.title}>Crear Nuevo Ticket</h1>
       {error && <p className={styles.error}>{error}</p>}
@@ -98,6 +99,7 @@ const NuevoTicket = () => {
         </button>
       </form>
     </div>
+    </ProtectedRoutes>
   );
 };
 
