@@ -3,6 +3,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { TokenContext } from '@/context/TokenContext';
+import styles from './page.module.css';  // Importar los estilos
 
 const NuevoTicket = () => {
   const { userId } = useContext(TokenContext);  // Para obtener el idCliente del contexto
@@ -14,7 +15,6 @@ const NuevoTicket = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  // Obtener idEmpresa desde el token o asignar un valor por defecto
   const idEmpresa = 1;  // Este valor deberías obtenerlo o de tu contexto o fijarlo por ahora
 
   const handleSubmit = async (e) => {
@@ -24,7 +24,6 @@ const NuevoTicket = () => {
     setSuccess(null);
 
     try {
-      // Hacer solicitud al backend para crear el ticket
       const response = await axios.post('http://localhost:5000/tickets/crear', {
         asunto,
         mensaje,
@@ -47,40 +46,57 @@ const NuevoTicket = () => {
   };
 
   return (
-    <div>
-      <h1>Crear Nuevo Ticket</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      <form onSubmit={handleSubmit}>
-  <input
-    type="text"
-    placeholder="Asunto"
-    value={asunto}
-    onChange={(e) => setAsunto(e.target.value)}
-  />
-  
-  <textarea
-    placeholder="Mensaje"
-    value={mensaje}
-    onChange={(e) => setMensaje(e.target.value)}
-  />
-
-  <select name="tipo" value={tipo} onChange={(e) => setTipo(e.target.value)}>
-    <option value="1">Pregunta</option>
-    <option value="2">Incidente</option>
-    
-  </select>
-
-  <select name="prioridad" value={prioridad} onChange={(e) => setPrioridad(e.target.value)}>
-    <option value="1">Baja</option>
-    <option value="2">Media</option>
-    <option value="3">Alta</option>
-    <option value="4">Urgente</option>
-  </select>
-
-  <button type="submit">Crear Ticket</button>
-</form>
-
+    <div className={styles.ticketContainer}>
+      <h1 className={styles.title}>Crear Nuevo Ticket</h1>
+      {error && <p className={styles.error}>{error}</p>}
+      {success && <p className={styles.success}>{success}</p>}
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <input
+          type="text"
+          placeholder="Asunto"
+          value={asunto}
+          onChange={(e) => setAsunto(e.target.value)}
+          className={styles.input}
+          required
+        />
+        <textarea
+          placeholder="Mensaje"
+          value={mensaje}
+          onChange={(e) => setMensaje(e.target.value)}
+          className={styles.textarea}
+          required
+        />
+        <select
+          name="tipo"
+          value={tipo}
+          onChange={(e) => setTipo(e.target.value)}
+          className={styles.select}
+          required
+        >
+          <option value="">Selecciona el tipo de ticket</option>
+          <option value="1">Pregunta</option>
+          <option value="2">Incidente</option>
+          <option value="3">Sugerencia</option>
+          <option value="4">Mantenimiento</option>
+          <option value="5">Reclamo</option>
+        </select>
+        <select
+          name="prioridad"
+          value={prioridad}
+          onChange={(e) => setPrioridad(e.target.value)}
+          className={styles.select}
+          required
+        >
+          <option value="">Selecciona la prioridad</option>
+          <option value="1">Baja</option>
+          <option value="2">Media</option>
+          <option value="3">Alta</option>
+          <option value="4">Urgente</option>
+        </select>
+        <button type="submit" className={styles.button} disabled={loading}>
+          {loading ? 'Creando...' : 'Crear Ticket'}
+        </button>
+      </form>
     </div>
   );
 };
