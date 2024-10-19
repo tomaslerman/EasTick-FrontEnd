@@ -100,3 +100,9 @@
   .answer {
     color: #6b7280;
   }
+
+  .sectionTitle {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: center;
+  }
