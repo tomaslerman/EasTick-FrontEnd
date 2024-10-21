@@ -46,7 +46,7 @@ export default function HomePage() {
       </div>
     );
   }
-
+//hola
   // Si está logueado pero aún no se ha redirigido, muestra un mensaje de carga
   return <div>Redirigiendo...</div>;
 }
