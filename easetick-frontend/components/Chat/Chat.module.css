@@ -1,0 +1,103 @@
+.chatContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.asunto {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.ticketInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border-radius: 4px;
+}
+
+.mensajeInicial {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.mensajeInicial h3 {
+    margin-top: 0;
+    color: #555;
+}
+
+.mensajes {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.mensaje {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #e8e8e8;
+}
+
+.mensaje strong {
+    color: #333;
+    margin-right: 5px;
+}
+
+.mensaje p {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+.formulario {
+    display: flex;
+    gap: 10px;
+}
+
+.input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.botonEnviar, .botonCerrar {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botonEnviar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.botonEnviar:hover {
+    background-color: #45a049;
+}
+
+.botonCerrar {
+    background-color: #f44336;
+    color: white;
+    margin-top: 10px;
+}
+
+.botonCerrar:hover {
+    background-color: #d32f2f;
+}

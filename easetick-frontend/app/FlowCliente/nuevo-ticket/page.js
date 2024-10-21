@@ -5,6 +5,7 @@ import axios from 'axios';
 import { TokenContext } from '@/context/TokenContext';
 import styles from './page.module.css';  // Importar los estilos
 import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
+import { useRouter } from 'next/navigation'; // Importamos useRouter
 
 const NuevoTicket = () => {
   const { userId, idEmpresa } = useContext(TokenContext);  // Para obtener el idCliente del contexto
@@ -14,14 +15,13 @@ const NuevoTicket = () => {
   const [prioridad, setPrioridad] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const router = useRouter(); // Inicializamos el router
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setSuccess(null);
 
     try {
       const response = await axios.post('http://localhost:5000/tickets/crear', {
@@ -33,14 +33,13 @@ const NuevoTicket = () => {
         idEmpresa: idEmpresa
       });
 
-      setSuccess('Ticket creado con éxito');
-      setAsunto('');
-      setMensaje('');
-      setTipo('');
-      setPrioridad('');
+      // Asumiendo que la respuesta incluye el ID del ticket creado
+      const nuevoTicketId = response.data.data.ticket.id;
+      
+      // Redirigir al usuario a la página del chat del nuevo ticket
+      router.push(`/FlowCliente/ticket/${nuevoTicketId}`);
     } catch (error) {
       setError('Error al crear el ticket');
-    } finally {
       setLoading(false);
     }
   };
@@ -50,7 +49,6 @@ const NuevoTicket = () => {
     <div className={styles.ticketContainer}>
       <h1 className={styles.title}>Crear Nuevo Ticket</h1>
       {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
