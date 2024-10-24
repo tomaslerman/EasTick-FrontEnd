@@ -12,7 +12,6 @@ export default function VerTicket() {
     const { userId, loading } = useContext(TokenContext);
     const { setTitulo } = useTitle();
     
-    
     const { detalle = [] } = useTickets({ id: userId || ''});
     
     useEffect(() => {
