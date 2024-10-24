@@ -12,8 +12,8 @@ const TicketPage = () => {
     useEffect(() => {
         const fetchTicketInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/tickets/${id}`);
-                setTicketInfo(response.data);
+                const response = await axios.get(`http://localhost:5000/tickets/informacionCompleta/${id}`);
+                setTicketInfo(response.data.message);
             } catch (error) {
                 console.error('Error al obtener información del ticket:', error);
             }

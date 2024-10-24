@@ -16,7 +16,7 @@ export default function TicketSinResolver({ tickets }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {tickets.map((ticket, index) => (
+                    {tickets.slice(0, 5).map((ticket, index) => (
                         <tr key={index}>
                             <td>{ticket.asunto}</td>
                             <td>{ticket.prioridad.nombre}</td>
