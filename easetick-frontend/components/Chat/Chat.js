@@ -9,10 +9,11 @@ const MensajesComponent = dynamic(() => import('./MensajesComponent'), {
   ssr: false,
 });
 
-const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo }) => {
+const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket }) => {
     const [mensajes, setMensajes] = useState([]);
     const [nuevoMensaje, setNuevoMensaje] = useState('');
     const { userId, userRole } = useContext(TokenContext);
+    const [ticketCerrado, setTicketCerrado] = useState(estadoTicket === 2);
 
     useEffect(() => {
         cargarMensajes();
@@ -29,7 +30,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo }) => {
 
     const enviarMensaje = async (e) => {
         e.preventDefault();
-        if (!nuevoMensaje.trim()) return;
+        if (!nuevoMensaje.trim() || ticketCerrado) return;
 
         try {
             await axios.post(`http://localhost:5000/tickets/${idTicket}/mensaje`, {
@@ -47,9 +48,11 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo }) => {
     const cerrarTicket = async () => {
         try {
             await axios.post(`http://localhost:5000/tickets/${idTicket}/cerrar`);
-            // Actualizar el estado del ticket en la interfaz
+            setTicketCerrado(true);
+            alert('Ticket cerrado exitosamente');
         } catch (error) {
             console.error('Error al cerrar ticket:', error);
+            alert('Error al cerrar el ticket');
         }
     };
 
@@ -59,6 +62,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo }) => {
             <div className={styles.ticketInfo}>
                 <p><strong>Prioridad:</strong> {prioridad}</p>
                 <p><strong>Tipo:</strong> {tipo}</p>
+                <p><strong>Estado:</strong> {ticketCerrado ? 'Cerrado' : 'Abierto'}</p>
             </div>
             <div className={styles.mensajeInicial}>
                 <h3>Mensaje inicial:</h3>
@@ -72,18 +76,23 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo }) => {
                     </div>
                 ))}
             </div>
-            <form onSubmit={enviarMensaje} className={styles.formulario}>
-                <input
-                    type="text"
-                    value={nuevoMensaje}
-                    onChange={(e) => setNuevoMensaje(e.target.value)}
-                    placeholder="Escribe un mensaje..."
-                    className={styles.input}
-                />
-                <button type="submit" className={styles.botonEnviar}>Enviar</button>
-            </form>
-            {userRole === 2 && (
+            {!ticketCerrado && (
+                <form onSubmit={enviarMensaje} className={styles.formulario}>
+                    <input
+                        type="text"
+                        value={nuevoMensaje}
+                        onChange={(e) => setNuevoMensaje(e.target.value)}
+                        placeholder="Escribe un mensaje..."
+                        className={styles.input}
+                    />
+                    <button type="submit" className={styles.botonEnviar}>Enviar</button>
+                </form>
+            )}
+            {userRole === 2 && !ticketCerrado && (
                 <button onClick={cerrarTicket} className={styles.botonCerrar}>Cerrar Ticket</button>
+            )}
+            {ticketCerrado && (
+                <p className={styles.ticketCerradoMensaje}>Este ticket está cerrado. No se pueden enviar más mensajes.</p>
             )}
         </div>
     );

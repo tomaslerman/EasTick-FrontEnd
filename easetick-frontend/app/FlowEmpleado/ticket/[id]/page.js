@@ -34,6 +34,7 @@ const TicketPage = () => {
                 mensajeInicial={ticketInfo.mensajes[0]?.contenido || 'No hay mensaje inicial'}
                 prioridad={ticketInfo.prioridad.nombre}
                 tipo={ticketInfo.tipo.nombre}
+                estadoTicket={ticketInfo.fkestado}
             />
         </div>
     );

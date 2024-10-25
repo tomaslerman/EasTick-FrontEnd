@@ -31,9 +31,10 @@ const TicketPage = () => {
             <Chat 
                 idTicket={id} 
                 asunto={ticketInfo.asunto} 
-                mensajeInicial={ticketInfo.mensaje}
+                mensajeInicial={ticketInfo.mensajes[0]?.contenido || 'No hay mensaje inicial'}
                 prioridad={ticketInfo.prioridad.nombre}
                 tipo={ticketInfo.tipo.nombre}
+                estadoTicket={ticketInfo.fkestado}
             />
         </div>
     );
