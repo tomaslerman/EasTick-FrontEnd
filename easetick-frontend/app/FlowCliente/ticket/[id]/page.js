@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Chat from '@/components/Chat/Chat';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
+import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 
 const TicketPage = () => {
     const { id } = useParams();
@@ -27,16 +28,18 @@ const TicketPage = () => {
     }
 
     return (
-        <div>
-            <Chat 
-                idTicket={id} 
-                asunto={ticketInfo.asunto} 
-                mensajeInicial={ticketInfo.mensajes[0]?.contenido || 'No hay mensaje inicial'}
-                prioridad={ticketInfo.prioridad.nombre}
-                tipo={ticketInfo.tipo.nombre}
-                estadoTicket={ticketInfo.fkestado}
-            />
-        </div>
+        <ProtectedRoutes>
+            <div>
+                <Chat 
+                    idTicket={id} 
+                    asunto={ticketInfo.asunto} 
+                    mensajeInicial={ticketInfo.mensajes[0]?.contenido || 'No hay mensaje inicial'}
+                    prioridad={ticketInfo.prioridad.nombre}
+                    tipo={ticketInfo.tipo.nombre}
+                    estadoTicket={ticketInfo.fkestado}
+                />
+            </div>
+        </ProtectedRoutes>
     );
 };
 

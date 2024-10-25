@@ -1,0 +1,31 @@
+.container {
+    padding: 20px;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.ticketTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.ticketTable th {
+    text-align: left;
+    padding: 10px 20px;
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ddd;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.ticketTable th, .ticketTable td {
+    border-bottom: 1px solid #ddd;
+}
+
+.ticketTable tr:last-child td {
+    border-bottom: none;
+}
+

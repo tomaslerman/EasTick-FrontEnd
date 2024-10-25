@@ -1,0 +1,40 @@
+.ticketRow {
+    border-bottom: 1px solid #ddd;
+    font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41';
+    font-style: normal;
+    color: #333;
+}
+
+.ticketCell {
+    padding: 10px 20px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ticketTitle {
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.ticketTitle:hover {
+    text-decoration: underline;
+}
+
+.ticketLink {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.ticketLink:hover {
+    text-decoration: underline;
+}
+

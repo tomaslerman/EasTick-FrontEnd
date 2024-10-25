@@ -8,10 +8,11 @@ import { TokenContext } from '@/context/TokenContext'; // Importa tu contexto de
 
 const navItems = [
   { href: "/FlowCliente/home", src: "/imagenes/home.png", alt: "Home", label: "Inicio" },
-  { href: "/FlowCliente/ver-ticket", src: "/imagenes/ticket.png", alt: "Tickets", label: "Tickets" },
-  { href: "/FlowCliente/mi-equipo", src: "/imagenes/cliente.png", alt: "Clientes", label: "Clientes" },
-  { href: "/FlowCliente/estadistica", src: "/imagenes/estadistica.png", alt: "Estadisticas", label: "Estadísticas" },
-  { href: "/FlowCliente/configuracion", src: "/imagenes/configuracion.png", alt: "Configuracion", label: "Configuración" },
+  { href: "/FlowCliente/verTicketsCliente", src: "/imagenes/ticket.png", alt: "Tickets", label: "Tickets" },
+  { href: "/FlowCliente/equipo", src: "/imagenes/cliente.png", alt: "Equipo", label: "Equipo" },
+  { href: "/FlowCliente/estadisticasCliente", src: "/imagenes/estadistica.png", alt: "Estadisticas", label: "Estadísticas" },
+  { href: "/FlowCliente/perfilCliente", src: "/imagenes/perfil.png", alt: "Perfil", label: "Perfil" },
+  { href: "/FlowCliente/configuracionCliente", src: "/imagenes/configuracion.png", alt: "Configuracion", label: "Configuración" },
 ];
 
 const NavbarCliente = () => {

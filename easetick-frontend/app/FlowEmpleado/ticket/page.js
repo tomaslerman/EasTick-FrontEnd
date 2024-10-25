@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Chat from '@/components/Chat/Chat';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
+import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 
 const TicketPage = () => {
     const { id } = useParams();
@@ -27,7 +28,8 @@ const TicketPage = () => {
     }
 
     return (
-        <div>
+        <ProtectedRoutes>
+            <div>
             <h1>Ticket #{id}</h1>
             <Chat 
                 idTicket={id} 
@@ -37,6 +39,7 @@ const TicketPage = () => {
                 tipo={ticketInfo.tipo.nombre}
             />
         </div>
+        </ProtectedRoutes>
     );
 };
 
