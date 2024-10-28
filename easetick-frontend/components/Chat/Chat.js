@@ -1,81 +1,160 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { TokenContext } from '@/context/TokenContext';
+import io from 'socket.io-client';
+import axios from 'axios';
 import styles from './Chat.module.css';  // Importa los estilos
-import dynamic from 'next/dynamic';
-
-// Cargar dinámicamente el componente de mensajes
-const MensajesComponent = dynamic(() => import('./MensajesComponent'), {
-  ssr: false,
-});
 
 const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket }) => {
     const [mensajes, setMensajes] = useState([]);
     const [nuevoMensaje, setNuevoMensaje] = useState('');
-    const { userId, userRole } = useContext(TokenContext);
+    const [socket, setSocket] = useState(null);
     const [ticketCerrado, setTicketCerrado] = useState(estadoTicket === 2);
+    const { userId, userRole } = useContext(TokenContext);
 
+    // Inicializar socket
     useEffect(() => {
-        cargarMensajes();
-    }, [idTicket]);
+        const newSocket = io('http://localhost:5000');
+        setSocket(newSocket);
 
-    const cargarMensajes = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/tickets/${idTicket}/mensajes`);
-            setMensajes(response.data.mensajes);
-        } catch (error) {
-            console.error('Error al cargar mensajes:', error);
-        }
-    };
+        return () => newSocket.close();
+    }, []);
+
+    // Unirse al chat y cargar mensajes
+    useEffect(() => {
+        if (!socket) return;
+
+        // Unirse al chat
+        socket.emit('join-chat', idTicket);
+        console.log('Uniéndose al chat:', idTicket);
+
+        // Cargar mensajes existentes
+        const cargarMensajes = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/tickets/${idTicket}/mensajes`);
+                if (response.data.success) {
+                    // Filtrar mensajes duplicados basados en el contenido y timestamp
+                    const mensajesUnicos = response.data.mensajes.filter((mensaje, index, self) =>
+                        index === self.findIndex((m) => (
+                            m.contenido === mensaje.contenido &&
+                            m.fechacreacion === mensaje.fechacreacion
+                        ))
+                    );
+                    setMensajes(mensajesUnicos);
+                }
+            } catch (error) {
+                console.error('Error al cargar mensajes:', error);
+            }
+        };
+        cargarMensajes();
+
+        // Escuchar nuevos mensajes
+        socket.on('message-received', (mensaje) => {
+            console.log('Mensaje recibido:', mensaje);
+            setMensajes(prev => [...prev, mensaje]);
+        });
+
+        socket.on('ticket-closed', (ticket) => {
+            setTicketCerrado(true);
+        });
+
+        return () => {
+            socket.off('message-received');
+            socket.off('ticket-closed');
+        };
+    }, [socket, idTicket]);
 
     const enviarMensaje = async (e) => {
         e.preventDefault();
-        if (!nuevoMensaje.trim() || ticketCerrado) return;
+        if (!nuevoMensaje.trim() || !socket) return;
 
-        try {
-            await axios.post(`http://localhost:5000/tickets/${idTicket}/mensaje`, {
-                idUsuario: userId,
-                contenido: nuevoMensaje,
-                esEmpleado: userRole === 2
-            });
-            setNuevoMensaje('');
-            cargarMensajes();
-        } catch (error) {
-            console.error('Error al enviar mensaje:', error);
-        }
+        console.log('Enviando mensaje:', {
+            ticketId: idTicket,
+            message: nuevoMensaje,
+            userId: userId,
+            isEmployee: userRole === 2
+        });
+
+        socket.emit('new-message', {
+            ticketId: idTicket,
+            message: nuevoMensaje,
+            userId: userId,
+            isEmployee: userRole === 2
+        });
+
+        setNuevoMensaje('');
     };
 
+    // Verificar estado inicial del ticket
+    useEffect(() => {
+        const verificarEstadoTicket = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/tickets/informacionCompleta/${idTicket}`);
+                setTicketCerrado(response.data.message.fkestado === 2);
+            } catch (error) {
+                console.error('Error al verificar estado del ticket:', error);
+            }
+        };
+
+        verificarEstadoTicket();
+    }, [idTicket]);
+
     const cerrarTicket = async () => {
+        if (!window.confirm('¿Estás seguro que deseas cerrar este ticket?')) {
+            return;
+        }
+
         try {
-            await axios.post(`http://localhost:5000/tickets/${idTicket}/cerrar`);
-            setTicketCerrado(true);
-            alert('Ticket cerrado exitosamente');
+            const response = await axios.post(`http://localhost:5000/tickets/${idTicket}/cerrar`);
+            
+            if (response.data.success) {
+                setTicketCerrado(true);
+                alert('Ticket cerrado exitosamente');
+                
+                // Forzar recarga de la página para actualizar todo el estado
+                window.location.reload();
+            } else {
+                throw new Error('No se pudo cerrar el ticket');
+            }
         } catch (error) {
             console.error('Error al cerrar ticket:', error);
-            alert('Error al cerrar el ticket');
+            alert('Error al cerrar el ticket. Por favor, intente nuevamente.');
         }
     };
 
     return (
         <div className={styles.chatContainer}>
-            <h1 className={styles.asunto}>{asunto}</h1>
-            <div className={styles.ticketInfo}>
-                <p><strong>Prioridad:</strong> {prioridad}</p>
-                <p><strong>Tipo:</strong> {tipo}</p>
-                <p><strong>Estado:</strong> {ticketCerrado ? 'Cerrado' : 'Abierto'}</p>
+            <div className={styles.header}>
+                <h2 className={styles.h2}>{asunto}</h2>
+                <div className={styles.infoTicket}>
+                    <span>Prioridad: {prioridad}</span>
+                    <span>Tipo: {tipo}</span>
+                    <span>Estado: {ticketCerrado ? 'Cerrado' : 'Abierto'}</span>
+                </div>
             </div>
+
             <div className={styles.mensajeInicial}>
                 <h3>Mensaje inicial:</h3>
                 <p>{mensajeInicial}</p>
             </div>
+
             <div className={styles.mensajes}>
                 {mensajes.map((mensaje, index) => (
-                    <div key={index} className={styles.mensaje}>
-                        <strong>{mensaje.fkCliente ? mensaje.fkCliente.nombre : mensaje.fkEmpleado.nombre}:</strong>
+                    <div 
+                        key={index} 
+                        className={`${styles.mensaje} ${
+                            mensaje.fkCliente ? styles.mensajeCliente : styles.mensajeEmpleado
+                        }`}
+                    >
+                        <strong>{mensaje.fkCliente ? mensaje.fkCliente.nombre : 
+                                mensaje.fkEmpleado ? mensaje.fkEmpleado.nombre : 'Usuario'}</strong>
+                        <span className={styles.timestamp}>
+                            {new Date(mensaje.fechacreacion).toLocaleString()}
+                        </span>
                         <p>{mensaje.contenido}</p>
                     </div>
                 ))}
             </div>
+
             {!ticketCerrado && (
                 <form onSubmit={enviarMensaje} className={styles.formulario}>
                     <input
@@ -88,11 +167,11 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                     <button type="submit" className={styles.botonEnviar}>Enviar</button>
                 </form>
             )}
-            {userRole === 2 && !ticketCerrado && (
-                <button onClick={cerrarTicket} className={styles.botonCerrar}>Cerrar Ticket</button>
-            )}
+
             {ticketCerrado && (
-                <p className={styles.ticketCerradoMensaje}>Este ticket está cerrado. No se pueden enviar más mensajes.</p>
+                <p className={styles.ticketCerradoMensaje}>
+                    Este ticket está cerrado. No se pueden enviar más mensajes.
+                </p>
             )}
         </div>
     );
