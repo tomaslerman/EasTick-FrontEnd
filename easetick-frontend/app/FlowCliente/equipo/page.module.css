@@ -1,27 +1,94 @@
-.container {
-    padding: 20px;
+.pageWrapper {
+    min-height: 100vh;
+    background: #f8fafc;
+    padding: 2rem;
 }
 
-.equipoGrid {
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 2rem;
+    color: #1e293b;
+}
+
+.equipoContainer {
+    padding: 2rem 0;
+}
+
+.equipoScrollContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 0.5rem;
 }
 
 .miembroCard {
-    background-color: #f5f5f5;
+    width: 100%;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.miembroCard:hover {
+    transform: translateY(-5px);
+}
+
+.glassEffect {
+    background: white;
     border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.avatarContainer {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.initialsAvatar {
+    width: 56px;
+    height: 56px;
+    background: #1e40af;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.memberInfo {
+    text-align: center;
 }
 
 .miembroCard h3 {
-    margin: 0 0 10px 0;
-    color: #333;
+    margin: 0 0 0.5rem 0;
+    color: #1e293b;
+    font-size: 1.125rem;
+    font-weight: 600;
 }
 
 .miembroCard p {
     margin: 0;
-    color: #666;
+    color: #64748b;
+    font-size: 0.875rem;
+    word-break: break-all;
+}
+
+@media (max-width: 768px) {
+    .pageWrapper {
+        padding: 1rem;
+    }
+
+    .equipoScrollContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
 }

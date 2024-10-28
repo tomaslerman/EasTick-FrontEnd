@@ -31,15 +31,30 @@ export default function Equipo() {
 
     return (
         <ProtectedRoutes allowedRoles={[1]}>
-            <div className={styles.container}>
-                <Titulo titulo={"Mi Equipo"} subtitulo={"Miembros de su empresa"} />
-                <div className={styles.equipoGrid}>
-                    {equipo.map((miembro, index) => (
-                        <div key={index} className={styles.miembroCard}>
-                            <h3>{miembro.nombre}</h3>
-                            <p>{miembro.correoelectronico}</p>
+            <div className={styles.pageWrapper}>
+                <div className={styles.container}>
+                    <div className={styles.header}>
+                        <Titulo titulo={"Mi Equipo"} subtitulo={"Miembros de su empresa"} />
+                    </div>
+                    <div className={styles.equipoContainer}>
+                        <div className={styles.equipoScrollContainer}>
+                            {equipo.map((miembro, index) => (
+                                <div key={index} className={styles.miembroCard}>
+                                    <div className={styles.glassEffect}>
+                                        <div className={styles.avatarContainer}>
+                                            <div className={styles.initialsAvatar}>
+                                                {miembro.nombre.charAt(0)}
+                                            </div>
+                                        </div>
+                                        <div className={styles.memberInfo}>
+                                            <h3>{miembro.nombre}</h3>
+                                            <p>{miembro.correoelectronico}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
         </ProtectedRoutes>
