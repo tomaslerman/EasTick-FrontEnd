@@ -11,7 +11,6 @@ const navItems = [
   { href: "/FlowCliente/verTicketsCliente", src: "/imagenes/ticket.png", alt: "Tickets", label: "Tickets" },
   { href: "/FlowCliente/equipo", src: "/imagenes/cliente.png", alt: "Equipo", label: "Equipo" },
   { href: "/FlowCliente/estadisticasCliente", src: "/imagenes/estadistica.png", alt: "Estadisticas", label: "Estadísticas" },
-  { href: "/FlowCliente/perfilCliente", src: "/imagenes/perfil.png", alt: "Perfil", label: "Perfil" },
   { href: "/FlowCliente/configuracionCliente", src: "/imagenes/configuracion.png", alt: "Configuracion", label: "Configuración" },
 ];
 

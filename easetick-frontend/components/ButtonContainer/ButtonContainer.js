@@ -19,7 +19,7 @@ const ButtonContainer = () => {
           />
         </button>
       </Link>
-      <Link href="/mis-tickets" passHref className={styles.link}>
+      <Link href="/FlowCliente/verTicketsCliente" passHref className={styles.link}>
         <button className={`${styles.button} ${styles.secondaryButton}`}>
           Ver mis tickets
           <Image
