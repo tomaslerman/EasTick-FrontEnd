@@ -53,8 +53,13 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             setMensajes(prev => [...prev, mensaje]);
         });
 
-        socket.on('ticket-closed', (ticket) => {
-            setTicketCerrado(true);
+        // Escuchar cierre de ticket
+        socket.on('ticket-closed', (ticketId) => {
+            if (ticketId === idTicket) {
+                setTicketCerrado(true);
+                // Actualizar el estado del ticket en tiempo real
+                verificarEstadoTicket();
+            }
         });
 
         return () => {
@@ -108,10 +113,9 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             
             if (response.data.success) {
                 setTicketCerrado(true);
+                // Emitir evento de cierre al socket con el ID del ticket
+                socket.emit('ticket-closed', idTicket);
                 alert('Ticket cerrado exitosamente');
-                
-                // Forzar recarga de la página para actualizar todo el estado
-                window.location.reload();
             } else {
                 throw new Error('No se pudo cerrar el ticket');
             }
@@ -122,6 +126,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     };
 
     return (
+        
         <div className={styles.chatContainer}>
             <div className={styles.header}>
                 <h2 className={styles.h2}>{asunto}</h2>
@@ -156,16 +161,23 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             </div>
 
             {!ticketCerrado && (
-                <form onSubmit={enviarMensaje} className={styles.formulario}>
-                    <input
-                        type="text"
-                        value={nuevoMensaje}
-                        onChange={(e) => setNuevoMensaje(e.target.value)}
-                        placeholder="Escribe un mensaje..."
-                        className={styles.input}
-                    />
-                    <button type="submit" className={styles.botonEnviar}>Enviar</button>
-                </form>
+                <>
+                    {userRole === 2 && (
+                        <button onClick={cerrarTicket} className={styles.botonCerrar}>
+                            Cerrar Ticket
+                        </button>
+                    )}
+                    <form onSubmit={enviarMensaje} className={styles.formulario}>
+                        <input
+                            type="text"
+                            value={nuevoMensaje}
+                            onChange={(e) => setNuevoMensaje(e.target.value)}
+                            placeholder="Escribe un mensaje..."
+                            className={styles.input}
+                        />
+                        <button type="submit" className={styles.botonEnviar}>Enviar</button>
+                    </form>
+                </>
             )}
 
             {ticketCerrado && (
