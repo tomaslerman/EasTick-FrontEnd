@@ -8,11 +8,14 @@
     padding: 20px 0;
     height: 100vh;
     position: fixed;
+    z-index: 100;
 }
 
 .navItem {
     margin: 20px 0;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .logoItem {
@@ -39,10 +42,8 @@
 }
 
 .hoverText {
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    left: 90px;
     background-color: #333;
     color: #fff;
     padding: 6px 10px;
@@ -53,4 +54,5 @@
     opacity: 1;
     transition: opacity 0.2s ease-in-out;
     z-index: 1000;
+    pointer-events: none;
 }

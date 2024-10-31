@@ -1,26 +1,61 @@
 .tableWrapper {
-  padding: 0 20px;
+  width: 100%;
   overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  background-color: white;
 }
 
 .listadoEmpleados {
+  min-width: 800px;
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.headerRow th {
+  text-align: left;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  white-space: nowrap;
+  font-weight: 600;
+  color: #495057;
 }
 
 .empleadoRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dee2e6;
+  font-family: '__Inter_36bd41', '__Inter_Fallback_36bd41';
+  font-style: normal;
+  color: #333;
 }
 
-.empleadoInfo {
-  flex: 1;
+.empleadoRow:hover {
+  background-color: #f8f9fa;
+}
+
+.empleadoCell {
+  padding: 12px 16px;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
-.empleadoInfo span {
+.nombreLink {
+  color: #0073e6;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: block;
-  width: 100%;
+}
+
+.nombreLink:hover {
+  text-decoration: underline;
 }

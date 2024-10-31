@@ -1,6 +1,5 @@
 'use client'
 import Titulo from "@/components/Titulo/Titulo";
-import TituloEmpleados from "@/components/TituloEmpleados/TituloEmpleados";
 import ListadoEmpleados from "@/components/ListadoEmpleados/ListadoEmpleados";
 import { useEffect, useContext } from "react";
 import useTitle from "@/hooks/useTitle";
@@ -25,7 +24,6 @@ export default function Empleados() {
         <div className={styles.container}>
           <Titulo titulo={"Empleados"} subtitulo={"Empleados PRESIS"} />
           <div className={styles.listadoWrapper}>
-            <TituloEmpleados />
             <ListadoEmpleados empleados={empleadosEmpresa} />
           </div>
         </div>

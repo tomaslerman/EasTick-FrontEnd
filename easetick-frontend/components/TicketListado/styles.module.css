@@ -5,24 +5,30 @@
     color: #333;
 }
 
+.ticketRow:hover {
+    background-color: #f8f9fa;
+}
+
 .ticketCell {
-    padding: 10px 20px;
+    padding: 12px 16px;
     text-align: left;
     vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 .ticketTitle {
     color: #0073e6;
     text-decoration: none;
     font-size: 16px;
-    font-weight: normal;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+    max-width: 100%;
 }
 
 .ticketTitle:hover {
