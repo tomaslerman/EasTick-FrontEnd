@@ -1,6 +1,6 @@
 .pageWrapper {
     min-height: 100vh;
-    background: #f8fafc;
+    background: #ffffff;
     padding: 2rem;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .glassEffect {
-    background: white;
+    background: #f8fafc;
     border-radius: 8px;
     padding: 1.5rem;
     border: 1px solid #e2e8f0;
