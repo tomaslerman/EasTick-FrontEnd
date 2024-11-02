@@ -1,27 +1,23 @@
-// utils/ProtectedRoutes.js
 'use client';
 
-import { TokenContext } from "@/context/TokenContext";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect } from 'react';
+import { TokenContext } from '@/context/TokenContext';
+import { useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 export const ProtectedRoutes = ({ children, allowedRoles }) => {
-  const { isLoggedIn, userRole, loading } = useContext(TokenContext);
-  const router = useRouter();
+    const { userRole, loading } = useContext(TokenContext);
+    const router = useRouter();
 
-  useEffect(() => {
-    if (!loading) {
-      if (!isLoggedIn && router.pathname !== "/login") {
-        router.push("/");
-      } else if (isLoggedIn && router.pathname === "/login") {
-        router.push('/');
-      } else if (isLoggedIn && allowedRoles && userRole != null && !allowedRoles.includes(userRole)) {
-        router.push('/not-found');
-      }
+    useEffect(() => {
+        if (!loading && !allowedRoles.includes(userRole)) {
+            notFound();
+        }
+    }, [loading, userRole, allowedRoles]);
+
+    if (loading || !allowedRoles.includes(userRole)) {
+        return null;
     }
-  }, [isLoggedIn, userRole, loading, router, allowedRoles]);
 
-  if (loading || !isLoggedIn) return null; // Muestra nada o un loader mientras carga
-
-  return <>{children}</>; // Renderiza los hijos normalmente
+    return children;
 };

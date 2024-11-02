@@ -3,6 +3,7 @@ import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 import styles from './Header.module.css';
 import React, { useContext } from 'react';
 import { TokenContext } from '@/context/TokenContext'; // Importa tu contexto de Token
+import Link from 'next/link';
 
 export default function Header({ titulo }) {
   const { userRole } = useContext(TokenContext); // Obtén el rol del usuario desde el contexto
@@ -16,7 +17,9 @@ export default function Header({ titulo }) {
         <h1>{titulo}</h1>
         <div className={styles.icons}>
           <img src="/imagenes/notificacion.png" alt="Notificaciones" className={styles.icon} />
-          <img src="/imagenes/perfil.png" alt="User" className={styles.icon} />
+          <Link href="/FlowEmpleado/perfil">
+            <img src="/imagenes/perfil.png" alt="Perfil" className={styles.icon} />
+          </Link>
         </div>
       </div>
     </ProtectedRoutes>

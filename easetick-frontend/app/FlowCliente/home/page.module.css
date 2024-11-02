@@ -1,0 +1,106 @@
+.container {
+    padding: 1.5rem;
+    width: 100%;
+    background: #fafbff;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.welcomeSection {
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    color: white;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcomeTitle {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.welcomeText {
+    font-size: 1.1rem;
+    max-width: 600px;
+    line-height: 1.6;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+}
+
+.actionCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.actionCard {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.actionCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.actionIcon {
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.actionTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0.5rem 0 0;
+}
+
+.helpSection {
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .actionCards {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcomeSection {
+        padding: 2rem 1.5rem;
+    }
+    
+    .welcomeTitle {
+        font-size: 2rem;
+    }
+
+    .helpSection {
+        max-height: 500px;
+    }
+}

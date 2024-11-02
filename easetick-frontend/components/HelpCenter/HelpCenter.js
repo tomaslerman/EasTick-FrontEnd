@@ -1,42 +1,52 @@
 'use client';
 import React from 'react';
-import BoxTexto from '../BoxTexto/BoxTexto';
 import styles from './HelpCenter.module.css';
+import Image from 'next/image';
 
-const FrequentQuestions = () => {
-  const frequentQuestions = [
-    {
-      question: "¿Cómo creo un nuevo ticket?",
-      answer: "Debes dirigirte al apartado de enviar nuevo ticket, este te dirigirá a una nueva página en la que debes ingresar un mail, la prioridad, el tipo de ticket, adjuntar un archivo, determinar el asunto y un mensaje, luego envías el ticket y es agregado."
-    },
-    {
-      question: "¿Cómo puedo cancelar un ticket enviado?",
-      answer: "Una vez que un ticket ha sido enviado, no puedes cancelarlo directamente. Sin embargo, puedes contactar a nuestro soporte a través del chat para que te asistan."
-    },
-    {
-      question: "¿Recibiré una notificación cuando mi ticket sea respondido?",
-      answer: "Sí, recibirás una notificación por correo electrónico cuando haya una actualización o respuesta a tu ticket."
-    },
-    {
-      question: "¿Puedo actualizar la información de un ticket después de enviarlo?",
-      answer: "No puedes editar la información de un ticket enviado. Si necesitas hacer cambios, puedes crear un nuevo ticket o responder al ticket existente con la información actualizada."
-    },
-    {
-      question: "¿Qué debo hacer si no recibo respuesta a mi ticket?",
-      answer: "Si no recibes respuesta en un plazo razonable, revisa tu carpeta de spam o promociones. Si aún así no encuentras la respuesta, puedes enviar un nuevo ticket preguntando sobre el estado del anterior."
-    }
-  ];
+export default function HelpCenter() {
+    const questions = [
+        {
+            id: 1,
+            question: "¿Cómo creo un nuevo ticket?",
+            answer: "Debes dirigirte al apartado de enviar nuevo ticket, este te dirigirá a una nueva página en la que debes ingresar un mail, la prioridad, el tipo de ticket, adjuntar un archivo, determinar el asunto y un mensaje, luego envías el ticket y es agregado."
+        },
+        {
+            id: 2,
+            question: "¿Cómo puedo cancelar un ticket enviado?",
+            answer: "Para cancelar un ticket, dirígete a 'Ver mis tickets', encuentra el ticket que deseas cancelar y utiliza la opción de cancelación disponible."
+        },
+        {
+            id: 3,
+            question: "¿Cómo puedo ver el estado de mi ticket?",
+            answer: "Puedes verificar el estado de tu ticket en la sección 'Ver mis tickets', donde encontrarás toda la información actualizada sobre tus solicitudes."
+        },
+        {
+            id: 4,
+            question: "¿Qué hago si necesito modificar un ticket?",
+            answer: "Una vez enviado el ticket, puedes agregar comentarios adicionales a través de la sección de comentarios en los detalles del ticket."
+        }
+    ];
 
-  return (
-    <div className={styles.frequentQuestionsContainer}>
-      <h2 className={styles.sectionTitle}>Dudas frecuentes</h2>
-      <div className={styles.questionsContainer}>
-        {frequentQuestions.map((item, index) => (
-          <BoxTexto key={index} question={item.question} answer={item.answer} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default FrequentQuestions;
+    return (
+        <div className={styles.helpCenter}>
+            <div className={styles.helpHeader}>
+                <div className={styles.questionIcon}>?</div>
+                <h2 className={styles.helpTitle}>Dudas frecuentes</h2>
+            </div>
+            
+            <div className={styles.questionsScroll}>
+                <div className={styles.questionsList}>
+                    {questions.map((q) => (
+                        <div key={q.id} className={styles.questionCard}>
+                            <h3 className={styles.questionTitle}>
+                                <div className={styles.questionIconSmall}>?</div>
+                                {q.question}
+                            </h3>
+                            <p className={styles.answer}>{q.answer}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}

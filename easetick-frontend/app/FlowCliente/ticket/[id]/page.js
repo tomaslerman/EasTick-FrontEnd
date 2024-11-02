@@ -28,7 +28,7 @@ const TicketPage = () => {
     }
 
     return (
-        <ProtectedRoutes>
+        <ProtectedRoutes allowedRoles={[1]}>
             <div>
                 <Chat 
                     idTicket={id} 

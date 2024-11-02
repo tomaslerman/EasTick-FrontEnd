@@ -6,7 +6,7 @@ export default function TicketSinResolver({ tickets }) {
         <div className={styles.tableContainer}>
             <div className={styles.header}>
                 <h1>Tickets sin resolver</h1>
-                <a href="/ver-ticket" className={styles.detailsLink}>Ver detalles</a>
+                <a href="/FlowEmpleado/ver-ticket" className={styles.detailsLink}>Ver detalles</a>
             </div>
             <table className={styles.table}>
                 <thead>

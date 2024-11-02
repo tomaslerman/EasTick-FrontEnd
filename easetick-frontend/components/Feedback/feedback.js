@@ -11,7 +11,7 @@ const Feedback = ({ feedback }) => {
                 <div className={styles.feedbackContainer}>
                     <div className={styles.header}>
                         <h1>Feedback</h1>
-                        <a href="#">Ver detalles</a>
+                        <a href="/FlowEmpleado/estadistica">Ver detalles</a>
                     </div>
                     <div className={styles.content}>
                         <div className={styles.item}>
