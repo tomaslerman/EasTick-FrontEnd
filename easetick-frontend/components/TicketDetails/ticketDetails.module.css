@@ -2,32 +2,36 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Ajusta el espacio debajo del título principal */
+    margin-bottom: 20px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .title {
     margin: 0;
     font-size: 18px;
-    color: #333; /* Gris oscuro para el título */
+    color: #1e293b;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .details {
     display: grid;
-    
     grid-template-columns: 1fr 1fr;
-    row-gap: 15px; /* Aumenta el espacio entre las etiquetas y los valores */
+    row-gap: 15px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .label {
     font-size: 14px;
-    color: #666; /* Gris medio para las etiquetas */
-    margin-bottom: 5px; /* Espacio adicional debajo de cada etiqueta */
+    color: #64748b;
+    margin-bottom: 5px;
     margin-right: 30px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .value {
     font-size: 16px;
-    color: #333; /* Gris oscuro para los valores */
-    font-weight: bold;
+    color: #1e293b;
+    font-weight: 600;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 

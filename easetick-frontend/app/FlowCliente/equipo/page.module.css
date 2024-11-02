@@ -1,26 +1,47 @@
 .pageWrapper {
     min-height: 100vh;
-    background: #ffffff;
+    background: white;
     padding: 2rem;
+    overflow: hidden;
 }
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
+    animation: fadeIn 0.3s ease-out;
+    height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
     margin-bottom: 2rem;
-    color: #1e293b;
+    padding: 2rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
+}
+
+.header h2 {
+    color: white;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .equipoContainer {
-    padding: 2rem 0;
+    padding: 1rem 0;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 
 .equipoScrollContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     padding: 1rem 0.5rem;
 }
@@ -28,7 +49,7 @@
 .miembroCard {
     width: 100%;
     padding: 0.5rem;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .miembroCard:hover {
@@ -36,50 +57,66 @@
 }
 
 .glassEffect {
-    background: #f8fafc;
-    border-radius: 8px;
-    padding: 1.5rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .avatarContainer {
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative;
 }
 
 .initialsAvatar {
-    width: 56px;
-    height: 56px;
-    background: #1e40af;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 600;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);
+    position: relative;
+    border: 4px solid white;
 }
 
 .memberInfo {
     text-align: center;
+    width: 100%;
 }
 
 .miembroCard h3 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.8rem 0;
     color: #1e293b;
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .miembroCard p {
     margin: 0;
     color: #64748b;
-    font-size: 0.875rem;
-    word-break: break-all;
+    font-size: 1rem;
+    word-break: break-word;
+    line-height: 1.5;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
@@ -87,8 +124,23 @@
         padding: 1rem;
     }
 
+    .header {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
     .equipoScrollContainer {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1rem;
+    }
+
+    .glassEffect {
+        padding: 1.5rem;
+    }
+
+    .initialsAvatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
 }

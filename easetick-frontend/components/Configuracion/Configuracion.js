@@ -2,6 +2,7 @@
 
 import styles from './Configuracion.module.css';
 import { useRouter } from 'next/navigation'; // Usa useRouter de 'next/navigation'
+import stylesBoton from '../Boton/Boton.module.css';
 
 const Configuracion = () => {
     const router = useRouter(); // Este hook debe usarse dentro de un componente de cliente
@@ -32,12 +33,30 @@ const Configuracion = () => {
     };
 
     const opciones = [
-        "Cambiar de cuenta",
-        "Cambiar email",
-        "Cambiar contraseña",
-        "Interfaz",
-        "Datos personales",
-        "Notificaciones"
+        {
+            titulo: "Cambiar de cuenta",
+            descripcion: "Gestiona múltiples cuentas y perfiles"
+        },
+        {
+            titulo: "Cambiar email",
+            descripcion: "Actualiza tu dirección de correo electrónico"
+        },
+        {
+            titulo: "Cambiar contraseña",
+            descripcion: "Mantén tu cuenta segura"
+        },
+        {
+            titulo: "Interfaz",
+            descripcion: "Personaliza la apariencia de la aplicación"
+        },
+        {
+            titulo: "Datos personales",
+            descripcion: "Gestiona tu información personal"
+        },
+        {
+            titulo: "Notificaciones",
+            descripcion: "Configura tus preferencias de alertas"
+        }
     ];
 
     return (
@@ -46,12 +65,14 @@ const Configuracion = () => {
                 <div
                     key={index}
                     className={styles.opcion}
-                    onClick={() => handleClick(opcion)}
+                    onClick={() => handleClick(opcion.titulo)}
                 >
-                    <span>{opcion}</span>
-                    <span className={styles.arrow}>&#8250;</span>
+                    <span className={styles.opcionTexto}>{opcion.titulo}</span>
+                    <span className={styles.descripcion}>{opcion.descripcion}</span>
+                    <span className={styles.arrow}>→</span>
                 </div>
             ))}
+            
         </div>
     );
 };

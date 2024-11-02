@@ -4,15 +4,16 @@
 .empleadoRow {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
     background-color: #ffffff;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* Hover para la fila de cada empleado */
 .empleadoRow:hover {
-    background-color: #f5f5f5;
+    background-color: #f8fafc;
 }
 
 /* Contenedor para la información del empleado */
@@ -25,29 +26,32 @@
 /* Estilo para el nombre del empleado */
 .name {
     margin-left: 10px;
-    font-weight: bold;
-    color: #1a73e8;
+    font-weight: 600;
+    color: #3b82f6;
     cursor: pointer;
+    font-size: 0.95rem;
 }
 
 /* Estilo para el email del empleado */
 .email {
     flex: 2;
     padding-left: 20px;
-    font-size: 14px;
-    color: #5f6368;
+    font-size: 0.95rem;
+    color: #64748b;
 }
 
 /* Estilo para la calificación del empleado */
 .rating {
     flex: 1;
     text-align: center;
-    font-size: 14px;
+    font-size: 0.95rem;
+    color: #64748b;
 }
 
 /* Estilo para los tickets asignados del empleado */
 .tickets {
     flex: 1;
     text-align: center;
-    font-size: 14px;
+    font-size: 0.95rem;
+    color: #64748b;
 }

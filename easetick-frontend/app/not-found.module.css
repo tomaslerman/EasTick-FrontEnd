@@ -1,0 +1,106 @@
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10vh;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    text-align: center;
+}
+
+.errorCode {
+    font-size: 9rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin: 1rem 0;
+    animation: fadeInDown 0.6s ease-out 0.2s both;
+}
+
+.description {
+    color: #64748b;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    line-height: 1.6;
+    padding: 0 2rem;
+    animation: fadeInDown 0.6s ease-out 0.4s both;
+}
+
+.button {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    animation: fadeInDown 0.6s ease-out 0.6s both;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .notFoundContainer {
+        padding: 8vh 1rem 0;
+    }
+    
+    .errorCode {
+        font-size: 7rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .description {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .notFoundContainer {
+        padding: 6vh 1rem 0;
+    }
+    
+    .errorCode {
+        font-size: 5rem;
+    }
+    
+    .title {
+        font-size: 1.5rem;
+    }
+    
+    .button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}

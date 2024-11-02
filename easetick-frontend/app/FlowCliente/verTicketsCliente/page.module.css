@@ -1,14 +1,40 @@
 .container {
-    padding: 20px;
+    padding: 2rem;
     width: 100%;
-    overflow-x: hidden;
+    background: white;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.header {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
+}
+
+.header h2 {
+    color: white;
+    font-weight: 700;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .tableWrapper {
-    width: 100%;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     overflow-x: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
 }
@@ -18,25 +44,52 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background-color: white;
 }
 
 .ticketTable th {
     text-align: left;
-    padding: 12px 16px;
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #dee2e6;
+    padding: 1rem 1.5rem;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
     white-space: nowrap;
     font-weight: 600;
-    color: #495057;
+    color: #1e293b;
+    font-size: 0.95rem;
 }
 
 .ticketTable td {
-    padding: 12px 16px;
-    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.ticketTable tr {
+    transition: all 0.3s ease;
+}
+
+.ticketTable tr:hover {
+    background-color: #f8fafc;
 }
 
 .ticketTable tr:last-child td {
     border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .header {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .tableWrapper {
+        padding: 1rem;
+        margin: 0 -0.5rem;
+        border-radius: 12px;
+    }
 }
 

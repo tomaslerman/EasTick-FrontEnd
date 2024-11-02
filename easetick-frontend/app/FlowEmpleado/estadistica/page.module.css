@@ -1,42 +1,90 @@
 .container {
+    padding: 1.5rem;
+    width: 100%;
+    background: white;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
+    gap: 1.5rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
+}
+
+.header h2 {
+    color: white;
+    font-weight: 700;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .lineChartsWrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
     width: 100%;
-    margin-bottom: 3%;
+    margin-bottom: 1.5rem;
 }
 
 .graphsRow {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
     width: 100%;
 }
 
 .pieWrapper, .barWrapper, .doughnutChartContainer, .ticketDetailsWrapper {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 340px; /* Asegura que todos los gráficos tengan la misma altura */
-    transition: transform 0.3s ease; /* Animación suave al interactuar */
-}
-.pieWrapper:hover, .barWrapper:hover, .doughnutChartContainer:hover, .ticketDetailsWrapper:hover {
-    transform: scale(1.02); /* Pequeño zoom al hacer hover */
+    height: 320px;
+    transition: all 0.2s ease;
 }
 
-.pieWrapper, .barWrapper, .doughnutWrapper, .ticketDetailsWrapper {
-    max-width: 400px;
+.pieWrapper:hover, .barWrapper:hover, 
+.doughnutChartContainer:hover, .ticketDetailsWrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 1200px) {
+    .graphsRow {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .header {
+        padding: 1.25rem;
+    }
+
+    .lineChartsWrapper, .graphsRow {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .pieWrapper, .barWrapper, 
+    .doughnutChartContainer, .ticketDetailsWrapper {
+        padding: 1rem;
+        height: 280px;
+    }
 }

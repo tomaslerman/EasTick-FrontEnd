@@ -1,10 +1,57 @@
 .container {
-    padding: 20px;
+    padding: 2rem;
     width: 100%;
-    overflow-x: hidden;
+    background: white;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.header {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
+}
+
+.header h2 {
+    color: white;
+    font-weight: 700;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .listadoWrapper {
-    width: 100%;
-    margin-top: 20px;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .header {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .listadoWrapper {
+        padding: 1rem;
+        margin: 0 -0.5rem;
+        border-radius: 12px;
+    }
 }

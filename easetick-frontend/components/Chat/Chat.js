@@ -152,10 +152,8 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                     >
                         <strong>{mensaje.fkCliente ? mensaje.fkCliente.nombre : 
                                 mensaje.fkEmpleado ? mensaje.fkEmpleado.nombre : 'Usuario'}</strong>
-                        <span className={styles.timestamp}>
-                            {new Date(mensaje.fechacreacion).toLocaleString()}
-                        </span>
                         <p>{mensaje.contenido}</p>
+                        
                     </div>
                 ))}
             </div>
