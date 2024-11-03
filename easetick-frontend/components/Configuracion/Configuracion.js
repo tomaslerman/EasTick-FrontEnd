@@ -3,14 +3,17 @@
 import styles from './Configuracion.module.css';
 import { useRouter } from 'next/navigation'; // Usa useRouter de 'next/navigation'
 import stylesBoton from '../Boton/Boton.module.css';
+import { useContext } from 'react';
+import { TokenContext } from '@/context/TokenContext';
 
 const Configuracion = () => {
     const router = useRouter(); // Este hook debe usarse dentro de un componente de cliente
+    const { clearToken } = useContext(TokenContext);
 
     const handleClick = (opcion) => {
         switch (opcion) {
             case "Cambiar de cuenta":
-                router.push('/cambiar-cuenta');
+                handleLogout();
                 break;
             case "Cambiar email":
                 router.push('/cambiar-email');
@@ -30,6 +33,11 @@ const Configuracion = () => {
             default:
                 console.log(`Opción no reconocida: ${opcion}`);
         }
+    };
+
+    const handleLogout = () => {
+        clearToken();
+        router.push('/');
     };
 
     const opciones = [

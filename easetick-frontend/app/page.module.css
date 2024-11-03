@@ -1,54 +1,99 @@
 /* LoginPage.module.css */
-.loginContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-   
+.pageContainer {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.loginBox {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+/* Círculos decorativos */
+.pageContainer::before,
+.pageContainer::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.pageContainer::before {
+  width: 600px;
+  height: 600px;
+  top: -300px;
+  right: -200px;
+  animation: float 20s infinite ease-in-out;
+}
+
+.pageContainer::after {
+  width: 500px;
+  height: 500px;
+  bottom: -250px;
+  left: -150px;
+  animation: float 15s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
   }
-  
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
   .loginBox {
-    background-color: #ffffff;
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .logoContainer {
-    margin-bottom: 1.5rem;
-  }
-  
-  .logo {
-    transition: transform 0.3s ease;
-  }
-  
-  .logo:hover {
-    transform: scale(1.05);
+    margin: 1rem;
+    padding: 2rem;
   }
   
   .title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
   }
-  
-  .subtitle {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 2rem;
-  }
-  
-  @media (max-width: 768px) {
-    .loginBox {
-      padding: 2rem;
-      margin: 1rem;
-    }
-    
-    .title {
-      font-size: 1.75rem;
-    }
-  }
+}

@@ -1,21 +1,23 @@
 import React, { useContext } from 'react';
-import { useRouter } from 'next/navigation'; // Para redirigir al login
-import { TokenContext } from '@/context/TokenContext'; // Asegúrate de que el contexto esté importado correctamente
+import { useRouter } from 'next/navigation';
+import { TokenContext } from '@/context/TokenContext';
 import styles from './Boton.module.css';
 
 const Boton = ({ tipo = 'default', onClick }) => {
   const buttonClass = tipo === 'cerrarSesion' ? styles.botonRojo : styles.botonDefault;
   const buttonText = tipo === 'cerrarSesion' ? 'Cerrar sesión' : 'Acción por defecto';
 
-  const { logout } = useContext(TokenContext); // Usar directamente la función logout del contexto
-  const router = useRouter(); // Hook para redirigir al login
+  const { clearToken } = useContext(TokenContext);
+  const router = useRouter();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (tipo === 'cerrarSesion') {
-      // Lógica para cerrar sesión
-      console.log('Cerrando sesión...');
-      logout(); // Llamar a la función logout del contexto que elimina el token y actualiza el estado
-      router.push('/login'); // Redirigir al usuario al login
+      try {
+        await clearToken();
+        await router.replace('/');
+      } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+      }
     }
     if (onClick) {
       onClick();

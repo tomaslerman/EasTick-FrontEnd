@@ -50,13 +50,12 @@ const TokenProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const clearToken = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     setToken(null);
-    setUserId(null);
     setUserRole(null);
-    setIdEmpresa(null);  // También limpiamos idEmpresa
+    setIdEmpresa(null);
   };
 
   return (
@@ -64,7 +63,7 @@ const TokenProvider = ({ children }) => {
       value={{
         token,
         saveToken,
-        logout,
+        clearToken,
         isLoggedIn: !!token,
         loading,
         userId,

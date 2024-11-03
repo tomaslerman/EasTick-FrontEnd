@@ -28,7 +28,7 @@ export default function HomePage() {
   // Si no está logueado, muestra la página de login
   if (!isLoggedIn) {
     return (
-      <div className={styles.loginContainer}>
+      <div className={styles.pageContainer}>
         <div className={styles.loginBox}>
           <div className={styles.logoContainer}>
             <Image 
