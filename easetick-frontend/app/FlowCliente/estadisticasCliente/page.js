@@ -26,6 +26,8 @@ export default function EstadisticasCliente() {
 
     if (loading) return null;
 
+    console.log('Datos de tickets por mes:', clientStats.ticketsPorMes);
+
     return (
         <ProtectedRoutes allowedRoles={[1]}>
             <div className={styles.container}>
@@ -50,15 +52,19 @@ export default function EstadisticasCliente() {
                                 datasets: [{
                                     data: Object.values(clientStats.ticketsPorEstado),
                                     backgroundColor: [
-                                        'rgba(75, 192, 192, 0.8)',  // Verde azulado
-                                        'rgba(54, 162, 235, 0.8)',  // Azul
-                                        'rgba(255, 206, 86, 0.8)',  // Amarillo
-                                        'rgba(255, 99, 132, 0.8)',  // Rojo
+                                        'rgba(75, 192, 192, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                        'rgba(255, 99, 132, 0.8)',
                                     ],
                                     borderWidth: 1
                                 }]
                             }}
                             title="Estado de Tickets"
+                            options={{
+                                responsive: true,
+                                maintainAspectRatio: false
+                            }}
                         />
                     </div>
                     <div className={styles.graphWrapper}>
@@ -80,6 +86,27 @@ export default function EstadisticasCliente() {
                             labels={labels}
                             number={clientStats.tendenciaSemanal.reduce((a, b) => a + b, 0)}
                             containerStyles={{ height: '100%', width: '100%' }}
+                        />
+                    </div>
+                    <div className={styles.graphWrapper}>
+                        <BarGraph 
+                            title="Comparativa de Tickets por Mes" 
+                            data={clientStats.ticketsPorMes}
+                            options={{
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            stepSize: 1
+                                        }
+                                    }
+                                }
+                            }}
                         />
                     </div>
                 </div>

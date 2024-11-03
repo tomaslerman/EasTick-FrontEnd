@@ -23,7 +23,9 @@ export function useTickets({ id, isCliente = false }) {
         ticketsPorPrioridad: {},
         tiempoPromedioResolucion: 0,
         ticketsPorTipo: {},
-        tendenciaSemanal: []
+        tendenciaSemanal: [],
+        ticketsPorMes: {},
+        distribucionPorDia: null
     });
 
     useEffect(() => {
@@ -36,14 +38,16 @@ export function useTickets({ id, isCliente = false }) {
                         prioridadRes,
                         tiempoRes,
                         tipoRes,
-                        tendenciaRes
+                        tendenciaRes,
+                        mesRes
                     ] = await Promise.all([
                         fetch(`http://localhost:5000/tickets/totalTicketsCliente/${id}`),
                         fetch(`http://localhost:5000/tickets/ticketsPorEstadoCliente/${id}`),
                         fetch(`http://localhost:5000/tickets/ticketsPorPrioridadCliente/${id}`),
                         fetch(`http://localhost:5000/tickets/tiempoPromedioResolucionCliente/${id}`),
                         fetch(`http://localhost:5000/tickets/ticketsPorTipoCliente/${id}`),
-                        fetch(`http://localhost:5000/tickets/tendenciaSemanalCliente/${id}`)
+                        fetch(`http://localhost:5000/tickets/tendenciaSemanalCliente/${id}`),
+                        fetch(`http://localhost:5000/tickets/ticketsPorMesCliente/${id}`)
                     ]);
 
                     const [
@@ -52,104 +56,47 @@ export function useTickets({ id, isCliente = false }) {
                         prioridadData,
                         tiempoData,
                         tipoData,
-                        tendenciaData
+                        tendenciaData,
+                        mesData
                     ] = await Promise.all([
                         totalRes.json(),
                         estadoRes.json(),
                         prioridadRes.json(),
                         tiempoRes.json(),
                         tipoRes.json(),
-                        tendenciaRes.json()
+                        tendenciaRes.json(),
+                        mesRes.json()
                     ]);
 
-                    setClientStats({
+                    setClientStats(prev => ({
+                        ...prev,
                         totalTickets: totalData.message,
                         ticketsPorEstado: estadoData.message,
                         ticketsPorPrioridad: prioridadData.message,
                         tiempoPromedioResolucion: tiempoData.message,
                         ticketsPorTipo: tipoData.message,
-                        tendenciaSemanal: tendenciaData.message
-                    });
+                        tendenciaSemanal: tendenciaData.message,
+                        ticketsPorMes: mesData.message,
+                        distribucionPorDia: distribucionData.success ? distribucionData : {
+                            message: {
+                                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+                                datasets: [{
+                                    label: 'Cantidad de Tickets',
+                                    data: [0, 0, 0, 0, 0, 0, 0],
+                                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1,
+                                    borderRadius: 5
+                                }]
+                            }
+                        }
+                    }));
+
+                    console.log('Distribución por día:', distribucionData);
                 } catch (error) {
-                    console.error('Error fetching client statistics:', error);
+                    console.error('Error fetching data:', error);
                 }
             }
-
-            const fetchTickets = async () => {
-                try {
-                    if (isCliente) {
-                        // Asegúrate de que 'id' sea un número válido
-                        const resTicketsCliente = await fetch(`http://localhost:5000/tickets/cliente/${id}`);
-                        const dataTicketsCliente = await resTicketsCliente.json();
-                        setDetalle(dataTicketsCliente.message);
-                    } else {
-                        // Obtener tickets del empleado (lógica existente)
-                        const resAsignados = await fetch(`http://localhost:5000/tickets/${id}`);
-                        const dataAsignados = await resAsignados.json();
-                        setTicketsAsignados(dataAsignados.message);
-
-                        const resSinResolver = await fetch(`http://localhost:5000/tickets/ticketsSinResolver/${id}`);
-                        const dataSinResolver = await resSinResolver.json();
-                        setTicketsSinResolver(dataSinResolver.message);
-
-                        const resResueltos = await fetch(`http://localhost:5000/tickets/ticketsResueltos/${id}`);
-                        const dataResueltos = await resResueltos.json();
-                        setTicketsResueltos(dataResueltos.message);
-
-                        const resVencenHoy = await fetch(`http://localhost:5000/tickets/ticketsVencenHoy/${id}`);
-                        const dataVencenHoy = await resVencenHoy.json();
-                        setTicketsVencenHoy(dataVencenHoy.message);
-
-                        const resFeedback = await fetch(`http://localhost:5000/tickets/FeedBackEmpleado/${id}`);
-                        const dataFeedback = await resFeedback.json();
-                        setFeedback(dataFeedback.message);
-
-                        const resPorcResueltos = await fetch(`http://localhost:5000/tickets/porcentajeTicketsResueltos/${id}`);
-                        const dataPorcResueltos = await resPorcResueltos.json();
-                        setPorcResueltos(dataPorcResueltos.message);
-
-                        const resDetalle = await fetch(`http://localhost:5000/tickets/detalleTicket/${id}`);
-                        const dataDetalle = await resDetalle.json();
-                        setDetalle(dataDetalle.message);
-
-                        const resSemana = await fetch(`http://localhost:5000/tickets/ticketsPorDiaDeLaSemana/${id}`);
-                        const dataSemana = await resSemana.json();
-                        setSemana(dataSemana.message);
-
-                        const resResueltosSemana = await fetch(`http://localhost:5000/tickets/ticketsResueltosPorDiaDeLaSemana/${id}`);
-                        const dataResueltosSemana = await resResueltosSemana.json();
-                        setResueltosSemana(dataResueltosSemana.message);
-
-                        const resTicketsPrioridad = await fetch(`http://localhost:5000/tickets/cantidadTicketsPorPrioridad/${id}`);
-                        const dataTicketsPrioridad = await resTicketsPrioridad.json();
-                        setTicketsPrioridad(dataTicketsPrioridad.message);
-
-                        const resPorcentajeEstado = await fetch(`http://localhost:5000/tickets/porcentajeTicketsPorEstado/${id}`);
-                        const dataPorcentajeEstado = await resPorcentajeEstado.json();
-                        setPorcentajeEstado(dataPorcentajeEstado.message);
-
-                        const resCantidadTipo = await fetch(`http://localhost:5000/tickets/cantidadTicketsPorTipo/${id}`);
-                        const dataCantidadTipo = await resCantidadTipo.json();
-                        setCantidadTipo(dataCantidadTipo.message);
-
-                        const resCalificacionesUsuario = await fetch(`http://localhost:5000/tickets/calificacionesPorUsuario/${id}`);
-                        const dataCalificacionesUsuario = await resCalificacionesUsuario.json();
-                        setCalifiacionesUsuario(dataCalificacionesUsuario.message);
-                        
-                        const resClientesEmpresa = await fetch(`http://localhost:5000/tickets/empresasClientes/${id}`);
-                        const dataClientesEmpresa = await resClientesEmpresa.json();
-                        setClientesEmpresa(dataClientesEmpresa.message);
-
-                        const resEmpleadosEmpresa = await fetch(`http://localhost:5000/tickets/empleadosYTickets/${id}`);
-                        const dataEmpleadosEmpresa = await resEmpleadosEmpresa.json();
-                        setEmpleadosEmpresa(dataEmpleadosEmpresa.message);
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            };
-
-            fetchTickets();
         };
 
         fetchData();
