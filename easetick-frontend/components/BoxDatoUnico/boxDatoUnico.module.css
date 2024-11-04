@@ -31,3 +31,41 @@
   color: #000;
   margin: 0;
 }
+
+.container {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.containerWide {
+    composes: container;
+    min-width: 350px;
+    padding: 2rem;
+}
+
+.texto {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.dato {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+@media (max-width: 768px) {
+    .containerWide {
+        min-width: unset;
+        width: 100%;
+    }
+}

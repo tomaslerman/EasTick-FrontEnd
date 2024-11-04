@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useTickets } from '@/hooks/useTickets';
 import useTitle from "@/hooks/useTitle";
 import { TokenContext } from "@/context/TokenContext";
@@ -13,39 +13,58 @@ import BoxDatoUnico from "@/components/BoxDatoUnico/boxDatoUnico";
 import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 
 export default function EstadisticasCliente() {
-    const { userId, loading } = useContext(TokenContext);
+    const { userId, loading: userLoading } = useContext(TokenContext);
     const { setTitulo } = useTitle();
     const { clientStats } = useTickets({ id: userId, isCliente: true });
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     
     useEffect(() => {
         setTitulo("Mis Estadísticas");
-    }, [setTitulo]);
+        if (clientStats.totalTickets !== undefined) {
+            setIsLoading(false);
+        }
+    }, [setTitulo, clientStats]);
 
-    const labels = ["D", "L", "M", "X", "J", "V", "S"];
-    const labelsTipo = ["Pregunta", "Incidente", "Sugerencia", "Mantenimiento", "Reclamo"];
+    if (userLoading || isLoading) {
+        return <div>Cargando estadísticas...</div>;
+    }
 
-    if (loading) return null;
+    if (error) {
+        return <div>Error al cargar las estadísticas: {error}</div>;
+    }
 
-    console.log('Datos de tickets por mes:', clientStats.ticketsPorMes);
+    const labels = ["L", "M", "X", "J", "V", "S", "D"];
 
     return (
         <ProtectedRoutes allowedRoles={[1]}>
             <div className={styles.container}>
-                <Titulo titulo={"Mis Estadísticas"} subtitulo={"Revise sus métricas"} />
-                
-                <div className={styles.statsOverview}>
-                    <BoxDatoUnico 
-                        texto="Total Tickets" 
-                        dato={clientStats.totalTickets} 
-                    />
-                    <BoxDatoUnico 
-                        texto="Tiempo Promedio Resolución" 
-                        dato={`${clientStats.tiempoPromedioResolucion} hrs`} 
+                <div className={styles.header}>
+                    <h2>Mis Estadísticas</h2>
+                    <p>Revise sus métricas</p>
+                </div>
+
+                <div className={styles.lineChartsWrapper}>
+                <BoxDatoUnico 
+                    texto="Total Tickets" 
+                    dato={clientStats.totalTickets}
+                    useBoxStyle={true}
+                />
+                <BoxDatoUnico 
+                    texto="Tiempo Promedio Resolución" 
+                    dato={`${clientStats.tiempoPromedioResolucion} hrs`}
+                    useBoxStyle={true}
+                />
+                    <LineGraph 
+                        title="Tendencia Semanal" 
+                        data={clientStats.tendenciaSemanal} 
+                        labels={labels}
+                        number={clientStats.tendenciaSemanal.reduce((a, b) => a + b, 0)}
                     />
                 </div>
 
-                <div className={styles.graphsContainer}>
-                    <div className={styles.graphWrapper}>
+                <div className={styles.graphsRow}>
+                    <div className={styles.pieWrapper}>
                         <PieChart 
                             data={{
                                 labels: Object.keys(clientStats.ticketsPorEstado),
@@ -61,48 +80,38 @@ export default function EstadisticasCliente() {
                                 }]
                             }}
                             title="Estado de Tickets"
-                            options={{
-                                responsive: true,
-                                maintainAspectRatio: false
-                            }}
                         />
                     </div>
-                    <div className={styles.graphWrapper}>
+                    <div className={styles.barWrapper}>
                         <BarGraph 
                             title="Tickets por Prioridad" 
                             data={clientStats.ticketsPorPrioridad} 
                         />
                     </div>
-                    <div className={styles.graphWrapper}>
+                    <div className={styles.doughnutChartContainer}>
                         <BarGraph 
                             title="Tickets por Tipo" 
                             data={clientStats.ticketsPorTipo} 
                         />
                     </div>
-                    <div className={styles.graphWrapper}>
-                        <LineGraph 
-                            title="Tendencia Semanal" 
-                            data={clientStats.tendenciaSemanal} 
-                            labels={labels}
-                            number={clientStats.tendenciaSemanal.reduce((a, b) => a + b, 0)}
-                            containerStyles={{ height: '100%', width: '100%' }}
-                        />
-                    </div>
-                    <div className={styles.graphWrapper}>
+                    <div className={styles.barWrapper}>
                         <BarGraph 
                             title="Comparativa de Tickets por Mes" 
                             data={clientStats.ticketsPorMes}
                             options={{
                                 plugins: {
-                                    legend: {
-                                        display: false
-                                    }
+                                    legend: { display: false }
                                 },
                                 scales: {
                                     y: {
                                         beginAtZero: true,
+                                        ticks: { stepSize: 1 }
+                                    },
+                                    x: {
                                         ticks: {
-                                            stepSize: 1
+                                            autoSkip: false,
+                                            maxRotation: 45,
+                                            minRotation: 45
                                         }
                                     }
                                 }
