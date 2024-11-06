@@ -5,6 +5,7 @@ import styles from './page.module.css';
 import { useEffect, useContext } from "react";
 import { TokenContext } from "@/context/TokenContext";
 import { useRouter } from "next/navigation";
+import Link from 'next/link';
 
 export default function HomePage() {
   const { isLoggedIn, userRole, loading } = useContext(TokenContext);
@@ -43,6 +44,11 @@ export default function HomePage() {
           <p className={styles.subtitle}>Inicia sesión para gestionar tus tickets</p>
           <Login />
         </div>
+        <div className={styles.forgotPassword}>
+        <Link href="/reestablecer" className={styles.forgotLink}>
+          ¿Olvidaste tu contraseña?
+        </Link>
+      </div>
       </div>
     );
   }
