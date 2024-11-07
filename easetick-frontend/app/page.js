@@ -43,12 +43,12 @@ export default function HomePage() {
           <h1 className={styles.title}>Bienvenido a EaseTick</h1>
           <p className={styles.subtitle}>Inicia sesión para gestionar tus tickets</p>
           <Login />
+          <div className={styles.forgotPassword}>
+            <Link href="/reestablecer" className={styles.forgotLink}>
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
         </div>
-        <div className={styles.forgotPassword}>
-        <Link href="/reestablecer" className={styles.forgotLink}>
-          ¿Olvidaste tu contraseña?
-        </Link>
-      </div>
       </div>
     );
   }

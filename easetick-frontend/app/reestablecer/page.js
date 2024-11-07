@@ -86,7 +86,7 @@ export default function ResetPassword() {
 
       setMessage("Contraseña actualizada correctamente");
       setTimeout(() => {
-        router.push('/login');
+        router.push('/');
       }, 2000);
     } catch (error) {
       setError("Error al actualizar la contraseña");
@@ -102,7 +102,7 @@ export default function ResetPassword() {
       {!showResetForm ? (
         <form onSubmit={sendVerificationEmail} className={styles.form}>
           <div className={styles.formGroup}>
-            <label>Email:</label>
+            <label>Ingrese su correo electrónico:</label>
             <input
               type="email"
               value={email}

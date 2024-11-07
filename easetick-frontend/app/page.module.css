@@ -97,3 +97,22 @@
     font-size: 1.8rem;
   }
 }
+
+.forgotPassword {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.forgotLink {
+  color: #4f46e5;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.forgotLink:hover {
+  color: #3b82f6;
+  background-color: rgba(79, 70, 229, 0.1);
+}
