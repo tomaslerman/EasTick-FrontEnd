@@ -11,18 +11,16 @@ import styles from './page.module.css';
 export default function Empleados() {
     const { userId, loading } = useContext(TokenContext);
     const { setTitulo } = useTitle()
-    const {empleadosEmpresa } = useTickets({ id: userId || ''});
+    const { empleadosEmpresa } = useTickets({ id: userId || '' });
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(() => {
       setTitulo("Empleados")
       
-      const timer = setTimeout(() => {
+      if (empleadosEmpresa) {
         setIsLoading(false);
-      }, 6000);
-      
-      return () => clearTimeout(timer);
-    }, [])
+      }
+    }, [empleadosEmpresa])
     
     if (loading) return;
     

@@ -2,13 +2,11 @@
 
 /* Estilo para la fila de cada empleado */
 .empleadoRow {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
     align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
-    background-color: #ffffff;
-    transition: all 0.3s ease;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* Hover para la fila de cada empleado */
@@ -20,7 +18,6 @@
 .empleadoInfo {
     display: flex;
     align-items: center;
-    flex: 1;
 }
 
 /* Estilo para el nombre del empleado */
@@ -54,4 +51,14 @@
     text-align: center;
     font-size: 0.95rem;
     color: #64748b;
+}
+
+.nameLink {
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nameLink:hover {
+    text-decoration: underline;
+    opacity: 0.8;
 }
