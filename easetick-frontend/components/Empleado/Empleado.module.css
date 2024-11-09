@@ -4,9 +4,12 @@
 .empleadoRow {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
     align-items: center;
+    transition: all 0.3s ease;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #64748b;
 }
 
 /* Hover para la fila de cada empleado */
@@ -18,47 +21,45 @@
 .empleadoInfo {
     display: flex;
     align-items: center;
+    padding-right: 1rem;
 }
 
 /* Estilo para el nombre del empleado */
-.name {
-    margin-left: 10px;
-    font-weight: 600;
-    color: #3b82f6;
-    cursor: pointer;
-    font-size: 0.95rem;
-}
-
-/* Estilo para el email del empleado */
-.email {
-    flex: 2;
-    padding-left: 20px;
-    font-size: 0.95rem;
-    color: #64748b;
-}
-
-/* Estilo para la calificación del empleado */
-.rating {
-    flex: 1;
-    text-align: center;
-    font-size: 0.95rem;
-    color: #64748b;
-}
-
-/* Estilo para los tickets asignados del empleado */
-.tickets {
-    flex: 1;
-    text-align: center;
-    font-size: 0.95rem;
-    color: #64748b;
-}
-
 .nameLink {
+    color: #3b82f6;
     text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
     transition: all 0.2s ease;
 }
 
 .nameLink:hover {
     text-decoration: underline;
-    opacity: 0.8;
+}
+
+/* Estilo para el email del empleado */
+.email {
+    padding-left: 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+/* Estilo para la calificación del empleado */
+.rating {
+    text-align: center;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+/* Estilo para los tickets asignados del empleado */
+.tickets {
+    text-align: center;
+    font-size: 0.95rem;
+    white-space: nowrap;
 }

@@ -16,7 +16,7 @@ const ListadoClientes = ({ clientes }) => {
                         clientes.map((cliente, index) => (
                             <tr key={index} className={styles.clienteRow}>
                                 <td className={styles.clienteNombre}>
-                                    <a href="#" className={styles.nombreLink}>
+                                    <a href={`/FlowEmpleado/perfil-cliente/${cliente.fkCliente.id}`} className={styles.nombreLink}>
                                         {cliente.fkCliente.nombre}
                                     </a>
                                 </td>

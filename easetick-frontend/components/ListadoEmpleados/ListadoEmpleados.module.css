@@ -47,6 +47,7 @@
   text-overflow: ellipsis;
   max-width: 200px;
   font-size: 0.95rem;
+  color: #64748b;
 }
 
 .nombreLink {
@@ -61,4 +62,34 @@
 
 .nombreLink:hover {
   text-decoration: underline;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  width: 100%;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3b82f6;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loaderText {
+  position: absolute;
+  margin-top: 80px;
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 500;
 }

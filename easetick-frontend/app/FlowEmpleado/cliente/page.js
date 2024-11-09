@@ -1,6 +1,6 @@
 'use client'
 import Titulo from "@/components/Titulo/Titulo";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import useTitle from "@/hooks/useTitle";
 import ListadoClientes from "@/components/ListadoClientes/ListadoClientes";
 import { useTickets } from "@/hooks/useTickets";
@@ -11,20 +11,48 @@ import styles from './page.module.css';
 export default function Clientes() {
   const { userId, loading } = useContext(TokenContext);
   const { setTitulo } = useTitle()
-  const {clientesEmpresa } = useTickets({ id: userId || ''});
+  const { clientesEmpresa } = useTickets({ id: userId || '' });
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-      setTitulo("Clientes")
-  }, [])
+    setTitulo("Clientes")
+    if (clientesEmpresa) {
+      setIsLoading(false);
+    }
+  }, [clientesEmpresa, setTitulo])
   
-  if (loading) return;
+  if (loading) return null;
   
   return (
     <ProtectedRoutes allowedRoles={[2]}>
       <div className={styles.container}>
         <Titulo titulo={"Clientes"} subtitulo={"Crea y busque sus clientes"} />
         <div className={styles.listadoWrapper}>
-          <ListadoClientes clientes={clientesEmpresa} />
+          {isLoading ? (
+            <div className={styles.loaderContainer}>
+              <div className={styles.loader}></div>
+              <span className={styles.loaderText}>Cargando clientes...</span>
+            </div>
+          ) : clientesEmpresa && clientesEmpresa.length > 0 ? (
+            <ListadoClientes clientes={clientesEmpresa} />
+          ) : (
+            <div className={styles.emptyState}>
+              <svg 
+                width="64" 
+                height="64" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="#64748b"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <p>No hay clientes disponibles</p>
+            </div>
+          )}
         </div>
       </div>
     </ProtectedRoutes>

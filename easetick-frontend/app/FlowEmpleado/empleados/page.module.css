@@ -9,26 +9,6 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-.header {
-    margin-bottom: 2rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-    border-radius: 16px;
-    color: white;
-    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
-}
-
-.header h2 {
-    color: white;
-    font-weight: 700;
-}
-
-.header p {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-}
-
 .listadoWrapper {
     background: white;
     border-radius: 16px;
@@ -39,14 +19,50 @@
     scrollbar-width: thin;
 }
 
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    width: 100%;
+    position: relative;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3b82f6;
+    animation: spin 1s linear infinite;
+}
+
+.loaderText {
+    position: absolute;
+    margin-top: 80px;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    color: #64748b;
+    gap: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
-    }
-    
-    .header {
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
     }
     
     .listadoWrapper {

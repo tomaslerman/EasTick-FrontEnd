@@ -1,0 +1,23 @@
+.container {
+    padding: 1rem;
+    width: 100%;
+    min-height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.perfilWrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+} 

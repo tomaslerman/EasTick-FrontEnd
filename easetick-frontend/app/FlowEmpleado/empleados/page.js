@@ -20,21 +20,41 @@ export default function Empleados() {
       if (empleadosEmpresa) {
         setIsLoading(false);
       }
-    }, [empleadosEmpresa])
+    }, [empleadosEmpresa, setTitulo])
     
-    if (loading) return;
+    if (loading) return null;
     
     return (
       <ProtectedRoutes allowedRoles={[2]}>
         <div className={styles.container}>
-          <Titulo titulo={"Empleados"} subtitulo={"Empleados PRESIS"} />
+          <Titulo titulo={"Empleados"} subtitulo={"Gestiona tu equipo de trabajo"} />
           <div className={styles.listadoWrapper}>
             {isLoading ? (
-              <div>Cargando empleados...</div>
+              <div className={styles.loaderContainer}>
+                <div className={styles.loader}></div>
+                <span className={styles.loaderText}>Cargando empleados...</span>
+              </div>
             ) : empleadosEmpresa && empleadosEmpresa.length > 0 ? (
               <ListadoEmpleados empleados={empleadosEmpresa} />
             ) : (
-              <div>No hay empleados disponibles</div>
+              <div className={styles.emptyState}>
+                <svg 
+                  width="64" 
+                  height="64" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#64748b"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <p>No hay empleados disponibles</p>
+              </div>
             )}
           </div>
         </div>
