@@ -6,6 +6,7 @@
     height: 100vh;
     background-color: #f5f7fa;
     overflow: hidden;
+    padding-top: 70px;
 }
 
 .layout {
@@ -19,7 +20,7 @@
 
 .allContainer {
     background-color: #ffffff;
-    margin: 24px 32px 32px calc(70px + 24px);
+    margin: 24px 32px 32px 32px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -28,7 +29,7 @@
     flex-direction: column;
     position: relative;
     transition: all 0.3s ease;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 140px);
 }
 
 /* Media queries */
@@ -38,7 +39,8 @@
     }
     
     .allContainer {
-        margin: 16px 16px 16px calc(60px + 16px);
+        margin: 16px;
+        height: calc(100vh - 120px);
     }
 }
 

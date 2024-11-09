@@ -24,21 +24,28 @@ const NavbarCliente = () => {
   return (
     <ProtectedRoutes allowedRoles={[1]}> {/* Solo empleados (rol 2) pueden ver esto */}
       <div className={styles.navBar}>
-        {navItems.map((item, index) => (
-          <div
-            key={index}
-            className={styles.navItem}
-            onMouseEnter={() => setHoveredItem(index)}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            <Link href={item.href} className={styles.navLink}>
-              <Image src={item.src} alt={item.alt} width={32} height={32} />
-              {hoveredItem === index && <span className={styles.hoverText}>{item.label}</span>}
-            </Link>
-          </div>
-        ))}
-        <div className={`${styles.navItem} ${styles.logoItem}`}>
-          <Image src="/imagenes/LogoVectorizadoGris_EaseTick.png" alt="LogoEaseTick" width={40} height={40} />
+        <div className={styles.navItems}>
+          {navItems.map((item, index) => (
+            <div
+              key={index}
+              className={styles.navItem}
+              onMouseEnter={() => setHoveredItem(index)}
+              onMouseLeave={() => setHoveredItem(null)}
+            >
+              <Link href={item.href} className={styles.navLink}>
+                <Image src={item.src} alt={item.alt} width={32} height={32} />
+                <span className={styles.navText}>{item.label}</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className={styles.logoItem}>
+          <Image 
+            src="/imagenes/LogoVectorizadoGris_EaseTick.png" 
+            alt="LogoEaseTick" 
+            width={45} 
+            height={45}
+          />
         </div>
       </div>
     </ProtectedRoutes>

@@ -9,5 +9,8 @@ export default function useTitle(){
         throw new Error("useTitle must be used within a TitleProvider")
     }
 
-    return title
+    return {
+        ...title,
+        titulo: title.titulo ? <span style={{color: 'white'}}>{title.titulo}</span> : null
+    }
 }
