@@ -7,9 +7,10 @@ import { useTickets } from "@/hooks/useTickets";
 import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 import { TokenContext } from "@/context/TokenContext";
 import styles from './page.module.css';
+import Link from 'next/link';
 
 export default function Empleados() {
-    const { userId, loading } = useContext(TokenContext);
+    const { userId, loading, userRole } = useContext(TokenContext);
     const { setTitulo } = useTitle()
     const { empleadosEmpresa } = useTickets({ id: userId || '' });
     const [isLoading, setIsLoading] = useState(true);
@@ -25,9 +26,18 @@ export default function Empleados() {
     if (loading) return null;
     
     return (
-      <ProtectedRoutes allowedRoles={[2]}>
+      <ProtectedRoutes allowedRoles={[2, 3]}>
         <div className={styles.container}>
-          <Titulo titulo={"Empleados"} subtitulo={"Gestiona tu equipo de trabajo"} />
+          <div className={styles.headerContainer}>
+            <Titulo titulo={"Empleados"} subtitulo={"Gestiona tu equipo de trabajo"} />
+            {userRole === 3 && (
+              <Link href="/FlowEmpleado/empleados/nuevo" className={styles.addButton}>
+                <button className={styles.button}>
+                  Agregar Empleado
+                </button>
+              </Link>
+            )}
+          </div>
           <div className={styles.listadoWrapper}>
             {isLoading ? (
               <div className={styles.loaderContainer}>

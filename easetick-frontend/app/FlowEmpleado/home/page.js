@@ -29,7 +29,7 @@ export default function Home() {
     if (loading) return;
 
     return (
-        <ProtectedRoutes allowedRoles={[2]}>
+        <ProtectedRoutes allowedRoles={[2, 3]}>
             <div className={styles.content}>
                 <div className={styles.dashboard}>
                     <BoxDatoUnico texto={"Tickets asignados"} dato={ticketsAsignados?.length || 0} />

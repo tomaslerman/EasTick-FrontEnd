@@ -15,7 +15,7 @@ export default function HomePage() {
     if (!loading && isLoggedIn) {
       if (userRole === 1) {
         router.push('/FlowCliente/home');
-      } else if (userRole === 2) {
+      } else if (userRole === 2 || userRole === 3) {
         router.push('/FlowEmpleado/home');
       }
     }

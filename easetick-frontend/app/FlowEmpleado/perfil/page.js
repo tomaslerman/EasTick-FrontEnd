@@ -13,7 +13,7 @@ export default function PerfilEmpleado() {
     }, [setTitulo]);
 
     return (
-        <ProtectedRoutes allowedRoles={[2]}>
+        <ProtectedRoutes allowedRoles={[2, 3]}>
             <div>
                 <Titulo titulo={"Mi Perfil"} subtitulo={"Gestione su información personal"} />
                 <Perfil />

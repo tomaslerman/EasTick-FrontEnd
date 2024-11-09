@@ -47,7 +47,7 @@ export default function VerTicket() {
     }, [setTitulo]);
     if (loading) return;
     return (
-        <ProtectedRoutes allowedRoles={[2]}>
+        <ProtectedRoutes allowedRoles={[2, 3]}>
             <div className={styles.container}>
                 <Titulo titulo={"Tus Tickets"} subtitulo={"Gestione sus tickets"} />
                 <FiltroTickets onFilterChange={handleFiltroChange} />

@@ -3,21 +3,32 @@
 import { useContext, useEffect } from 'react';
 import { TokenContext } from '@/context/TokenContext';
 import { useRouter } from 'next/navigation';
-import { notFound } from 'next/navigation';
 
 export const ProtectedRoutes = ({ children, allowedRoles }) => {
-    const { userRole, loading } = useContext(TokenContext);
+    const { isLoggedIn, userRole, loading } = useContext(TokenContext);
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !allowedRoles.includes(userRole)) {
-            notFound();
+        if (!loading) {
+            if (!isLoggedIn) {
+                router.push('/');
+            } else if (!allowedRoles.includes(userRole)) {
+                if (userRole === 1) {
+                    router.push('/FlowCliente/home');
+                } else if (userRole === 2 || userRole === 3) {
+                    router.push('/FlowEmpleado/home');
+                }
+            }
         }
-    }, [loading, userRole, allowedRoles]);
+    }, [isLoggedIn, userRole, loading, router, allowedRoles]);
 
-    if (loading || !allowedRoles.includes(userRole)) {
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
+
+    if (!isLoggedIn || !allowedRoles.includes(userRole)) {
         return null;
     }
 
-    return children;
+    return <>{children}</>;
 };

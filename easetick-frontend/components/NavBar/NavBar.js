@@ -19,10 +19,10 @@ const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const { userRole } = useContext(TokenContext);
 
-  if (userRole !== 2) return null;
+  if (userRole !== 2 && userRole !== 3) return null;
 
   return (
-    <ProtectedRoutes allowedRoles={[2]}>
+    <ProtectedRoutes allowedRoles={[2, 3]}>
       <div className={styles.navBar}>
         <div className={styles.navItems}>
           {navItems.map((item, index) => (

@@ -9,10 +9,10 @@ export default function Header({ titulo }) {
   const { userRole } = useContext(TokenContext); // Obtén el rol del usuario desde el contexto
 
   // Si el usuario no es empleado (rol 2), no renderiza el header
-  if (userRole !== 2) return null;
+  if (userRole !== 2 && userRole !== 3) return null;
 
   return (
-    <ProtectedRoutes allowedRoles={[2]}> {/* Solo empleados (rol 2) pueden ver esto */}
+    <ProtectedRoutes allowedRoles={[2, 3]}> 
       <div className={styles.header}>
         <h1>{titulo}</h1>
         <div className={styles.icons}>

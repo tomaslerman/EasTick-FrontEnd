@@ -53,7 +53,7 @@ export default function PerfilEmpleado() {
     if (!empleado) return <div>No se encontró el empleado</div>;
 
     return (
-        <ProtectedRoutes allowedRoles={[2]}>
+        <ProtectedRoutes allowedRoles={[2, 3]}>
             <div className={styles.container}>
                 <Titulo 
                     titulo="Perfil del Empleado" 
