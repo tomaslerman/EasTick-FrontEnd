@@ -3,6 +3,7 @@ import { TokenContext } from '@/context/TokenContext';
 import io from 'socket.io-client';
 import axios from 'axios';
 import styles from './Chat.module.css';  // Importa los estilos
+import { FaStar } from 'react-icons/fa'; // Necesitarás instalar react-icons
 
 const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket }) => {
     const [mensajes, setMensajes] = useState([]);
@@ -10,6 +11,9 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const [socket, setSocket] = useState(null);
     const [ticketCerrado, setTicketCerrado] = useState(estadoTicket === 2);
     const { userId, userRole } = useContext(TokenContext);
+    const [mostrarCalificacion, setMostrarCalificacion] = useState(false);
+    const [calificacion, setCalificacion] = useState(0);
+    const [calificacionEnviada, setCalificacionEnviada] = useState(false);
 
     // Inicializar socket
     useEffect(() => {
@@ -113,15 +117,39 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             
             if (response.data.success) {
                 setTicketCerrado(true);
-                // Emitir evento de cierre al socket con el ID del ticket
                 socket.emit('ticket-closed', idTicket);
+                // Mostrar calificación solo si es cliente
+                if (userRole === 1) {
+                    setMostrarCalificacion(true);
+                }
                 alert('Ticket cerrado exitosamente');
-            } else {
-                throw new Error('No se pudo cerrar el ticket');
             }
         } catch (error) {
             console.error('Error al cerrar ticket:', error);
             alert('Error al cerrar el ticket. Por favor, intente nuevamente.');
+        }
+    };
+
+    const enviarCalificacion = async () => {
+        try {
+            // Solo permitir calificar si es cliente (userRole === 1)
+            if (userRole !== 1) {
+                alert('Solo los clientes pueden calificar tickets');
+                return;
+            }
+
+            const response = await axios.post(`http://localhost:5000/tickets/${idTicket}/calificar`, {
+                idUsuario: userId,
+                puntaje: calificacion
+            });
+
+            if (response.data.success) {
+                setCalificacionEnviada(true);
+                alert('¡Gracias por tu calificación!');
+            }
+        } catch (error) {
+            console.error('Error al enviar calificación:', error);
+            alert(error.response?.data?.error || 'Error al enviar la calificación');
         }
     };
 
@@ -176,6 +204,34 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                         <button type="submit" className={styles.botonEnviar}>Enviar</button>
                     </form>
                 </>
+            )}
+
+            {ticketCerrado && userRole === 1 && !calificacionEnviada && (
+                <div className={styles.calificacionContainer}>
+                    <h3>Califica la atención recibida</h3>
+                    <div className={styles.estrellas}>
+                        {[1, 2, 3, 4, 5].map((estrella) => (
+                            <FaStar
+                                key={estrella}
+                                className={`${styles.estrella} ${
+                                    estrella <= calificacion ? styles.estrellaActiva : ''
+                                }`}
+                                onClick={() => setCalificacion(estrella)}
+                            />
+                        ))}
+                    </div>
+                    <button 
+                        onClick={enviarCalificacion}
+                        disabled={calificacion === 0}
+                        className={styles.botonCalificar}
+                    >
+                        Enviar Calificación
+                    </button>
+                </div>
+            )}
+
+            {calificacionEnviada && (
+                <p className={styles.gracias}>¡Gracias por tu calificación!</p>
             )}
 
             {ticketCerrado && (
