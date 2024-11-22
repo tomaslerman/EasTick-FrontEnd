@@ -14,6 +14,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const [mostrarCalificacion, setMostrarCalificacion] = useState(false);
     const [calificacion, setCalificacion] = useState(0);
     const [calificacionEnviada, setCalificacionEnviada] = useState(false);
+    const [ticketYaCalificado, setTicketYaCalificado] = useState(false);
 
     // Inicializar socket
     useEffect(() => {
@@ -153,6 +154,27 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
         }
     };
 
+    // Agregar useEffect para verificar si el ticket ya fue calificado
+    useEffect(() => {
+        const verificarCalificacion = async () => {
+            if (ticketCerrado && userRole === 1) {
+                try {
+                    const response = await axios.get(
+                        `http://localhost:5000/tickets/${idTicket}/verificarCalificacion`
+                    );
+                    setTicketYaCalificado(response.data.yaCalificado);
+                    if (response.data.yaCalificado) {
+                        setCalificacionEnviada(true);
+                    }
+                } catch (error) {
+                    console.error('Error al verificar calificación:', error);
+                }
+            }
+        };
+
+        verificarCalificacion();
+    }, [ticketCerrado, idTicket, userRole]);
+
     return (
         
         <div className={styles.chatContainer}>
@@ -206,7 +228,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                 </>
             )}
 
-            {ticketCerrado && userRole === 1 && !calificacionEnviada && (
+            {ticketCerrado && userRole === 1 && !ticketYaCalificado && !calificacionEnviada && (
                 <div className={styles.calificacionContainer}>
                     <h3>Califica la atención recibida</h3>
                     <div className={styles.estrellas}>
@@ -230,7 +252,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                 </div>
             )}
 
-            {calificacionEnviada && (
+            {(calificacionEnviada || ticketYaCalificado) && (
                 <p className={styles.gracias}>¡Gracias por tu calificación!</p>
             )}
 
