@@ -59,7 +59,7 @@ export default function VerTicket() {
                                 <th>Estado</th>
                                 <th>Prioridad</th>
                                 <th>Fecha</th>
-                                <th>Caducidad</th>
+                                <th>Fecha Finalizado</th>
                                 <th>Asignado</th>
                                 <th>Empresa</th>
                                 <th></th>

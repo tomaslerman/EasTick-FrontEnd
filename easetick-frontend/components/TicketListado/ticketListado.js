@@ -10,7 +10,7 @@ const TicketListado = ({ ticket, index }) => {
             <td className={styles.ticketCell}>{ticket.estado.nombre}</td>
             <td className={styles.ticketCell}>{ticket.prioridad.nombre}</td>
             <td className={styles.ticketCell}>{ticket.fechacreacion}</td>
-            <td className={styles.ticketCell}>{ticket.prioridad.caducidad}</td>
+            <td className={styles.ticketCell}>{ticket.fechafinalizado || '-'}</td>
             <td className={styles.ticketCell}>{ticket.usuario.nombre}</td>
             <td className={styles.ticketCell}>{ticket.empresa.nombre}</td>
             <td className={styles.ticketCell}>
