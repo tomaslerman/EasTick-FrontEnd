@@ -15,6 +15,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const [calificacion, setCalificacion] = useState(0);
     const [calificacionEnviada, setCalificacionEnviada] = useState(false);
     const [ticketYaCalificado, setTicketYaCalificado] = useState(false);
+    const [archivo, setArchivo] = useState(null);
 
     // Inicializar socket
     useEffect(() => {
@@ -28,23 +29,13 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     useEffect(() => {
         if (!socket) return;
 
-        // Unirse al chat
         socket.emit('join-chat', idTicket);
-        console.log('Uniéndose al chat:', idTicket);
 
-        // Cargar mensajes existentes
         const cargarMensajes = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/tickets/${idTicket}/mensajes`);
                 if (response.data.success) {
-                    // Filtrar mensajes duplicados basados en el contenido y timestamp
-                    const mensajesUnicos = response.data.mensajes.filter((mensaje, index, self) =>
-                        index === self.findIndex((m) => (
-                            m.contenido === mensaje.contenido &&
-                            m.fechacreacion === mensaje.fechacreacion
-                        ))
-                    );
-                    setMensajes(mensajesUnicos);
+                    setMensajes(response.data.mensajes);
                 }
             } catch (error) {
                 console.error('Error al cargar mensajes:', error);
@@ -52,46 +43,99 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
         };
         cargarMensajes();
 
-        // Escuchar nuevos mensajes
-        socket.on('message-received', (mensaje) => {
-            console.log('Mensaje recibido:', mensaje);
-            setMensajes(prev => [...prev, mensaje]);
-        });
-
-        // Escuchar cierre de ticket
-        socket.on('ticket-closed', (ticketId) => {
-            if (ticketId === idTicket) {
-                setTicketCerrado(true);
-                // Actualizar el estado del ticket en tiempo real
-                verificarEstadoTicket();
+        socket.on('new-message', (data) => {
+            console.log('Nuevo mensaje recibido:', data);
+            if (data.message) {
+                setMensajes(prev => [...prev, data.message]);
             }
         });
 
         return () => {
-            socket.off('message-received');
-            socket.off('ticket-closed');
+            socket.off('new-message');
         };
     }, [socket, idTicket]);
 
+    const renderMensaje = (mensaje) => {
+        const esUsuarioActual = 
+            (userRole === 2 && mensaje.fkEmpleado !== null) || 
+            (userRole === 1 && mensaje.fkCliente !== null);
+        
+        const nombre = mensaje.fkEmpleado ? mensaje.fkEmpleado.nombre : mensaje.fkCliente.nombre;
+        
+        return (
+            <div key={mensaje.id} className={`${styles.mensaje} ${esUsuarioActual ? styles.mensajeCliente : styles.mensajeEmpleado}`}>
+                <div className={styles.mensajeHeader}>
+                    <span className={styles.nombre}>{nombre}</span>
+                    <span className={styles.fecha}>
+                        {new Date(mensaje.fechacreacion).toLocaleString()}
+                    </span>
+                </div>
+                <div className={styles.mensajeContenido}>
+                    {mensaje.contenido && (
+                        <div className={styles.texto}>{mensaje.contenido}</div>
+                    )}
+                    {mensaje.archivo_url && (
+                        <div className={styles.archivo}>
+                            <a 
+                                href={mensaje.archivo_url}
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className={styles.archivoLink}
+                                download={mensaje.archivo_nombre}
+                            >
+                                {mensaje.archivo_nombre.match(/\.(jpg|jpeg|png|gif)$/i) ? '🖼️' : '📎'}
+                                <span className={styles.nombreArchivo}>
+                                    {mensaje.archivo_nombre}
+                                </span>
+                                <span className={styles.descargarTexto}>Descargar</span>
+                            </a>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
     const enviarMensaje = async (e) => {
         e.preventDefault();
-        if (!nuevoMensaje.trim() || !socket) return;
+        if ((!nuevoMensaje.trim() && !archivo) || !socket) return;
 
-        console.log('Enviando mensaje:', {
-            ticketId: idTicket,
-            message: nuevoMensaje,
-            userId: userId,
-            isEmployee: userRole === 2
-        });
+        const formData = new FormData();
+        if (nuevoMensaje.trim()) {
+            formData.append('contenido', nuevoMensaje);
+        }
+        formData.append('userId', userId);
+        formData.append('isEmployee', String(userRole === 2));
+        if (archivo) {
+            formData.append('archivo', archivo);
+        }
 
-        socket.emit('new-message', {
-            ticketId: idTicket,
-            message: nuevoMensaje,
-            userId: userId,
-            isEmployee: userRole === 2
-        });
+        try {
+            const response = await axios.post(
+                `http://localhost:5000/tickets/${idTicket}/mensaje`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            );
 
-        setNuevoMensaje('');
+            if (response.data.success) {
+                socket.emit('new-message', {
+                    ticketId: idTicket,
+                    message: response.data.mensaje
+                });
+                
+                setNuevoMensaje('');
+                setArchivo(null);
+                const fileInput = document.querySelector('input[type="file"]');
+                if (fileInput) fileInput.value = '';
+            }
+        } catch (error) {
+            console.error('Error al enviar mensaje:', error);
+            alert('Error al enviar el mensaje');
+        }
     };
 
     // Verificar estado inicial del ticket
@@ -193,19 +237,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             </div>
 
             <div className={styles.mensajes}>
-                {mensajes.map((mensaje, index) => (
-                    <div 
-                        key={index} 
-                        className={`${styles.mensaje} ${
-                            mensaje.fkCliente ? styles.mensajeCliente : styles.mensajeEmpleado
-                        }`}
-                    >
-                        <strong>{mensaje.fkCliente ? mensaje.fkCliente.nombre : 
-                                mensaje.fkEmpleado ? mensaje.fkEmpleado.nombre : 'Usuario'}</strong>
-                        <p>{mensaje.contenido}</p>
-                        
-                    </div>
-                ))}
+                {mensajes.map(mensaje => renderMensaje(mensaje))}
             </div>
 
             {!ticketCerrado && (
@@ -223,7 +255,22 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                             placeholder="Escribe un mensaje..."
                             className={styles.input}
                         />
-                        <button type="submit" className={styles.botonEnviar}>Enviar</button>
+                        <div className={styles.archivoContainer}>
+                            <input
+                                type="file"
+                                onChange={(e) => setArchivo(e.target.files[0])}
+                                className={styles.inputArchivo}
+                                id="archivo"
+                            />
+                            {archivo && (
+                                <span className={styles.nombreArchivo}>
+                                    📎 {archivo.name}
+                                </span>
+                            )}
+                        </div>
+                        <button type="submit" className={styles.botonEnviar}>
+                            Enviar
+                        </button>
                     </form>
                 </>
             )}
