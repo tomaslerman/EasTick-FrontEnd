@@ -60,7 +60,12 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             (userRole === 2 && mensaje.fkEmpleado !== null) || 
             (userRole === 1 && mensaje.fkCliente !== null);
         
-        const nombre = mensaje.fkEmpleado ? mensaje.fkEmpleado.nombre : mensaje.fkCliente.nombre;
+        let nombre = 'Usuario Desconocido';
+        if (mensaje.fkEmpleado && mensaje.fkEmpleado.nombre) {
+            nombre = mensaje.fkEmpleado.nombre;
+        } else if (mensaje.fkCliente && mensaje.fkCliente.nombre) {
+            nombre = mensaje.fkCliente.nombre;
+        }
         
         return (
             <div key={mensaje.id} className={`${styles.mensaje} ${esUsuarioActual ? styles.mensajeCliente : styles.mensajeEmpleado}`}>
@@ -83,7 +88,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                                 className={styles.archivoLink}
                                 download={mensaje.archivo_nombre}
                             >
-                                {mensaje.archivo_nombre.match(/\.(jpg|jpeg|png|gif)$/i) ? '🖼️' : '📎'}
+                                {mensaje.archivo_nombre?.match(/\.(jpg|jpeg|png|gif)$/i) ? '🖼️' : '📎'}
                                 <span className={styles.nombreArchivo}>
                                     {mensaje.archivo_nombre}
                                 </span>
@@ -101,16 +106,30 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
         if ((!nuevoMensaje.trim() && !archivo) || !socket) return;
 
         const formData = new FormData();
+        
+        // Agregar los campos al FormData solo si tienen valor
         if (nuevoMensaje.trim()) {
-            formData.append('contenido', nuevoMensaje);
+            formData.append('contenido', nuevoMensaje.trim());
         }
-        formData.append('userId', userId);
+        
+        // Asegurarse de que userId es un número
+        formData.append('userId', String(userId));
+        
+        // Convertir el booleano a string
         formData.append('isEmployee', String(userRole === 2));
+        
         if (archivo) {
             formData.append('archivo', archivo);
         }
 
         try {
+            console.log('Enviando mensaje:', {
+                contenido: nuevoMensaje,
+                userId: userId,
+                isEmployee: userRole === 2,
+                archivo: archivo
+            });
+
             const response = await axios.post(
                 `http://localhost:5000/tickets/${idTicket}/mensaje`,
                 formData,
@@ -122,18 +141,26 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             );
 
             if (response.data.success) {
+                // Emitir el mensaje a través del socket
                 socket.emit('new-message', {
                     ticketId: idTicket,
                     message: response.data.mensaje
                 });
                 
+                // Limpiar el formulario
                 setNuevoMensaje('');
                 setArchivo(null);
+                
+                // Limpiar el input de archivo
                 const fileInput = document.querySelector('input[type="file"]');
                 if (fileInput) fileInput.value = '';
+                
+                // Opcional: Actualizar los mensajes localmente
+                setMensajes(prev => [...prev, response.data.mensaje]);
             }
         } catch (error) {
-            console.error('Error al enviar mensaje:', error);
+            console.error('Error completo al enviar mensaje:', error);
+            console.error('Detalles del error:', error.response?.data);
             alert('Error al enviar el mensaje');
         }
     };
