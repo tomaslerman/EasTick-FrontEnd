@@ -231,10 +231,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                 </div>
             </div>
 
-            <div className={styles.mensajeInicial}>
-                <h3>Mensaje inicial:</h3>
-                <p>{mensajeInicial}</p>
-            </div>
+            
 
             <div className={styles.mensajes}>
                 {mensajes.map(mensaje => renderMensaje(mensaje))}

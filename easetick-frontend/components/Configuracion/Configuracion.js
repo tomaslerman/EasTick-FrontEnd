@@ -8,7 +8,7 @@ import { TokenContext } from '@/context/TokenContext';
 
 const Configuracion = () => {
     const router = useRouter(); // Este hook debe usarse dentro de un componente de cliente
-    const { clearToken } = useContext(TokenContext);
+    const { clearToken, userRole } = useContext(TokenContext);
 
     const handleClick = async (opcion) => {
         switch (opcion) {
@@ -23,7 +23,12 @@ const Configuracion = () => {
                 router.push('/reestablecer');
                 break;
             case "Datos personales":
-                router.push('/datos-personales');
+                // Redirigir según el rol del usuario
+                if (userRole === 1) {
+                    router.push('/FlowCliente/perfilCliente');
+                } else if (userRole === 2 || userRole === 3) {
+                    router.push('/FlowEmpleado/perfil');
+                }
                 break;
             default:
                 console.log(`Opción no reconocida: ${opcion}`);
