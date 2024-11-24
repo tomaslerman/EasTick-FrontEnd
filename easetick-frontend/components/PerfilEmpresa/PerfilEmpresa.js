@@ -30,8 +30,10 @@ const PerfilEmpresa = ({ data }) => {
                             <p>{data.correoelectronico}</p>
                         </div>
                         <div className={styles.infoItem}>
-                            <span>Teléfono:</span>
-                            <p>{data.telefono}</p>
+                            <span>Rol:</span>
+                            <div className={styles.rolInfo}>
+                                <p>{data.empresa.tipo}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -44,10 +46,6 @@ const PerfilEmpresa = ({ data }) => {
                         <div className={styles.infoItem}>
                             <span>Email Empresarial:</span>
                             <p>{data.empresa.correoelectronico}</p>
-                        </div>
-                        <div className={styles.infoItem}>
-                            <span>Tipo de Empresa:</span>
-                            <p>{data.empresa.tipo}</p>
                         </div>
                     </div>
                 </div>
