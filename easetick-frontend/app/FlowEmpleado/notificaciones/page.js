@@ -8,24 +8,24 @@ import Link from 'next/link';
 
 export default function Notificaciones() {
     const { userId } = useContext(TokenContext);
-    const [notificaciones, setNotificaciones] = useState([]);
+    const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchNotificaciones = async () => {
+        const fetchItems = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`http://localhost:5000/tickets/notificaciones/${userId}`);
-                setNotificaciones(response.data.message);
+                const response = await axios.get(`http://localhost:5000/tickets/notificacionesYRecordatorios/${userId}`);
+                setItems(response.data.message);
             } catch (error) {
-                console.error('Error al obtener notificaciones:', error);
+                console.error('Error al obtener notificaciones y recordatorios:', error);
             } finally {
                 setLoading(false);
             }
         };
 
         if (userId) {
-            fetchNotificaciones();
+            fetchItems();
         }
     }, [userId]);
 
@@ -41,48 +41,54 @@ export default function Notificaciones() {
         return fechaObj.toLocaleDateString('es-ES', opciones);
     };
 
-    const handleNotificacionClick = async (notif) => {
-        try {
-            await axios.put(`http://localhost:5000/tickets/notificaciones/${notif.id}/leer`);
-            setNotificaciones(prev => prev.filter(n => n.id !== notif.id));
-            window.location.href = `/FlowEmpleado/ticket/${notif.fkticket}`;
-        } catch (error) {
-            console.error('Error al marcar notificación como leída:', error);
+    const handleNotificacionClick = async (item) => {
+        if (item.tipo === 'notificacion') {
+            try {
+                await axios.put(`http://localhost:5000/tickets/notificaciones/${item.id}/leer`);
+                setItems(prev => prev.filter(n => n.id !== item.id));
+                window.location.href = `/FlowEmpleado/ticket/${item.fkticket}`;
+            } catch (error) {
+                console.error('Error al marcar notificación como leída:', error);
+            }
         }
     };
 
+    const renderItem = (item) => {
+        const isRecordatorio = item.tipo === 'recordatorio';
+        return (
+            <div 
+                key={item.id}
+                className={`${styles.notificacion} ${isRecordatorio ? styles.recordatorio : ''}`}
+                onClick={() => !isRecordatorio && handleNotificacionClick(item)}
+            >
+                <div className={!item.leido ? styles.noLeido : ''}>
+                    <h3>{item.contenido}</h3>
+                    {item.ticket && (
+                        <p>Ticket: {item.ticket.asunto}</p>
+                    )}
+                    {isRecordatorio && (
+                        <span className={styles.recordatorioTag}>Recordatorio</span>
+                    )}
+                    <small>{formatearFecha(item.fechacreacion)}</small>
+                </div>
+            </div>
+        );
+    };
+
     if (loading) {
-        return <div className={styles.loading}>Cargando notificaciones...</div>;
+        return <div className={styles.loading}>Cargando...</div>;
     }
 
     return (
         <ProtectedRoutes allowedRoles={[2, 3]}>
             <div className={styles.container}>
-                <h1>Notificaciones</h1>
+                <h1>Notificaciones y Recordatorios</h1>
                 <div className={styles.notificacionesList}>
-                    {notificaciones.length > 0 ? (
-                        notificaciones.map((notif) => (
-                            <Link 
-                                href={`/FlowEmpleado/ticket/${notif.fkticket}`} 
-                                key={notif.id}
-                                className={styles.notificacion}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleNotificacionClick(notif);
-                                }}
-                            >
-                                <div className={!notif.leido ? styles.noLeido : ''}>
-                                    <h3>{notif.contenido}</h3>
-                                    {notif.ticket && (
-                                        <p>Ticket: {notif.ticket.asunto}</p>
-                                    )}
-                                    <small>{formatearFecha(notif.fechacreacion)}</small>
-                                </div>
-                            </Link>
-                        ))
+                    {items.length > 0 ? (
+                        items.map(renderItem)
                     ) : (
                         <div className={styles.noNotificaciones}>
-                            <p>No tienes notificaciones nuevas</p>
+                            <p>No hay notificaciones ni recordatorios</p>
                         </div>
                     )}
                 </div>

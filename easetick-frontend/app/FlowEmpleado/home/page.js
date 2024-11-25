@@ -13,7 +13,7 @@ import Recordatorios from "@/components/Recordatorio/Recordatorio";
 import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
 export default function Home() {
     const { userId, loading } = useContext(TokenContext);
-    const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsVencenHoy, feedback, porcResueltos } = useTickets({ id: userId || '' });
+    const { ticketsAsignados, ticketsSinResolver, ticketsResueltos, ticketsEsperandoRespuesta, feedback, porcResueltos } = useTickets({ id: userId || '' });
     const { setTitulo } = useTitle();
     const [pieData, setPieData] = useState(PieDataChart({ Realizados: 0, NoRealizados: 0 }));
 
@@ -35,7 +35,7 @@ export default function Home() {
                     <BoxDatoUnico texto={"Tickets asignados"} dato={ticketsAsignados?.length || 0} />
                     <BoxDatoUnico texto={"Tickets sin resolver"} dato={ticketsSinResolver?.length || 0} />
                     <BoxDatoUnico texto={"Tickets resueltos"} dato={ticketsResueltos?.length || 0} />
-                    <BoxDatoUnico texto={"Vence hoy"} dato={ticketsVencenHoy?.length || 0} />
+                    <BoxDatoUnico texto={"Esperando respuesta"} dato={ticketsEsperandoRespuesta?.length || 0} />
                 </div>
                 <div className={styles.mainContent}>
                     <div className={styles.leftContainer}>

@@ -5,7 +5,7 @@ export function useTickets({ id, isCliente = false }) {
     const [ticketsAsignados, setTicketsAsignados] = useState([]);
     const [ticketsSinResolver, setTicketsSinResolver] = useState([]);
     const [ticketsResueltos, setTicketsResueltos] = useState([]);
-    const [ticketsVencenHoy, setTicketsVencenHoy] = useState([]);
+    const [ticketsEsperandoRespuesta, setTicketsEsperandoRespuesta] = useState([]);
     const [feedback, setFeedback] = useState();
     const [porcResueltos, setPorcResueltos] = useState();
     const [detalle, setDetalle] = useState();
@@ -130,9 +130,9 @@ export function useTickets({ id, isCliente = false }) {
                     const resResueltos = await fetch(`http://localhost:5000/tickets/ticketsResueltos/${id}`);
                     const dataResueltos = await resResueltos.json();
                     setTicketsResueltos(dataResueltos.message);
-                    const resVencenHoy = await fetch(`http://localhost:5000/tickets/ticketsVencenHoy/${id}`);
-                    const dataVencenHoy = await resVencenHoy.json();
-                    setTicketsVencenHoy(dataVencenHoy.message);
+                    const resEsperandoRespuesta = await fetch(`http://localhost:5000/tickets/ticketsEsperandoRespuesta/${id}`);
+                    const dataEsperandoRespuesta = await resEsperandoRespuesta.json();
+                    setTicketsEsperandoRespuesta(dataEsperandoRespuesta.message);
                     const resFeedback = await fetch(`http://localhost:5000/tickets/FeedBackEmpleado/${id}`);
                     const dataFeedback = await resFeedback.json();
                     setFeedback(dataFeedback.message);
@@ -183,7 +183,7 @@ export function useTickets({ id, isCliente = false }) {
         ticketsAsignados, 
         ticketsSinResolver, 
         ticketsResueltos, 
-        ticketsVencenHoy, 
+        ticketsEsperandoRespuesta, 
         feedback, 
         porcResueltos, 
         detalle, 
