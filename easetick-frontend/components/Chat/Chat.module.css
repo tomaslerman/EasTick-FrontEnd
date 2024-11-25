@@ -64,42 +64,89 @@
 }
 
 .mensajes {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
     overflow-y: auto;
-    padding: 1rem;
-    margin: 0.5rem 0;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background-color: #f8fafc;
-    max-height: calc(100% - 200px);
+    height: calc(100% - 180px);
 }
 
 .mensaje {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    border-radius: 12px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
     max-width: 70%;
-    position: relative;
+    word-wrap: break-word;
 }
 
-.mensajeCliente {
-    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-    color: white;
+.mensajePropio {
     margin-left: auto;
-    margin-right: 1rem;
+    background-color: #0084ff;
+    color: white;
 }
 
-.mensajeEmpleado {
-    background-color: white;
-    border: 1px solid #e5e7eb;
+.mensajeOtro {
     margin-right: auto;
-    margin-left: 1rem;
+    background-color: #f0f0f0;
+    color: black;
 }
 
-.mensaje strong {
-    display: block;
-    margin-bottom: 0.5rem;
+.mensajeHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
     font-size: 0.9rem;
+}
+
+.usuario {
+    font-weight: bold;
+}
+
+.fecha {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.contenidoMensaje {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contenido {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.archivo {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.mensajePropio .archivo {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.mensajeOtro .archivo {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.archivoLink {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mensajePropio .archivoLink {
+    color: white;
+}
+
+.mensajeOtro .archivoLink {
+    color: #0084ff;
 }
 
 .formulario {

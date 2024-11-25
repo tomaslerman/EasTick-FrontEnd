@@ -17,21 +17,10 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const [ticketYaCalificado, setTicketYaCalificado] = useState(false);
     const [archivo, setArchivo] = useState(null);
 
-    // Inicializar socket
+    // Inicializar socket y cargar mensajes iniciales
     useEffect(() => {
-        const newSocket = io('http://localhost:5000');
-        setSocket(newSocket);
-
-        return () => newSocket.close();
-    }, []);
-
-    // Unirse al chat y cargar mensajes
-    useEffect(() => {
-        if (!socket) return;
-
-        socket.emit('join-chat', idTicket);
-
-        const cargarMensajes = async () => {
+        // Cargar mensajes históricos
+        const cargarMensajesHistoricos = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/tickets/${idTicket}/mensajes`);
                 if (response.data.success) {
@@ -41,58 +30,73 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                 console.error('Error al cargar mensajes:', error);
             }
         };
-        cargarMensajes();
 
-        socket.on('new-message', (data) => {
-            console.log('Nuevo mensaje recibido:', data);
-            if (data.message) {
-                setMensajes(prev => [...prev, data.message]);
-            }
+        // Inicializar socket
+        const newSocket = io('http://localhost:5000', {
+            transports: ['polling', 'websocket'],
+            reconnection: true,
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000,
+            timeout: 20000,
+            withCredentials: true
         });
 
+        newSocket.on('connect', () => {
+            console.log('Conectado al servidor de Socket.IO');
+            setSocket(newSocket);
+            newSocket.emit('join-chat', idTicket);
+        });
+
+        newSocket.on('connect_error', (error) => {
+            console.error('Error de conexión Socket.IO:', error);
+        });
+
+        newSocket.on('message-received', (nuevoMensaje) => {
+            setMensajes(prevMensajes => {
+                const mensajeExiste = prevMensajes.some(m => m.id === nuevoMensaje.id);
+                if (mensajeExiste) return prevMensajes;
+                return [...prevMensajes, nuevoMensaje];
+            });
+        });
+
+        cargarMensajesHistoricos();
+
+        // Cleanup
         return () => {
-            socket.off('new-message');
+            if (newSocket) {
+                newSocket.off('message-received');
+                newSocket.disconnect();
+            }
         };
-    }, [socket, idTicket]);
+    }, [idTicket]);
 
     const renderMensaje = (mensaje) => {
-        const esUsuarioActual = 
-            (userRole === 2 && mensaje.fkEmpleado !== null) || 
-            (userRole === 1 && mensaje.fkCliente !== null);
-        
-        let nombre = 'Usuario Desconocido';
-        if (mensaje.fkEmpleado && mensaje.fkEmpleado.nombre) {
-            nombre = mensaje.fkEmpleado.nombre;
-        } else if (mensaje.fkCliente && mensaje.fkCliente.nombre) {
-            nombre = mensaje.fkCliente.nombre;
-        }
-        
+        const nombreUsuario = mensaje.fkEmpleado?.nombre || mensaje.fkCliente?.nombre || 'Usuario';
+        const esUsuarioActual = (mensaje.fkEmpleado && userRole === 2) || (mensaje.fkCliente && userRole === 1);
+
         return (
-            <div key={mensaje.id} className={`${styles.mensaje} ${esUsuarioActual ? styles.mensajeCliente : styles.mensajeEmpleado}`}>
+            <div key={mensaje.id} className={`${styles.mensaje} ${esUsuarioActual ? styles.mensajePropio : styles.mensajeOtro}`}>
                 <div className={styles.mensajeHeader}>
-                    <span className={styles.nombre}>{nombre}</span>
+                    <span className={styles.usuario}>{nombreUsuario}</span>
                     <span className={styles.fecha}>
                         {new Date(mensaje.fechacreacion).toLocaleString()}
                     </span>
                 </div>
-                <div className={styles.mensajeContenido}>
+                
+                <div className={styles.contenidoMensaje}>
                     {mensaje.contenido && (
-                        <div className={styles.texto}>{mensaje.contenido}</div>
+                        <div className={styles.contenido}>{mensaje.contenido}</div>
                     )}
+                    
                     {mensaje.archivo_url && (
                         <div className={styles.archivo}>
                             <a 
-                                href={mensaje.archivo_url}
+                                href={mensaje.archivo_url} 
                                 target="_blank" 
-                                rel="noopener noreferrer" 
+                                rel="noopener noreferrer"
                                 className={styles.archivoLink}
-                                download={mensaje.archivo_nombre}
                             >
-                                {mensaje.archivo_nombre?.match(/\.(jpg|jpeg|png|gif)$/i) ? '🖼️' : '📎'}
-                                <span className={styles.nombreArchivo}>
-                                    {mensaje.archivo_nombre}
-                                </span>
-                                <span className={styles.descargarTexto}>Descargar</span>
+                                📎 {mensaje.archivo_nombre || 'Archivo adjunto'}
                             </a>
                         </div>
                     )}
@@ -105,63 +109,61 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
         e.preventDefault();
         if ((!nuevoMensaje.trim() && !archivo) || !socket) return;
 
-        const formData = new FormData();
-        
-        // Agregar los campos al FormData solo si tienen valor
-        if (nuevoMensaje.trim()) {
-            formData.append('contenido', nuevoMensaje.trim());
-        }
-        
-        // Asegurarse de que userId es un número
-        formData.append('userId', String(userId));
-        
-        // Convertir el booleano a string
-        formData.append('isEmployee', String(userRole === 2));
-        
-        if (archivo) {
-            formData.append('archivo', archivo);
-        }
-
         try {
-            console.log('Enviando mensaje:', {
-                contenido: nuevoMensaje,
-                userId: userId,
-                isEmployee: userRole === 2,
-                archivo: archivo
-            });
-
-            const response = await axios.post(
-                `http://localhost:5000/tickets/${idTicket}/mensaje`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            );
-
-            if (response.data.success) {
-                // Emitir el mensaje a través del socket
-                socket.emit('new-message', {
-                    ticketId: idTicket,
-                    message: response.data.mensaje
+            if (archivo) {
+                // Convertir archivo a base64 de manera asíncrona
+                const base64File = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const base64 = reader.result.split(',')[1];
+                        resolve(base64);
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(archivo);
                 });
-                
-                // Limpiar el formulario
-                setNuevoMensaje('');
-                setArchivo(null);
-                
-                // Limpiar el input de archivo
-                const fileInput = document.querySelector('input[type="file"]');
-                if (fileInput) fileInput.value = '';
-                
-                // Opcional: Actualizar los mensajes localmente
-                setMensajes(prev => [...prev, response.data.mensaje]);
+
+                // Enviar mensaje con archivo
+                socket.emit('send-message', {
+                    ticketId: idTicket,
+                    userId: userId,
+                    contenido: nuevoMensaje.trim(),
+                    isEmployee: userRole === 2,
+                    archivo: {
+                        data: base64File,
+                        type: archivo.type,
+                        name: archivo.name,
+                        size: archivo.size
+                    }
+                });
+            } else {
+                socket.emit('send-message', {
+                    ticketId: idTicket,
+                    userId: userId,
+                    contenido: nuevoMensaje.trim(),
+                    isEmployee: userRole === 2,
+                    archivo: null
+                });
             }
+
+            // Limpiar el formulario
+            setNuevoMensaje('');
+            setArchivo(null);
+            const fileInput = document.querySelector('input[type="file"]');
+            if (fileInput) fileInput.value = '';
         } catch (error) {
-            console.error('Error completo al enviar mensaje:', error);
-            console.error('Detalles del error:', error.response?.data);
+            console.error('Error al enviar mensaje:', error);
             alert('Error al enviar el mensaje');
+        }
+    };
+
+    // Manejador del cambio de archivo
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.size <= 5 * 1024 * 1024) { // 5MB límite
+            setArchivo(file);
+        } else {
+            alert('El archivo es demasiado grande. El tamaño máximo es 5MB.');
+            e.target.value = '';
         }
     };
 
@@ -282,7 +284,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                         <div className={styles.archivoContainer}>
                             <input
                                 type="file"
-                                onChange={(e) => setArchivo(e.target.files[0])}
+                                onChange={handleFileChange}
                                 className={styles.inputArchivo}
                                 id="archivo"
                             />
