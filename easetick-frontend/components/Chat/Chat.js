@@ -207,10 +207,13 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     // Agregar este efecto para escuchar el evento de cierre
     useEffect(() => {
         if (socket) {
-            socket.on('ticket-closed-notification', () => {
+            socket.on('ticket-closed-notification', (data) => {
                 setTicketCerrado(true);
-                alert('Este ticket ha sido cerrado');
-                window.location.reload();
+                alert(data.mensaje || 'Este ticket ha sido cerrado');
+                // Esperar un momento antes de recargar para que el usuario vea el mensaje
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
             });
 
             return () => {
@@ -273,7 +276,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                         <span>Tipo: {tipo}</span>
                     </div>
                 </div>
-                {estadoTicket !== 'Cerrado' && userRole === 2 && (
+                {userRole === 2 && !ticketCerrado && (
                     <button 
                         className={styles.botonCerrar}
                         onClick={() => setMostrarConfirmacion(true)}
