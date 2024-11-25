@@ -1,14 +1,35 @@
 'use client';
 import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 import styles from './Header.module.css';
-import React, { useContext } from 'react';
-import { TokenContext } from '@/context/TokenContext'; // Importa tu contexto de Token
+import React, { useContext, useState, useEffect } from 'react';
+import { TokenContext } from '@/context/TokenContext';
 import Link from 'next/link';
+import axios from 'axios';
 
 export default function Header({ titulo }) {
-  const { userRole } = useContext(TokenContext); // Obtén el rol del usuario desde el contexto
+  const { userRole, userId } = useContext(TokenContext);
+  const [itemsPendientes, setItemsPendientes] = useState(0);
 
-  // Si el usuario no es empleado (rol 2), no renderiza el header
+  useEffect(() => {
+    const obtenerNotificaciones = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/tickets/notificacionesYRecordatorios/${userId}`);
+        const items = response.data.message;
+        const cantidadPendientes = items.length; // Contamos todos los items
+        setItemsPendientes(cantidadPendientes);
+      } catch (error) {
+        console.error('Error al obtener notificaciones:', error);
+      }
+    };
+
+    if (userId) {
+      obtenerNotificaciones();
+      // Actualizar cada 30 segundos
+      const interval = setInterval(obtenerNotificaciones, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [userId]);
+
   if (userRole !== 2 && userRole !== 3) return null;
 
   return (
@@ -16,8 +37,11 @@ export default function Header({ titulo }) {
       <div className={styles.header}>
         <h1>{titulo}</h1>
         <div className={styles.icons}>
-          <Link href="/FlowEmpleado/notificaciones">
+          <Link href="/FlowEmpleado/notificaciones" className={styles.iconContainer}>
             <img src="/imagenes/notificacion.png" alt="Notificaciones" className={styles.icon} />
+            {itemsPendientes > 0 && (
+              <span className={styles.badge}>{itemsPendientes}</span>
+            )}
           </Link>
           <Link href="/FlowEmpleado/perfil">
             <img src="/imagenes/perfil.png" alt="Perfil" className={styles.icon} />

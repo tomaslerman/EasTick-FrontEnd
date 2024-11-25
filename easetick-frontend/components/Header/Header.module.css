@@ -72,3 +72,27 @@
         height: 22px;
     }
 }
+
+.iconContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #4f46e5;
+}
