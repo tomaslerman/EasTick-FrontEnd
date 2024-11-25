@@ -36,6 +36,12 @@ export default function EstadisticasCliente() {
 
     const labels = ["L", "M", "X", "J", "V", "S", "D"];
 
+    const tendenciaSemanal = Array.isArray(clientStats.tendenciaSemanal) 
+        ? clientStats.tendenciaSemanal 
+        : Array(7).fill(0);
+
+    const totalTicketsSemana = tendenciaSemanal.reduce((acc, curr) => acc + (curr || 0), 0);
+
     return (
         <ProtectedRoutes allowedRoles={[1]}>
             <div className={styles.container}>
@@ -57,9 +63,9 @@ export default function EstadisticasCliente() {
                 />
                     <LineGraph 
                         title="Tendencia Semanal" 
-                        data={clientStats.tendenciaSemanal} 
+                        data={tendenciaSemanal} 
                         labels={labels}
-                        number={clientStats.tendenciaSemanal.reduce((a, b) => a + b, 0)}
+                        number={totalTicketsSemana}
                     />
                 </div>
 

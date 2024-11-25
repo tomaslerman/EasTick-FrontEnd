@@ -67,15 +67,7 @@ export default function Estadistica() {
                     <DoughnutChart title="% Tickets por estado" ticketsData={porcentajeEstado}/>
                 </div>
                 <div className={styles.ticketDetailsWrapper}>
-                    <TicketDetails 
-                        title="Detalles de Tickets"
-                        totalTickets={200} 
-                        highPriority={30} 
-                        assignedTickets={150} 
-                        unassignedTickets={50} 
-                        overdueTickets={15} 
-                        newTickets={40} 
-                    />
+                    <TicketDetails userId={userId} />
                 </div>
             </div>
         </div>
