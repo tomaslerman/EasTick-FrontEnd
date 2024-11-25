@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { TokenContext } from '@/context/TokenContext';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -16,6 +16,8 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const [calificacionEnviada, setCalificacionEnviada] = useState(false);
     const [ticketYaCalificado, setTicketYaCalificado] = useState(false);
     const [archivo, setArchivo] = useState(null);
+    const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+    const fileInputRef = useRef(null);
 
     // Inicializar socket y cargar mensajes iniciales
     useEffect(() => {
@@ -157,13 +159,10 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     };
 
     // Manejador del cambio de archivo
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file && file.size <= 5 * 1024 * 1024) { // 5MB límite
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
             setArchivo(file);
-        } else {
-            alert('El archivo es demasiado grande. El tamaño máximo es 5MB.');
-            e.target.value = '';
         }
     };
 
@@ -182,7 +181,8 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     }, [idTicket]);
 
     const cerrarTicket = async () => {
-        if (!window.confirm('¿Estás seguro que deseas cerrar este ticket?')) {
+        if (userRole !== 2) {
+            alert('Solo los empleados pueden cerrar tickets');
             return;
         }
 
@@ -191,18 +191,33 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
             
             if (response.data.success) {
                 setTicketCerrado(true);
-                socket.emit('ticket-closed', idTicket);
-                // Mostrar calificación solo si es cliente
-                if (userRole === 1) {
-                    setMostrarCalificacion(true);
-                }
-                alert('Ticket cerrado exitosamente');
+                // Emitir evento de cierre a través del socket
+                socket.emit('ticket-closed', {
+                    ticketId: idTicket,
+                    mensaje: 'El ticket ha sido cerrado por un empleado'
+                });
+                setMostrarConfirmacion(false);
             }
         } catch (error) {
             console.error('Error al cerrar ticket:', error);
             alert('Error al cerrar el ticket. Por favor, intente nuevamente.');
         }
     };
+
+    // Agregar este efecto para escuchar el evento de cierre
+    useEffect(() => {
+        if (socket) {
+            socket.on('ticket-closed-notification', () => {
+                setTicketCerrado(true);
+                alert('Este ticket ha sido cerrado');
+                window.location.reload();
+            });
+
+            return () => {
+                socket.off('ticket-closed-notification');
+            };
+        }
+    }, [socket]);
 
     const enviarCalificacion = async () => {
         try {
@@ -249,90 +264,90 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     }, [ticketCerrado, idTicket, userRole]);
 
     return (
-        
         <div className={styles.chatContainer}>
-            <div className={styles.header}>
-                <h2 className={styles.h2}>{asunto}</h2>
-                <div className={styles.infoTicket}>
-                    <span>Prioridad: {prioridad}</span>
-                    <span>Tipo: {tipo}</span>
-                    <span>Estado: {ticketCerrado ? 'Cerrado' : 'Abierto'}</span>
+            <div className={styles.headerActions}>
+                <div className={styles.headerInfo}>
+                    <h2>{asunto}</h2>
+                    <div className={styles.infoTicket}>
+                        <span>Prioridad: {prioridad}</span>
+                        <span>Tipo: {tipo}</span>
+                    </div>
                 </div>
+                {estadoTicket !== 'Cerrado' && userRole === 2 && (
+                    <button 
+                        className={styles.botonCerrar}
+                        onClick={() => setMostrarConfirmacion(true)}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Cerrar Chat
+                    </button>
+                )}
             </div>
-
-            
 
             <div className={styles.mensajes}>
                 {mensajes.map(mensaje => renderMensaje(mensaje))}
             </div>
 
-            {!ticketCerrado && (
-                <>
-                    {userRole === 2 && (
-                        <button onClick={cerrarTicket} className={styles.botonCerrar}>
-                            Cerrar Ticket
-                        </button>
-                    )}
-                    <form onSubmit={enviarMensaje} className={styles.formulario}>
-                        <input
-                            type="text"
-                            value={nuevoMensaje}
-                            onChange={(e) => setNuevoMensaje(e.target.value)}
-                            placeholder="Escribe un mensaje..."
-                            className={styles.input}
-                        />
-                        <div className={styles.archivoContainer}>
-                            <input
-                                type="file"
-                                onChange={handleFileChange}
-                                className={styles.inputArchivo}
-                                id="archivo"
-                            />
-                            {archivo && (
-                                <span className={styles.nombreArchivo}>
-                                    📎 {archivo.name}
-                                </span>
-                            )}
-                        </div>
-                        <button type="submit" className={styles.botonEnviar}>
-                            Enviar
-                        </button>
-                    </form>
-                </>
-            )}
-
-            {ticketCerrado && userRole === 1 && !ticketYaCalificado && !calificacionEnviada && (
-                <div className={styles.calificacionContainer}>
-                    <h3>Califica la atención recibida</h3>
-                    <div className={styles.estrellas}>
-                        {[1, 2, 3, 4, 5].map((estrella) => (
-                            <FaStar
-                                key={estrella}
-                                className={`${styles.estrella} ${
-                                    estrella <= calificacion ? styles.estrellaActiva : ''
-                                }`}
-                                onClick={() => setCalificacion(estrella)}
-                            />
-                        ))}
-                    </div>
-                    <button 
-                        onClick={enviarCalificacion}
-                        disabled={calificacion === 0}
-                        className={styles.botonCalificar}
+            {!ticketCerrado ? (
+                <form onSubmit={enviarMensaje} className={styles.formulario}>
+                    <input
+                        type="text"
+                        value={nuevoMensaje}
+                        onChange={(e) => setNuevoMensaje(e.target.value)}
+                        placeholder="Escribe un mensaje..."
+                        className={styles.input}
+                    />
+                    <input
+                        type="file"
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                        ref={fileInputRef}
+                    />
+                    <button
+                        type="button"
+                        onClick={() => fileInputRef.current.click()}
+                        className={styles.botonArchivo}
                     >
-                        Enviar Calificación
+                        📎
                     </button>
+                    <button type="submit" className={styles.botonEnviar}>
+                        Enviar
+                    </button>
+                </form>
+            ) : (
+                <div className={styles.ticketCerradoMensaje}>
+                    Este ticket está cerrado y no se pueden enviar más mensajes
                 </div>
             )}
 
-            {(calificacionEnviada || ticketYaCalificado) && (
-                <p className={styles.gracias}>¡Gracias por tu calificación!</p>
-            )}
-
-            {ticketCerrado && (
-                <p className={styles.ticketCerradoMensaje}>
-                    Este ticket está cerrado. No se pueden enviar más mensajes.
-                </p>
+            {/* Modal de confirmación */}
+            {mostrarConfirmacion && (
+                <>
+                    <div className={styles.overlay} onClick={() => setMostrarConfirmacion(false)} />
+                    <div className={styles.confirmacionCierre}>
+                        <h3>¿Cerrar este chat?</h3>
+                        <p>Esta acción no se puede deshacer. ¿Estás seguro de que deseas cerrar este chat?</p>
+                        <div className={styles.confirmacionBotones}>
+                            <button 
+                                className={styles.cancelarCierre}
+                                onClick={() => setMostrarConfirmacion(false)}
+                            >
+                                Cancelar
+                            </button>
+                            <button 
+                                className={styles.confirmarCierre}
+                                onClick={() => {
+                                    cerrarTicket();
+                                    setMostrarConfirmacion(false);
+                                }}
+                            >
+                                Cerrar Chat
+                            </button>
+                        </div>
+                    </div>
+                </>
             )}
         </div>
     );

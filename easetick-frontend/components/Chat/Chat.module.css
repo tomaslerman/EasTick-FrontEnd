@@ -188,22 +188,113 @@
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
+.headerActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.headerInfo {
+    flex: 1;
+}
+
 .botonCerrar {
-    width: 100%;
-    padding: 0.8rem;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-    border: none;
+    padding: 0.6rem 1.2rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 500;
-    margin-top: 1.5rem;
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
 }
 
 .botonCerrar:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+.botonCerrar svg {
+    width: 16px;
+    height: 16px;
+}
+
+.confirmacionCierre {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+}
+
+.confirmacionCierre h3 {
+    margin: 0 0 1rem 0;
+    color: #1f2937;
+}
+
+.confirmacionCierre p {
+    margin: 0 0 1.5rem 0;
+    color: #4b5563;
+}
+
+.confirmacionBotones {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.confirmarCierre {
+    padding: 0.6rem 1.2rem;
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.confirmarCierre:hover {
+    background-color: #b91c1c;
+}
+
+.cancelarCierre {
+    padding: 0.6rem 1.2rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.cancelarCierre:hover {
+    background-color: #e5e7eb;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
 .ticketCerradoMensaje {
@@ -213,7 +304,8 @@
     background-color: #fef2f2;
     border: 1px solid #fee2e2;
     border-radius: 8px;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -332,4 +424,28 @@
 .fecha {
     font-size: 0.8rem;
     opacity: 0.8;
+}
+
+.botonArchivo {
+    padding: 0.8rem;
+    font-size: 1.5rem;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    height: 45px;
+}
+
+.botonArchivo:hover {
+    background-color: #e5e7eb;
+    transform: scale(1.05);
+}
+
+.botonArchivo:active {
+    transform: scale(0.95);
 }
