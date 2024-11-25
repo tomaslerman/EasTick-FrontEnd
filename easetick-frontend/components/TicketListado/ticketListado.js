@@ -19,5 +19,5 @@ const TicketListado = ({ ticket, index }) => {
         </tr>
     );
 }
-
+//hola soy nico
 export default TicketListado;
