@@ -449,3 +449,21 @@
 .botonArchivo:active {
     transform: scale(0.95);
 }
+
+.calificacionEnviadaContainer {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #e8f5e9;
+    border-radius: 8px;
+    color: #2e7d32;
+}
+
+.calificacionEnviadaContainer h3 {
+    margin-bottom: 8px;
+    font-size: 1.2em;
+}
+
+.calificacionEnviadaContainer p {
+    color: #1b5e20;
+}

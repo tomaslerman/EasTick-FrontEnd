@@ -18,6 +18,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const [archivo, setArchivo] = useState(null);
     const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
     const fileInputRef = useRef(null);
+    const [puedeCalificar, setPuedeCalificar] = useState(false);
 
     // Inicializar socket y cargar mensajes iniciales
     useEffect(() => {
@@ -222,9 +223,28 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
         }
     }, [socket]);
 
+    useEffect(() => {
+        const verificarCalificacion = async () => {
+            if (estadoTicket === 2 && userRole === 1) { // 2 = ticket cerrado
+                try {
+                    const response = await axios.get(`http://localhost:5000/tickets/${idTicket}/verificarCalificacion`);
+                    setPuedeCalificar(!response.data.yaCalificado);
+                    setCalificacionEnviada(response.data.yaCalificado);
+                } catch (error) {
+                    console.error('Error al verificar calificación:', error);
+                    setPuedeCalificar(false);
+                }
+            }
+        };
+        verificarCalificacion();
+    }, [idTicket, estadoTicket, userRole]);
+
+    const handleCalificacionClick = (valor) => {
+        setCalificacion(valor);
+    };
+
     const enviarCalificacion = async () => {
         try {
-            // Solo permitir calificar si es cliente (userRole === 1)
             if (userRole !== 1) {
                 alert('Solo los clientes pueden calificar tickets');
                 return;
@@ -237,7 +257,12 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
 
             if (response.data.success) {
                 setCalificacionEnviada(true);
+                setPuedeCalificar(false);
+                // Mostrar mensaje de éxito y recargar después de un breve delay
                 alert('¡Gracias por tu calificación!');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             }
         } catch (error) {
             console.error('Error al enviar calificación:', error);
@@ -245,26 +270,46 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
         }
     };
 
-    // Agregar useEffect para verificar si el ticket ya fue calificado
-    useEffect(() => {
-        const verificarCalificacion = async () => {
-            if (ticketCerrado && userRole === 1) {
-                try {
-                    const response = await axios.get(
-                        `http://localhost:5000/tickets/${idTicket}/verificarCalificacion`
-                    );
-                    setTicketYaCalificado(response.data.yaCalificado);
-                    if (response.data.yaCalificado) {
-                        setCalificacionEnviada(true);
-                    }
-                } catch (error) {
-                    console.error('Error al verificar calificación:', error);
-                }
-            }
-        };
+    // Render rating component if ticket is closed and user is client
+    const renderCalificacion = () => {
+        if (calificacionEnviada) {
+            return (
+                <div className={styles.calificacionEnviadaContainer}>
+                    <h3>¡Gracias por tu calificación!</h3>
+                    <p>Ya has calificado este ticket.</p>
+                </div>
+            );
+        }
 
-        verificarCalificacion();
-    }, [ticketCerrado, idTicket, userRole]);
+        if (!puedeCalificar) return null;
+
+        return (
+            <div className={styles.calificacionContainer}>
+                <h3>Califica este ticket</h3>
+                <div className={styles.estrellas}>
+                    {[1, 2, 3, 4, 5].map((valor) => (
+                        <span
+                            key={valor}
+                            onClick={() => handleCalificacionClick(valor)}
+                            className={`${styles.estrella} ${
+                                valor <= calificacion ? styles.estrellaActiva : ''
+                            }`}
+                        >
+                            ★
+                        </span>
+                    ))}
+                </div>
+                {calificacion > 0 && (
+                    <button 
+                        onClick={enviarCalificacion}
+                        className={styles.botonCalificar}
+                    >
+                        Enviar Calificación
+                    </button>
+                )}
+            </div>
+        );
+    };
 
     return (
         <div className={styles.chatContainer}>
@@ -352,6 +397,7 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
                     </div>
                 </>
             )}
+            {renderCalificacion()}
         </div>
     );
 };
