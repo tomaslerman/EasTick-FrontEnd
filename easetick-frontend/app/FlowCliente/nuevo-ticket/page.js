@@ -3,43 +3,52 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { TokenContext } from "@/context/TokenContext";
-import styles from "./page.module.css"; // Importar los estilos
+import styles from "./page.module.css";
 import { ProtectedRoutes } from "@/app/utils/ProtectedRoutes";
-import { useRouter } from "next/navigation"; // Importamos useRouter
+import { useRouter } from "next/navigation";
 
 const NuevoTicket = () => {
-  const { userId, idEmpresa } = useContext(TokenContext); // Para obtener el idCliente del contexto
+  const { userId, idEmpresa } = useContext(TokenContext);
   const [asunto, setAsunto] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [tipo, setTipo] = useState("");
   const [prioridad, setPrioridad] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const router = useRouter(); // Inicializamos el router
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
+    if (!asunto || !mensaje || !tipo || !prioridad) {
+      setError("Todos los campos son requeridos");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.post("http://localhost:5000/tickets/crear", {
+      const response = await axios.post("http://localhost:5000/tickets", {
         asunto,
         mensaje,
-        tipo,
-        prioridad,
+        tipo: parseInt(tipo),
+        prioridad: parseInt(prioridad),
         idCliente: userId,
         idEmpresa: idEmpresa,
       });
 
-      // Obtener el ID del ticket de la respuesta
+      console.log('Respuesta completa:', response.data);
+
+      if (!response.data.success || !response.data.data?.id) {
+        throw new Error(response.data.error || 'No se recibió el ID del ticket creado');
+      }
+
       const nuevoTicketId = response.data.data.id;
-      
-      // Redirigir al usuario a la página del chat del nuevo ticket
       router.push(`/FlowCliente/ticket/${nuevoTicketId}`);
     } catch (error) {
       console.error("Error detallado:", error);
-      setError("Error al crear el ticket");
+      setError(error.response?.data?.error || "Error al crear el ticket");
     } finally {
       setLoading(false);
     }
@@ -67,7 +76,6 @@ const NuevoTicket = () => {
             required
           />
           <select
-            name="tipo"
             value={tipo}
             onChange={(e) => setTipo(e.target.value)}
             className={styles.select}
@@ -81,7 +89,6 @@ const NuevoTicket = () => {
             <option value="5">Reclamo</option>
           </select>
           <select
-            name="prioridad"
             value={prioridad}
             onChange={(e) => setPrioridad(e.target.value)}
             className={styles.select}
