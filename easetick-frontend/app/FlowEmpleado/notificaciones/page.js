@@ -82,7 +82,7 @@ export default function Notificaciones() {
     return (
         <ProtectedRoutes allowedRoles={[2, 3]}>
             <div className={styles.container}>
-                <h1>Notificaciones y Recordatorios</h1>
+                <h1 className={styles.pageTitle}>Notificaciones y Recordatorios</h1>
                 <div className={styles.notificacionesList}>
                     {items.length > 0 ? (
                         items.map(renderItem)

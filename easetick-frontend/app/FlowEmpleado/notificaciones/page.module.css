@@ -4,32 +4,84 @@
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+}
+
+.pageTitle {
+    margin-bottom: 24px;
+    color: #1a1a1a;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .notificacionesList {
-    margin-top: 20px;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #4f46e5 #f1f1f1;
+}
+
+.notificacionesList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.notificacionesList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.notificacionesList::-webkit-scrollbar-thumb {
+    background: #4f46e5;
+    border-radius: 10px;
+}
+
+.notificacionesList::-webkit-scrollbar-thumb:hover {
+    background: #3c3799;
 }
 
 .notificacion {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    text-decoration: none;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 16px;
     color: inherit;
     display: block;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border: 1px solid #e2e8f0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .notificacion:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.notificacion h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #2d3748;
+}
+
+.notificacion p {
+    color: #4a5568;
+    margin: 8px 0;
+}
+
+.notificacion small {
+    display: block;
+    color: #718096;
+    margin-top: 12px;
+    font-size: 0.9rem;
 }
 
 .noLeido {
     border-left: 4px solid #4f46e5;
-    background-color: #f8fafc;
+    background: linear-gradient(to right, rgba(79, 70, 229, 0.05), white);
 }
 
 .noLeido h3 {
@@ -38,10 +90,12 @@
 
 .noNotificaciones {
     text-align: center;
-    padding: 40px;
+    padding: 48px;
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     color: #64748b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
 }
 
 .loading {
@@ -53,7 +107,7 @@
 }
 
 .recordatorio {
-    background-color: #f0f7ff;
+    background: linear-gradient(to right, rgba(52, 152, 219, 0.05), white);
     border-left: 4px solid #3498db;
 }
 
@@ -61,8 +115,9 @@
     display: inline-block;
     background-color: #3498db;
     color: white;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8em;
-    margin-top: 4px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    font-weight: 500;
 } 
