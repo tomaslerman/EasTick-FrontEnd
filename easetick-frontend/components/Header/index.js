@@ -16,7 +16,9 @@ export default function Header({ titulo }) {
       <div className={styles.header}>
         <h1>{titulo}</h1>
         <div className={styles.icons}>
-          <img src="/imagenes/notificacion.png" alt="Notificaciones" className={styles.icon} />
+          <Link href="/FlowEmpleado/notificaciones">
+            <img src="/imagenes/notificacion.png" alt="Notificaciones" className={styles.icon} />
+          </Link>
           <Link href="/FlowEmpleado/perfil">
             <img src="/imagenes/perfil.png" alt="Perfil" className={styles.icon} />
           </Link>
