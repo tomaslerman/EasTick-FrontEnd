@@ -29,7 +29,8 @@ export default function Estadistica() {
         }
     }, [porcResueltos, setTitulo]);
 
-    const labels = ["D", "L", "M", "X", "J", "V", "S"];
+    const labels = ["L", "M", "X", "J", "V", "S", "D"];
+    const labels2 = ["D","L", "M", "X", "J", "V", "S"];
     const labelsTipo = ["Pregunta", "Incidente", "Sugerencia", "Mantenimiento", "Reclamo"]
 
     const totalTicketsSemana = semana && typeof semana === 'object'
@@ -52,7 +53,7 @@ export default function Estadistica() {
             <Titulo titulo={"Estadísticas"} />
             <div className={styles.lineChartsWrapper}>
                 <LineGraph title="Tickets Totales" data={semana} labels={labels} number={totalTicketsSemana} />
-                <LineGraph title="Tickets Resueltos" data={resueltosSemana} labels={labels} number={totalTickesResueltos} />
+                <LineGraph title="Tickets Resueltos" data={resueltosSemana} labels={labels2} number={totalTickesResueltos} />
                 <LineGraph title="Tickets por Tipo" data={cantidadTipo} labels={labelsTipo} number={totalCantidadTipo} />
                 <LineGraph title="Calificaciones por Usuario" data={calificacionesUsuario}  number={totalCalificaciones} />
             </div>

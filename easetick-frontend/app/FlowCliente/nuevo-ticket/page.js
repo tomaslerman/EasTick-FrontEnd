@@ -32,13 +32,15 @@ const NuevoTicket = () => {
         idEmpresa: idEmpresa,
       });
 
-      // Asumiendo que la respuesta incluye el ID del ticket creado
-      const nuevoTicketId = response.data.data.ticket.id;
-
+      // Obtener el ID del ticket de la respuesta
+      const nuevoTicketId = response.data.data.id;
+      
       // Redirigir al usuario a la página del chat del nuevo ticket
       router.push(`/FlowCliente/ticket/${nuevoTicketId}`);
     } catch (error) {
+      console.error("Error detallado:", error);
       setError("Error al crear el ticket");
+    } finally {
       setLoading(false);
     }
   };

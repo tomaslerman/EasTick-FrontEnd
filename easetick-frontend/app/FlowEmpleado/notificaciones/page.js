@@ -30,13 +30,25 @@ export default function Notificaciones() {
     }, [userId]);
 
     const formatearFecha = (fecha) => {
-        return new Date(fecha).toLocaleString('es-ES', {
-            year: 'numeric',
-            month: 'long',
+        const fechaObj = new Date(fecha);
+        const opciones = {
             day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC'
+        };
+        
+        return fechaObj.toLocaleDateString('es-ES', opciones);
+    };
+
+    const handleNotificacionClick = async (notif) => {
+        try {
+            await axios.put(`http://localhost:5000/tickets/notificaciones/${notif.id}/leer`);
+            setNotificaciones(prev => prev.filter(n => n.id !== notif.id));
+            window.location.href = `/FlowEmpleado/ticket/${notif.fkticket}`;
+        } catch (error) {
+            console.error('Error al marcar notificación como leída:', error);
+        }
     };
 
     if (loading) {
@@ -54,6 +66,10 @@ export default function Notificaciones() {
                                 href={`/FlowEmpleado/ticket/${notif.fkticket}`} 
                                 key={notif.id}
                                 className={styles.notificacion}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleNotificacionClick(notif);
+                                }}
                             >
                                 <div className={!notif.leido ? styles.noLeido : ''}>
                                     <h3>{notif.contenido}</h3>

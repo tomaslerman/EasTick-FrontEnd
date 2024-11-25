@@ -93,18 +93,22 @@
 
 .mensajeHeader {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 8px;
     margin-bottom: 5px;
     font-size: 0.9rem;
 }
 
 .usuario {
-    font-weight: bold;
+    font-weight: 500;
+}
+
+.separador {
+    opacity: 0.5;
 }
 
 .fecha {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     opacity: 0.8;
 }
 

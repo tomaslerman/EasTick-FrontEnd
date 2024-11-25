@@ -76,13 +76,23 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const renderMensaje = (mensaje) => {
         const nombreUsuario = mensaje.fkEmpleado?.nombre || mensaje.fkCliente?.nombre || 'Usuario';
         const esUsuarioActual = (mensaje.fkEmpleado && userRole === 2) || (mensaje.fkCliente && userRole === 1);
+        
+        const formatearFecha = (fecha) => {
+            const fechaObj = new Date(fecha);
+            return fechaObj.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        };
 
         return (
             <div key={mensaje.id} className={`${styles.mensaje} ${esUsuarioActual ? styles.mensajePropio : styles.mensajeOtro}`}>
                 <div className={styles.mensajeHeader}>
                     <span className={styles.usuario}>{nombreUsuario}</span>
+                    <span className={styles.separador}>•</span>
                     <span className={styles.fecha}>
-                        {new Date(mensaje.fechacreacion).toLocaleString()}
+                        {formatearFecha(mensaje.fechacreacion)}
                     </span>
                 </div>
                 
