@@ -124,18 +124,27 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
 
         try {
             if (archivo) {
-                // Convertir archivo a base64 de manera asíncrona
+                console.log('Iniciando envío de archivo:', {
+                    nombre: archivo.name,
+                    tipo: archivo.type,
+                    tamaño: archivo.size
+                });
+                
                 const base64File = await new Promise((resolve, reject) => {
                     const reader = new FileReader();
                     reader.onload = () => {
+                        console.log('Archivo convertido a base64 exitosamente');
                         const base64 = reader.result.split(',')[1];
                         resolve(base64);
                     };
-                    reader.onerror = reject;
+                    reader.onerror = (error) => {
+                        console.error('Error al convertir archivo a base64:', error);
+                        reject(error);
+                    };
                     reader.readAsDataURL(archivo);
                 });
 
-                // Enviar mensaje con archivo
+                console.log('Enviando mensaje con archivo al socket');
                 socket.emit('send-message', {
                     ticketId: idTicket,
                     userId: userId,
@@ -173,6 +182,11 @@ const Chat = ({ idTicket, asunto, mensajeInicial, prioridad, tipo, estadoTicket 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert('El archivo no debe superar los 5MB');
+                event.target.value = '';
+                return;
+            }
             setArchivo(file);
         }
     };
