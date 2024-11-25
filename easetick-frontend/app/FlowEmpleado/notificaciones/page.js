@@ -5,11 +5,18 @@ import axios from 'axios';
 import styles from './page.module.css';
 import { ProtectedRoutes } from '@/app/utils/ProtectedRoutes';
 import Link from 'next/link';
-
+import useTitle from '@/hooks/useTitle';
 export default function Notificaciones() {
     const { userId } = useContext(TokenContext);
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { setTitulo } = useTitle();
+    useEffect(() => {
+        setTitulo("Notificaciones");
+
+            
+        
+    }, [setTitulo]);
 
     useEffect(() => {
         const fetchItems = async () => {

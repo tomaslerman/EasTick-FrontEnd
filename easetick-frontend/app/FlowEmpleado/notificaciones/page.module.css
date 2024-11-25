@@ -1,31 +1,36 @@
 .container {
     padding: 20px;
-    margin-top: 90px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    height: calc(100vh - 110px);
+    margin: 90px auto 40px;
+    max-width: 1000px;
+    height: calc(100vh - 150px);
     display: flex;
     flex-direction: column;
+    background-color: #f8fafc;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .pageTitle {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     color: #1a1a1a;
     font-size: 2rem;
     font-weight: 600;
+    text-align: center;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e2e8f0;
 }
 
 .notificacionesList {
     flex: 1;
     overflow-y: auto;
-    padding-right: 10px;
+    padding: 0 20px 40px 10px;
     scrollbar-width: thin;
     scrollbar-color: #4f46e5 #f1f1f1;
+    margin-bottom: 20px;
 }
 
 .notificacionesList::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 .notificacionesList::-webkit-scrollbar-track {
@@ -44,9 +49,9 @@
 
 .notificacion {
     background: white;
-    padding: 24px;
-    border-radius: 12px;
-    margin-bottom: 16px;
+    padding: 24px 32px;
+    border-radius: 16px;
+    margin-bottom: 20px;
     color: inherit;
     display: block;
     transition: all 0.3s ease;
@@ -54,34 +59,40 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .notificacion:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
 }
 
 .notificacion h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
     color: #2d3748;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
 .notificacion p {
     color: #4a5568;
-    margin: 8px 0;
+    margin: 12px 0;
+    font-size: 1.05rem;
 }
 
 .notificacion small {
     display: block;
     color: #718096;
-    margin-top: 12px;
+    margin-top: 16px;
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .noLeido {
     border-left: 4px solid #4f46e5;
     background: linear-gradient(to right, rgba(79, 70, 229, 0.05), white);
+    padding-left: 28px;
 }
 
 .noLeido h3 {
@@ -92,10 +103,11 @@
     text-align: center;
     padding: 48px;
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     color: #64748b;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    margin-top: 20px;
+    margin: 20px 10px;
+    font-size: 1.1rem;
 }
 
 .loading {
@@ -104,20 +116,24 @@
     align-items: center;
     height: 200px;
     color: #64748b;
+    font-size: 1.1rem;
 }
 
 .recordatorio {
     background: linear-gradient(to right, rgba(52, 152, 219, 0.05), white);
     border-left: 4px solid #3498db;
+    padding-left: 28px;
 }
 
 .recordatorioTag {
     display: inline-block;
     background-color: #3498db;
     color: white;
-    padding: 4px 12px;
+    padding: 6px 16px;
     border-radius: 20px;
-    font-size: 0.85rem;
-    margin-top: 8px;
+    font-size: 0.9rem;
+    margin-top: 12px;
     font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
 } 
